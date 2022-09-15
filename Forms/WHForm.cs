@@ -54,7 +54,7 @@ namespace WHControlLib.Forms
         const int BoxJG = 6;
         const int Boxsub = 3;
         Rectangle TitleRect = new Rectangle();
-
+        Rectangle IconRct = new Rectangle();
         Rectangle CloseBoxRect =new Rectangle();
         Rectangle MinBoxRect = new Rectangle();
         Rectangle MaxBoxRect = new Rectangle();
@@ -130,6 +130,13 @@ namespace WHControlLib.Forms
                     IsCanMoveTitle = false;
                 }
                 _isCanMoveBody= value; }
+        }
+        private bool _isDrawIcon=true;
+        [Category("A我的"), Description("是否画图标，默认，true ，画 "), Browsable(true)]
+        public bool IsDrawIcon
+        {
+            get { return _isDrawIcon; }
+            set { _isDrawIcon = value; Invalidate(); }
         }
 
 
@@ -319,7 +326,7 @@ namespace WHControlLib.Forms
         /// <summary>
         /// 重绘前初始化
         /// </summary>
-        void BeforePaintIni(Rectangle MyRect)
+        void BeforePaintIni()
         {
 
 
@@ -327,6 +334,7 @@ namespace WHControlLib.Forms
         protected override void OnPaint(PaintEventArgs e)
         {
             base.OnPaint(e);
+            BeforePaintIni();
             Graphics Myg = e.Graphics;
             Myg.SmoothingMode = SmoothingMode.AntiAlias;
             Myg.CompositingQuality = CompositingQuality.HighQuality;
@@ -429,6 +437,46 @@ namespace WHControlLib.Forms
 
         }
 
+
+        void DrawIcon(Graphics Myg,Rectangle TitleRect)
+        {
+            
+              
+            if (IsDrawTitle && IsDrawIcon && this.Icon !=null)
+            {
+                //Graphics Icog = Graphics.FromHdc(Myg.GetHdc());
+               
+
+              
+                int h = TitleRect.Height / 10;
+                IconRct.X = TitleRect.X + h+5;
+                IconRct.Y = TitleRect.Y + h;
+                  IconRct.Height =TitleHeight / 5*4;
+                IconRct.Width = IconRct.Height;
+
+
+                //Myg.SmoothingMode = SmoothingMode.Default;
+       
+                Myg.DrawIcon(this.Icon, IconRct);
+               
+
+             }
+
+
+        }
+
+
+
+
+
+        /// <summary>
+        /// 画出关闭按钮
+        /// </summary>
+        /// <param name="TitleRect">要画在那个标题区域</param>
+        /// <param name="Myg">在那个设备上下文上面</param>
+        /// <param name="TitleBoxBackColor">按钮背景色</param>
+        /// <param name="MaxMinSelectColor">按钮选中后的背景色</param>
+        /// <param name="TitleBoxShapeColor">按钮内部图形的颜色</param>
         void CloseBoxDraw(Rectangle TitleRect,Graphics Myg,Color CloseBoxBackColor, Color ColseBoxSelectColor, Color TitleBoxShapeColor)
         {
             SolidBrush TitleBoxBrush = new SolidBrush(CloseBoxBackColor);
@@ -475,7 +523,14 @@ namespace WHControlLib.Forms
                 TitleBoxBrush.Dispose();
             TitleBoxSelectBrush.Dispose();
         }
-
+        /// <summary>
+        /// 画出最大化按钮
+        /// </summary>
+        /// <param name="TitleRect">要画在那个标题区域</param>
+        /// <param name="Myg">在那个设备上下文上面</param>
+        /// <param name="TitleBoxBackColor">按钮背景色</param>
+        /// <param name="MaxMinSelectColor">按钮选中后的背景色</param>
+        /// <param name="TitleBoxShapeColor">按钮内部图形的颜色</param>
         void MaxBoxDraw(Rectangle TitleRect, Graphics Myg, Color TitleBoxBackColor, Color MaxMinSelectColor, Color TitleBoxShapeColor)
         {
             SolidBrush TitleBoxBrush = new SolidBrush(TitleBoxBackColor);
@@ -557,7 +612,15 @@ namespace WHControlLib.Forms
             TitleBoxSelectBrush.Dispose();
 
         }
-            void MinBoxDraw(Rectangle TitleRect, Graphics Myg, Color TitleBoxBackColor, Color MaxMinSelectColor, Color TitleBoxShapeColor)
+        /// <summary>
+        /// 画出最小化按钮
+        /// </summary>
+        /// <param name="TitleRect">要画在那个标题区域</param>
+        /// <param name="Myg">在那个设备上下文上面</param>
+        /// <param name="TitleBoxBackColor">按钮背景色</param>
+        /// <param name="MaxMinSelectColor">按钮选中后的背景色</param>
+        /// <param name="TitleBoxShapeColor">按钮内部图形的颜色</param> 
+        void MinBoxDraw(Rectangle TitleRect, Graphics Myg, Color TitleBoxBackColor, Color MaxMinSelectColor, Color TitleBoxShapeColor)
         {
             SolidBrush TitleBoxBrush = new SolidBrush(CloseBoxBackColor);
             SolidBrush TitleBoxSelectBrush = new SolidBrush(MaxMinSelectColor);
@@ -601,7 +664,7 @@ namespace WHControlLib.Forms
 
 
         /// <summary>
-        /// 绘制三个标题栏的按钮
+        /// 绘制三个标题栏的按钮将来可以 再这里多加按钮
         /// </summary>
         /// <param name="Myg"></param>
         /// <param name="TitleRect"></param>
@@ -647,9 +710,6 @@ namespace WHControlLib.Forms
             TitleRect.X = MyRect.X  ;
             TitleRect.Y = MyRect.Y;
             }
-      
-  
-    
 
 
             if (IsTitleTwoColor)
@@ -669,18 +729,49 @@ namespace WHControlLib.Forms
 
                 }
             }
+            DrawTitleMinMaxCloseBox(Myg, TitleRect);
+            if (IsDrawIcon)
+            {
+                DrawIcon(Myg, TitleRect);
+            }
             if (IsShowTitleText)
             {
-                DrawTitleText(Myg, TitleRect);
+                Rectangle TitleTextRect = new Rectangle();
+                if (IsDrawIcon)
+                {
+                    if (_titletextAligment!= TitleTextAligment.center)
+                    {
+                    TitleTextRect.X = IconRct.Width+15;
+                    TitleTextRect.Y = TitleRect.Y;
+                    TitleTextRect.Width = TitleRect.Width-IconRct.Width-4;
+                    TitleTextRect.Height = TitleRect.Height;
+                    }
+                    else
+                    {
+                        TitleTextRect = TitleRect;
+                    } }
+
+                else
+                {
+                    TitleTextRect = TitleRect;
+                }
+
+               
+
+
+                DrawTitleText(Myg, TitleTextRect);
             }
 
-            DrawTitleMinMaxCloseBox(Myg, TitleRect);
+         
 
    
    
 
 
     }
+       /// <summary>
+       /// 挡鼠板在标题栏上移动时 顶部三大按键 感应动作
+       /// </summary>
         void OnMouseMoveTitleBox()
         {
             if (this.RectangleToScreen(CloseBoxRect).Contains(MousePosition))
@@ -723,7 +814,9 @@ namespace WHControlLib.Forms
 
 
         }
-
+        /// <summary>
+        /// 挡鼠标在标题栏上移动时 顶部三大按键 感应点击动作
+        /// </summary>
         void OnMouseClickTitleBox()
         {
            
@@ -814,7 +907,7 @@ namespace WHControlLib.Forms
 
         //鼠标滚轮：522
 
-
+        //定义9个方向
         const int HTLEFT = 10;
         const int HTRIGHT = 11;
         const int HTTOP = 12;
@@ -834,8 +927,9 @@ namespace WHControlLib.Forms
                       
                     case 0x0084:
                     base.WndProc(ref m);
+        //当允许改变窗体大小时候并不能是最大窗体  截获的消息用来改变窗体大小
                     if (IsUserChangeSize)
-            {  
+                      {  
                         Point vPoint = new Point((int)m.LParam & 0xFFFF,
                             (int)m.LParam >> 16 & 0xFFFF);
                 vPoint = PointToClient(vPoint);
@@ -857,11 +951,12 @@ namespace WHControlLib.Forms
                     m.Result = (IntPtr)HTBOTTOM;
             }
                         break;
+
                 case 0x0201://鼠标左键按下的消息 
-                   
+                 base.WndProc(ref m);
                     if (IsCanMoveTitle&&IsDrawTitle)
                     {
-
+  
                         //判断鼠标是否在标题栏区域内如果在就 拖动窗体
                         if (this.RectangleToScreen(TitleRect).Contains(MousePosition) &&
                           !this.RectangleToScreen(CloseBoxRect).Contains(MousePosition)
@@ -871,19 +966,25 @@ namespace WHControlLib.Forms
                         {
                             ReleaseCapture();
                             SendMessage(this.Handle, WM_SYSCOMMAND, SC_MOVE + HTCAPTION, 0);
+                         
+                            return;
                         }
 
                     }
-
-                    if (IsCanMoveBody)
+                    //当允许鼠标在任意位置拖动窗体移动 不包括三大按钮 但是包括标题栏，也可以修改不包括标题栏 目前包括标题栏
+                    if (IsCanMoveBody && this.WindowState != FormWindowState.Maximized
+                        && !this.RectangleToScreen(CloseBoxRect).Contains(MousePosition)
+                        && !this.RectangleToScreen(MinBoxRect).Contains(MousePosition)
+                        && !this.RectangleToScreen(MaxBoxRect).Contains(MousePosition))
                     {
-                       
-                    m.Msg = 0x00A1; //更改消息为非客户区按下鼠标
-                    m.LParam = IntPtr.Zero; //默认值
-                    m.WParam = new IntPtr(2);//鼠标放在标题栏内
-                      
+
+                        ReleaseCapture();
+                        SendMessage(this.Handle, WM_SYSCOMMAND, SC_MOVE + HTCAPTION, 0);
+                        base.WndProc(ref m);
+                        return;
+
                     }
-                 base.WndProc(ref m);
+
                     break;
 
                 default:
