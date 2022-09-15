@@ -28,6 +28,8 @@ namespace WHControlLib.Forms
             this.FormBorderStyle = FormBorderStyle.None;
             TitleHeight = Height / 20;
             TitleTextFont = Font;
+
+            
         }
         #region 无边框窗体拖动
 
@@ -92,6 +94,30 @@ namespace WHControlLib.Forms
                 Invalidate();
             }
         }
+        private bool _isUserChangeSize=false;
+        [Category("A我的"), Description("用户是否可以手动调节窗体大小，默认，false ，不可以 "), Browsable(true)]
+        public bool IsUserChangeSize
+        {
+            get
+            {
+                if (this.WindowState==FormWindowState.Maximized)
+                {
+                    return false;
+                }
+                else
+                return _isUserChangeSize; }
+            set { _isUserChangeSize= value; }
+        }
+        private bool _isMaxAllScreen;
+        [Category("A我的"), Description("窗体最大化后是否是全屏，默认，false ，不可以 "), Browsable(true)]
+        public bool IsMaxAllScreen
+        {
+            get { return _isMaxAllScreen; }
+            set { _isMaxAllScreen = value; }
+        }
+
+
+
         //***********有关标题栏属性定义***开始***********************
         public enum TitleTextAligment
         {
@@ -99,6 +125,20 @@ namespace WHControlLib.Forms
              center=1,
             right=2,
         }
+       private bool _isCanMoveTitle=true;
+        [Category("A我的标题栏"), Description("拖动标题栏是否可移动窗体的位置，默认，true，可以"), Browsable(true)]
+        public bool IsCanMoveTitle
+        {
+            get {
+                if (IsDrawTitle)
+                {
+                    return _isCanMoveTitle;
+                }
+                else return false;
+                     }
+            set { _isCanMoveTitle = value; }
+        }
+
         private bool  _isDrawTitle=true;
         [Category("A我的标题栏"), Description("是否显示标题栏，默认，true，显示"), Browsable(true)]
         public bool  IsDrawTitle
@@ -241,7 +281,16 @@ namespace WHControlLib.Forms
             set { _titleBoxShapeColor = value; Invalidate(); }
         }
 
+        protected override void OnLoad(EventArgs e)
+        {
+            base.OnLoad(e);
+            if (!IsMaxAllScreen)
+            {
+                //窗体最大化后不是全屏
+                this.MaximizedBounds = System.Windows.Forms.Screen.PrimaryScreen.WorkingArea;
+            }
 
+        }
 
         //***********有关标题栏属性定义结束***********************
 
@@ -694,18 +743,18 @@ namespace WHControlLib.Forms
         protected override void OnMouseDown(MouseEventArgs e)
         {
             base.OnMouseDown(e);
-            //判断鼠标是否在标题栏区域内如果在就 拖动窗体
-            if (this.RectangleToScreen(TitleRect).Contains(MousePosition)&&
-              ! this.RectangleToScreen(CloseBoxRect).Contains(MousePosition)
-             && !this.RectangleToScreen(MaxBoxRect).Contains(MousePosition)
-             && !this.RectangleToScreen(MinBoxRect).Contains(MousePosition) 
-             && this.WindowState!=FormWindowState.Maximized)
+            ////判断鼠标是否在标题栏区域内如果在就 拖动窗体
+            //if (this.RectangleToScreen(TitleRect).Contains(MousePosition)&&
+            //  ! this.RectangleToScreen(CloseBoxRect).Contains(MousePosition)
+            // && !this.RectangleToScreen(MaxBoxRect).Contains(MousePosition)
+            // && !this.RectangleToScreen(MinBoxRect).Contains(MousePosition) 
+            // && this.WindowState!=FormWindowState.Maximized)
                   
-            {
-                ReleaseCapture();
-                SendMessage(this.Handle, WM_SYSCOMMAND, SC_MOVE + HTCAPTION, 0);
+            //{
+            //    ReleaseCapture();
+            //    SendMessage(this.Handle, WM_SYSCOMMAND, SC_MOVE + HTCAPTION, 0);
 
-            }
+            //}
 
         }
 
@@ -734,5 +783,106 @@ namespace WHControlLib.Forms
             base.OnMouseClick(e);
             OnMouseClickTitleBox();
         }
+
+        #region 拖动改变窗体的尺寸大小
+   //拖动改变窗体的尺寸大小
+        //        鼠标动作常见参数：
+
+        //鼠标移动：512
+
+        //鼠标左键：
+
+        //down:513 up:514
+
+        //double click:515
+
+        //鼠标右键：
+
+        //down:516 up:517
+
+        //鼠标滚轮：522
+
+
+        const int HTLEFT = 10;
+        const int HTRIGHT = 11;
+        const int HTTOP = 12;
+        const int HTTOPLEFT = 13;
+        const int HTTOPRIGHT = 14;
+        const int HTBOTTOM = 15;
+        const int HTBOTTOMLEFT = 0x10;
+        const int HTBOTTOMRIGHT = 17;
+
+      protected override void WndProc(ref Message m)
+        {
+            //base.WndProc(ref m);
+       
+            
+                switch (m.Msg)
+                {
+                      
+                    case 0x0084:
+                    base.WndProc(ref m);
+                    if (IsUserChangeSize)
+            {  
+                        Point vPoint = new Point((int)m.LParam & 0xFFFF,
+                            (int)m.LParam >> 16 & 0xFFFF);
+                vPoint = PointToClient(vPoint);
+                if (vPoint.X <= 5)
+                    if (vPoint.Y <= 5)
+                        m.Result = (IntPtr)HTTOPLEFT;
+                    else if (vPoint.Y >= ClientSize.Height - 5)
+                        m.Result = (IntPtr)HTBOTTOMLEFT;
+                    else m.Result = (IntPtr)HTLEFT;
+                else if (vPoint.X >= ClientSize.Width - 5)
+                    if (vPoint.Y <= 5)
+                        m.Result = (IntPtr)HTTOPRIGHT;
+                    else if (vPoint.Y >= ClientSize.Height - 5)
+                        m.Result = (IntPtr)HTBOTTOMRIGHT;
+                    else m.Result = (IntPtr)HTRIGHT;
+                else if (vPoint.Y <= 5)
+                    m.Result = (IntPtr)HTTOP;
+                else if (vPoint.Y >= ClientSize.Height - 5)
+                    m.Result = (IntPtr)HTBOTTOM;
+            }
+                        break;
+                case 0x0201://鼠标左键按下的消息 
+                    base.WndProc(ref m);
+                    if (IsCanMoveTitle)
+                    {
+
+                        //判断鼠标是否在标题栏区域内如果在就 拖动窗体
+                        if (this.RectangleToScreen(TitleRect).Contains(MousePosition) &&
+                          !this.RectangleToScreen(CloseBoxRect).Contains(MousePosition)
+                         && !this.RectangleToScreen(MaxBoxRect).Contains(MousePosition)
+                         && !this.RectangleToScreen(MinBoxRect).Contains(MousePosition)
+                         && this.WindowState != FormWindowState.Maximized)
+                        {
+                            ReleaseCapture();
+                            SendMessage(this.Handle, WM_SYSCOMMAND, SC_MOVE + HTCAPTION, 0);
+                        }
+
+                    }
+
+                    break;
+
+                default:
+                    base.WndProc(ref m);
+                    break;
+
+                }
+       
+
+
+        }
+
+
+
+        #endregion
+
+
+
+
+
+
     }
 }
