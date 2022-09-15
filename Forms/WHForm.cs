@@ -116,6 +116,21 @@ namespace WHControlLib.Forms
             set { _isMaxAllScreen = value; }
         }
 
+        private bool _isCanMoveBody;
+        [Category("A我的"), Description("是否可以拖动窗体上的任意位置移动,当位true时IsCanMoveTitle为false，默认，false ，不可以 "), Browsable(true)]
+        public bool IsCanMoveBody
+        {
+            get { return 
+                    
+                    _isCanMoveBody; }
+            set
+            {
+                if (value)
+                {
+                    IsCanMoveTitle = false;
+                }
+                _isCanMoveBody= value; }
+        }
 
 
         //***********有关标题栏属性定义***开始***********************
@@ -136,7 +151,12 @@ namespace WHControlLib.Forms
                 }
                 else return false;
                      }
-            set { _isCanMoveTitle = value; }
+            set {
+                if (value)
+                {
+                    IsCanMoveBody = false;
+                }
+                _isCanMoveTitle = value; }
         }
 
         private bool  _isDrawTitle=true;
@@ -740,23 +760,6 @@ namespace WHControlLib.Forms
 
 
         }
-        protected override void OnMouseDown(MouseEventArgs e)
-        {
-            base.OnMouseDown(e);
-            ////判断鼠标是否在标题栏区域内如果在就 拖动窗体
-            //if (this.RectangleToScreen(TitleRect).Contains(MousePosition)&&
-            //  ! this.RectangleToScreen(CloseBoxRect).Contains(MousePosition)
-            // && !this.RectangleToScreen(MaxBoxRect).Contains(MousePosition)
-            // && !this.RectangleToScreen(MinBoxRect).Contains(MousePosition) 
-            // && this.WindowState!=FormWindowState.Maximized)
-                  
-            //{
-            //    ReleaseCapture();
-            //    SendMessage(this.Handle, WM_SYSCOMMAND, SC_MOVE + HTCAPTION, 0);
-
-            //}
-
-        }
 
 
 
@@ -770,10 +773,15 @@ namespace WHControlLib.Forms
         protected override void OnMouseLeave(EventArgs e)
         {
             base.OnMouseLeave(e);
-            InMouseMinBoxRect = false;
+            if (IsDrawTitle)
+            {   
+                InMouseMinBoxRect = false;
             InMouseMaxBoxRect = false;
             InMouseCloseBoxRect = false;
             Invalidate(TitleRect);
+
+            }
+        
         }
 
 
@@ -781,7 +789,11 @@ namespace WHControlLib.Forms
         protected override void OnMouseClick(MouseEventArgs e)
         {
             base.OnMouseClick(e);
-            OnMouseClickTitleBox();
+            if (IsDrawTitle)
+            {
+               OnMouseClickTitleBox();
+            }
+         
         }
 
         #region 拖动改变窗体的尺寸大小
@@ -846,8 +858,8 @@ namespace WHControlLib.Forms
             }
                         break;
                 case 0x0201://鼠标左键按下的消息 
-                    base.WndProc(ref m);
-                    if (IsCanMoveTitle)
+                   
+                    if (IsCanMoveTitle&&IsDrawTitle)
                     {
 
                         //判断鼠标是否在标题栏区域内如果在就 拖动窗体
@@ -863,6 +875,15 @@ namespace WHControlLib.Forms
 
                     }
 
+                    if (IsCanMoveBody)
+                    {
+                       
+                    m.Msg = 0x00A1; //更改消息为非客户区按下鼠标
+                    m.LParam = IntPtr.Zero; //默认值
+                    m.WParam = new IntPtr(2);//鼠标放在标题栏内
+                      
+                    }
+                 base.WndProc(ref m);
                     break;
 
                 default:
