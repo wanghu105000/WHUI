@@ -50,7 +50,8 @@ namespace WHControlLib.Forms
         public const int WM_SYSCOMMAND = 0x0112;
         public const int SC_MOVE = 0xF010;
         public const int HTCAPTION = 0x0002;
-       
+        public const int WM_VSCROLL = 0x0115;
+        public const int WM_HSCROLL = 0x0114;
         #endregion
 
 
@@ -58,9 +59,9 @@ namespace WHControlLib.Forms
 
 
         #region 公共字段全局定义
-      /// <summary>
-      /// 标题栏按钮之间的间隔
-      /// </summary>
+        /// <summary>
+        /// 标题栏按钮之间的间隔
+        /// </summary>
         const int BoxJG = 6;
         const int Boxsub = 3;
         Rectangle TitleRect = new Rectangle();
@@ -999,6 +1000,20 @@ namespace WHControlLib.Forms
                     }
 
                     break;
+                case WM_HSCROLL:
+                    base.WndProc(ref m);
+                    drawAutoScroll();
+                   
+             
+
+
+                    break;
+                case WM_VSCROLL:
+                    base.WndProc(ref m);
+                    drawAutoScroll();
+
+
+                    break;
 
                 default:
                     base.WndProc(ref m);
@@ -1019,9 +1034,9 @@ namespace WHControlLib.Forms
         {
             if (AutoScroll)
             {
-                Rectangle rct = this.ClientRectangle;
-                this.AutoScrollPosition =new Point( rct.Width-this.AutoScrollMargin.Width,TitleRect.Height+FormBorderWidth);
-
+                this.VScroll = false;
+                this.HScroll = false;   
+        
                
 
             }
