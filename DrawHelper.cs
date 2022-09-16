@@ -471,12 +471,32 @@ namespace WHControlLib
         public const int WM_NCCREATE = 0x0081;
         public const int WM_NCDESTROY = 0x0082;
         public const int WM_NCCALCSIZE = 0x0083;
+      /// <summary>
+      /// 移动鼠标，按住或释放鼠标时发生
+      /// </summary>
         public const int WM_NCHITTEST = 0x0084;
+       /// <summary>
+       /// 程序发送此消息给某个窗口当它（窗口）的框架必须被绘制时；
+       /// </summary>
         public const int WM_NCPAINT = 0x0085;
+       /// <summary>
+       /// 此消息发送给某个窗口 仅当它的非客户区需要被改变来显示是激活还是非激活状态；
+       /// </summary>
         public const int WM_NCACTIVATE = 0x0086;
+       /// <summary>
+       /// 发送此消息给某个与对话框程序关联的控件，widdows控制方位键和TAB键使输入进入此控件 通过响应WM_GETDLGCODE消息，应用程序可以把他当成一个特殊的输入控件并能处理它
+       /// </summary>
+
         public const int WM_GETDLGCODE = 0x0087;
         public const int WM_SYNCPAINT = 0x0088;
+        /// <summary>
+        /// 当光标在一个窗口的非客户区内移动时发送此消息给这个窗口 //非客户区为：窗体的标题栏及窗  的边框体
+        /// </summary>
+
         public const int WM_NCMOUSEMOVE = 0x00A0;
+       /// <summary>
+       /// 当光标在一个窗口的非客户区同时按下鼠标左键时提交此消息
+       /// </summary>
         public const int WM_NCLBUTTONDOWN = 0x00A1;
         public const int WM_NCLBUTTONUP = 0x00A2;
         public const int WM_NCLBUTTONDBLCLK = 0x00A3;
@@ -486,10 +506,25 @@ namespace WHControlLib
         public const int WM_NCMBUTTONDOWN = 0x00A7;
         public const int WM_NCMBUTTONUP = 0x00A8;
         public const int WM_NCMBUTTONDBLCLK = 0x00A9;
+       /// <summary>
+       /// 按下一个键
+       /// </summary>
         public const int WM_KEYDOWN = 0x0100;
+       /// <summary>
+       /// 释放一个键
+       /// </summary>
         public const int WM_KEYUP = 0x0101;
+        /// <summary>
+        /// 按下某键，并已发出WM_KEYDOWN， WM_KEYUP消息
+        /// </summary>
         public const int WM_CHAR = 0x0102;
+        /// <summary>
+        /// 当用translatemessage函数翻译WM_KEYUP消息时发送此消息给拥有焦点的窗口
+        /// </summary>
         public const int WM_DEADCHAR = 0x0103;
+        /// <summary>
+        /// 当用户按住ALT键同时按下其它键时提交此消息给拥有焦点的窗口；
+        /// </summary>
         public const int WM_SYSKEYDOWN = 0x0104;
         public const int WM_SYSKEYUP = 0x0105;
         public const int WM_SYSCHAR = 0x0106;
@@ -499,13 +534,37 @@ namespace WHControlLib
         public const int WM_IME_ENDCOMPOSITION = 0x010E;
         public const int WM_IME_COMPOSITION = 0x010F;
         public const int WM_IME_KEYLAST = 0x010F;
+       /// <summary>
+       /// 在一个对话框程序被显示前发送此消息给它，通常用此消息初始化控件和执行其它任务
+       /// </summary>
         public const int WM_INITDIALOG = 0x0110;
+       /// <summary>
+       /// 当用户选择一条菜单命令项或当某个控件发送一条消息给它的父窗口，一个快捷键被翻译
+       /// </summary>
         public const int WM_COMMAND = 0x0111;
+       /// <summary>
+       /// 当用户选择窗口菜单的一条命令或当用户选择最大化或最小化时那个窗口会收到此消息
+       /// </summary>
         public const int WM_SYSCOMMAND = 0x0112;
+      /// <summary>
+      /// 发生了定时器事件
+      /// </summary>
         public const int WM_TIMER = 0x0113;
+        /// <summary>
+        /// 当一个窗口标准水平滚动条产生一个滚动事件时发送此消息给那个窗口，也发送给拥有它的控件
+        /// </summary>
         public const int WM_HSCROLL = 0x0114;
+       /// <summary>
+       /// 当一个窗口标准垂直滚动条产生一个滚动事件时发送此消息给那个窗口也，发送给拥有它的控件
+       /// </summary>
         public const int WM_VSCROLL = 0x0115;
+       /// <summary>
+       /// 当一个菜单将要被激活时发送此消息，它发生在用户菜单条中的某项或按下某个菜单键，它允许程序在显示前更改菜单
+       /// </summary>
         public const int WM_INITMENU = 0x0116;
+       /// <summary>
+       /// 当一个下拉菜单或子菜单将要被激活时发送此消息，它允许程序在它显示前更改菜单，而不要改变全部
+       /// </summary>
         public const int WM_INITMENUPOPUP = 0x0117;
         public const int WM_MENUSELECT = 0x011F;
         public const int WM_MENUCHAR = 0x0120;
@@ -515,23 +574,72 @@ namespace WHControlLib
         public const int WM_MENUGETOBJECT = 0x0124;
         public const int WM_UNINITMENUPOPUP = 0x0125;
         public const int WM_MENUCOMMAND = 0x0126;
+        /// <summary>
+        /// 在windows绘制消息框前发送此消息给消息框的所有者窗口，通过响应这条消息，所有者窗口可以通过使用给定的相关显示设备的句柄来设置消息框的文本和背景颜色
+        /// </summary>
         public const int WM_CTLCOLORMSGBOX = 0x0132;
+       /// <summary>
+       /// 当一个编辑型控件将要被绘制时发送此消息给它的父窗口；通过响应这条消息，所有者窗口可以通过使用给定的相关显示设备的句柄来设置编辑框的文本和背景颜色
+       /// </summary>
         public const int WM_CTLCOLOREDIT = 0x0133;
+       /// <summary>
+       /// 当一个列表框控件将要被绘制前发送此消息给它的父窗口；通过响应这条消息，所有者窗口可以通过使用给定的相关显示设备的句柄来设置列表框的文本和背景颜色
+       /// </summary>
         public const int WM_CTLCOLORLISTBOX = 0x0134;
+       /// <summary>
+       /// 当一个按钮控件将要被绘制时发送此消息给它的父窗口；通过响应这条消息，所有者窗口可以通过使用给定的相关显示设备的句柄来设置按纽的文本和背景颜色
+       /// </summary>
         public const int WM_CTLCOLORBTN = 0x0135;
+        /// <summary>
+        /// 当一个对话框控件将要被绘制前发送此消息给它的父窗口；通过响应这条消息，所有者窗口可以通过使用给定的相关显示设备的句柄来设置对话框的文本背景颜色
+        /// </summary>
         public const int WM_CTLCOLORDLG = 0x0136;
+        /// <summary>
+        /// 当一个滚动条控件将要被绘制时发送此消息给它的父窗口；通过响应这条消息，所有者窗口可以通过使用给定的相关显示设备的句柄来设置滚动条的背景颜色
+        /// </summary>
         public const int WM_CTLCOLORSCROLLBAR = 0x0137;
+       /// <summary>
+       /// 当一个静态控件将要被绘制时发送此消息给它的父窗口；通过响应这条消息，所有者窗口可以通过使用给定的相关显示设备的句柄来设置静态控件的文本和背景颜色
+       /// </summary>
         public const int WM_CTLCOLORSTATIC = 0x0138;
+        /// <summary>
+        /// 移动鼠标
+        /// </summary>
         public const int WM_MOUSEMOVE = 0x0200;
+        /// <summary>
+        /// 按下鼠标左键
+        /// </summary>
         public const int WM_LBUTTONDOWN = 0x0201;
+        /// <summary>
+        /// 释放鼠标左键
+        /// </summary>
         public const int WM_LBUTTONUP = 0x0202;
+        /// <summary>
+        /// 双击鼠标左键
+        /// </summary>
         public const int WM_LBUTTONDBLCLK = 0x0203;
+        /// <summary>
+        /// 按下鼠标右键
+        /// </summary>
         public const int WM_RBUTTONDOWN = 0x0204;
+        /// <summary>
+        /// 释放鼠标右键
+        /// </summary>
         public const int WM_RBUTTONUP = 0x0205;
+        /// <summary>
+        /// 双击鼠标右键
+        /// </summary>
         public const int WM_RBUTTONDBLCLK = 0x0206;
+        /// <summary>
+        /// 按下鼠标中键 
+        /// </summary>
         public const int WM_MBUTTONDOWN = 0x0207;
+       
         public const int WM_MBUTTONUP = 0x0208;
         public const int WM_MBUTTONDBLCLK = 0x0209;
+        /// <summary>
+        /// 当鼠标轮子转动时发送此消息个当前有焦点的控件
+        /// </summary>
         public const int WM_MOUSEWHEEL = 0x020A;
         public const int WM_PARENTNOTIFY = 0x0210;
         public const int WM_ENTERMENULOOP = 0x0211;
@@ -600,9 +708,7 @@ namespace WHControlLib
     }
 
 
-
-    ///////////////////////////
-
+    #region win32消息功能参考
     /**
      * 
      * 消息，就是指Windows发出的一个通知，告诉应用程序某个事情发生了。例如，单击鼠标、改变窗口尺寸、按下键盘上的一个键都会使Windows发送一个消息给应用程序。消息本身是作为一个记录传递给应用程序的，这个记录中包含了消息的类型以及其他信息。例如，对于单击鼠标所产生的消息来说，这个记录中包含了单击鼠标时的坐标。这个记录类型叫做TMsg，
@@ -1060,6 +1166,10 @@ lParam 是 鼠标的位置信息。
      * 
      * 
      */
+    #endregion
+    ///////////////////////////
+
+
 
 
 }

@@ -72,10 +72,17 @@ namespace WHControlLib.Forms
         bool InMouseCloseBoxRect;
         bool InMouseMinBoxRect;
         bool InMouseMaxBoxRect;
-      
+
         #endregion
 
         #region 属性，字段定义
+
+        public new bool AutoScroll
+        {
+            get => base.AutoScroll;
+            set => base.AutoScroll = false;
+        }
+
         private bool  _isDrawFormBorder=true;
         [Category("A我的"), Description("是否显示窗体边框，默认，true，显示"), Browsable(true)]
         public bool IsDrawFormBorder
@@ -367,8 +374,7 @@ namespace WHControlLib.Forms
             //画边框
             DrawBodyBorder(Myg, MyRect);
 
-            //画自动滚动条
-            drawAutoScroll();
+       
 
         }
         void DrawShowBody( Graphics Myg, Rectangle MyRect)
@@ -1002,18 +1008,13 @@ namespace WHControlLib.Forms
                     break;
                 case WM_HSCROLL:
                     base.WndProc(ref m);
-                    drawAutoScroll();
+          
                    
              
 
 
                     break;
-                case WM_VSCROLL:
-                    base.WndProc(ref m);
-                    drawAutoScroll();
-
-
-                    break;
+        
 
                 default:
                     base.WndProc(ref m);
@@ -1030,20 +1031,11 @@ namespace WHControlLib.Forms
         #endregion
 
 
-        void drawAutoScroll()
-        {
-            if (AutoScroll)
-            {
-                this.VScroll = false;
-                this.HScroll = false;   
-        
-               
 
-            }
 
         }
 
 
 
     }
-}
+

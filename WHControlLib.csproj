@@ -43,6 +43,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DrawHelper.cs" />
+    <Compile Include="Forms\WHMsgBoxForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\WHMsgBoxForm.Designer.cs">
+      <DependentUpon>WHMsgBoxForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\WHForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -91,6 +97,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Forms\WHForm.resx">
       <DependentUpon>WHForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\WHMsgBoxForm.resx">
+      <DependentUpon>WHMsgBoxForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="WHButton.resx">
       <DependentUpon>WHButton.cs</DependentUpon>
