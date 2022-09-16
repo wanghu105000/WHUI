@@ -14,6 +14,16 @@ namespace WHControlLib.Forms
 {
     public partial class WHForm : Form
     {
+        /*****关于系统采用高dpi缩放问题，屏幕是高分屏为了看清放大字体系统设置里 缩放了布局与字体 *********
+         * 此时系统接管 程序界面绘制，会使软件字体与图标变得模糊，
+         * 解决1，启动程序工程中 添加 程序清单 即 工程->添加类->添加程序清单文件->看到开启dpi自动感知的部分将两头的注释去掉
+         * 解决2，不想，添加程序清单，请将屏幕缩放改为100%
+         * 解决3，网上搜代码 加在 主程序启动前，略！
+         * 解决4，换WPF程序有自动感知功能
+
+        ******* ********* ********* ***** ************* ***********************/
+
+
         public WHForm()
         {
             //设置双缓冲
@@ -355,6 +365,9 @@ namespace WHControlLib.Forms
           
             //画边框
             DrawBodyBorder(Myg, MyRect);
+
+            //画自动滚动条
+            drawAutoScroll();
 
         }
         void DrawShowBody( Graphics Myg, Rectangle MyRect)
@@ -1002,7 +1015,18 @@ namespace WHControlLib.Forms
         #endregion
 
 
+        void drawAutoScroll()
+        {
+            if (AutoScroll)
+            {
+                Rectangle rct = this.ClientRectangle;
+                this.AutoScrollPosition =new Point( rct.Width-this.AutoScrollMargin.Width,TitleRect.Height+FormBorderWidth);
 
+               
+
+            }
+
+        }
 
 
 
