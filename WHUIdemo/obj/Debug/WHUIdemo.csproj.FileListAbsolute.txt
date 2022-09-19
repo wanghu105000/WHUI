@@ -1,0 +1,15 @@
+D:\WHUIDemo\WHUIdemo\bin\Debug\WHUIdemo.exe.config
+D:\WHUIDemo\WHUIdemo\bin\Debug\WHUIdemo.exe
+D:\WHUIDemo\WHUIdemo\bin\Debug\WHUIdemo.pdb
+D:\WHUIDemo\WHUIdemo\bin\Debug\WHControlLib.dll
+D:\WHUIDemo\WHUIdemo\bin\Debug\WHControlLib.pdb
+D:\WHUIDemo\WHUIdemo\obj\Debug\WHUIdemo.csproj.AssemblyReference.cache
+D:\WHUIDemo\WHUIdemo\obj\Debug\WHUIdemo.csproj.SuggestedBindingRedirects.cache
+D:\WHUIDemo\WHUIdemo\obj\Debug\WHUIdemo.Properties.Resources.resources
+D:\WHUIDemo\WHUIdemo\obj\Debug\WHUIdemo.csproj.GenerateResource.cache
+D:\WHUIDemo\WHUIdemo\obj\Debug\WHUIdemo.csproj.CoreCompileInputs.cache
+D:\WHUIDemo\WHUIdemo\obj\Debug\WHUIdemo.csproj.CopyComplete
+D:\WHUIDemo\WHUIdemo\obj\Debug\WHUIdemo.exe
+D:\WHUIDemo\WHUIdemo\obj\Debug\WHUIdemo.pdb
+D:\WHUIDemo\WHUIdemo\obj\Debug\WHUIdemo.Forms.testForm.resources
+D:\WHUIDemo\WHUIdemo\obj\Debug\WHUIdemo.MainForm.resources
