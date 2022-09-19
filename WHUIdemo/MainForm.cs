@@ -17,6 +17,7 @@ namespace WHUIdemo
         public MainForm()
         {
             InitializeComponent();
+
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -27,8 +28,8 @@ namespace WHUIdemo
 
         private void button2_Click(object sender, EventArgs e)
         {
-            WHMsgBoxForm msf = new WHMsgBoxForm();
-            msf.Show();
+           WhMsgBoxForm whMsgBoxForm = new WhMsgBoxForm();
+            whMsgBoxForm.Show();    
         }
     }
 }

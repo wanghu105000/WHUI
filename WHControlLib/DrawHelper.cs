@@ -86,6 +86,45 @@ namespace WHControlLib
 
         }
 
+        public static GraphicsPath GetFillRoundRectFPath(RectangleF Myrect, float borderWidth, float Radius)
+        {
+            float RadiusWidth = Myrect.Width / Radius;
+            //int RadiusHeight = Myrect.Height / Radius;
+            float RadiusHeight = RadiusWidth;
+            //定义画弧线的四个角的矩形
+
+            RectangleF LeftTopRect = new RectangleF(Myrect.X + borderWidth, Myrect.Y + borderWidth, RadiusWidth, RadiusHeight);
+            RectangleF RightTopRect = new RectangleF(Myrect.X + Myrect.Width - RadiusWidth - borderWidth, Myrect.Y + borderWidth, RadiusWidth, RadiusHeight);
+            RectangleF RightButtonRect = new RectangleF(Myrect.X + Myrect.Width - RadiusWidth - borderWidth, Myrect.Y + Myrect.Height - RadiusHeight - borderWidth, RadiusWidth, RadiusHeight);
+            RectangleF LeftButtomRect = new RectangleF(Myrect.X + borderWidth, Myrect.Y + Myrect.Height - RadiusHeight - borderWidth, RadiusWidth, RadiusHeight);
+            //定义需要连接的8给点
+
+            PointF LeftTopPointH = new PointF((float)Myrect.X + LeftTopRect.Width / 2, (float)Myrect.Y + borderWidth);
+            PointF LeftTopPointV = new PointF((float)Myrect.X + borderWidth, (float)Myrect.Y + LeftTopRect.Height / 2);
+
+            PointF RightTopPointH = new PointF((float)Myrect.X + Myrect.Width - RightTopRect.Width / 2, (float)Myrect.Y + borderWidth);
+            PointF RightTopPointV = new PointF((float)Myrect.X + Myrect.Width - borderWidth, (float)Myrect.Y + RightTopRect.Height / 2);
+
+            PointF RightButtonPointV = new PointF((float)Myrect.X + Myrect.Width - borderWidth, (float)Myrect.Y + Myrect.Height - RightButtonRect.Height / 2);
+            PointF RightButtonPointH = new PointF((float)Myrect.X + Myrect.Width - RightButtonRect.Width / 2, (float)Myrect.Y + Myrect.Height - borderWidth);
+
+            PointF LeftButtonPointH = new PointF((float)Myrect.X + LeftButtomRect.Width / 2, (float)Myrect.Y + Myrect.Height - borderWidth);
+            PointF LeftButtonPointV = new PointF((float)Myrect.X + borderWidth, (float)Myrect.Y + Myrect.Height - LeftButtomRect.Height / 2);
+            //构造填充路径
+            GraphicsPath myfillPath = new GraphicsPath();
+            myfillPath.AddArc(LeftTopRect, 180, 90);
+            myfillPath.AddLine(LeftTopPointH, RightTopPointH);
+            myfillPath.AddArc(RightTopRect, 270, 90);
+            myfillPath.AddLine(RightTopPointV, RightButtonPointV);
+            myfillPath.AddArc(RightButtonRect, 0, 90);
+            myfillPath.AddLine(RightButtonPointH, LeftButtonPointH);
+            myfillPath.AddArc(LeftButtomRect, 90, 90);
+            myfillPath.AddLine(LeftButtonPointV, LeftTopPointV);
+            return myfillPath;
+
+        }
+
+
         //public static GraphicsPath GetBorderRoundRectFPath(RectangleF Myrect, int borderWidth, float Radius)
         //{
 
@@ -127,7 +166,7 @@ namespace WHControlLib
 
 
         //}
-       public static GraphicsPath GetRoundRectangePath(Rectangle MYRect,int BorderWidth,float Radius)
+        public static GraphicsPath GetRoundRectangePath(Rectangle MYRect,int BorderWidth,float Radius)
 
         {
             const float textboxlinewidth = 2.0f;

@@ -1,6 +1,6 @@
 ﻿namespace WHControlLib.Forms
 {
-    partial class WhMsgBoxForm
+    partial class BaseDialogFormcs
     {
         /// <summary>
         /// Required designer variable.
@@ -28,23 +28,10 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.SuspendLayout();
-            // 
-            // WhMsgBoxForm
-            // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
+            this.components = new System.ComponentModel.Container();
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(384, 256);
-            this.firstColor = System.Drawing.Color.AliceBlue;
-            this.FormBorderWidth = 10;
-            this.IsUseTwoColor = true;
-            this.Name = "WhMsgBoxForm";
-            this.Radius = 3F;
-            this.SecondColor = System.Drawing.Color.RoyalBlue;
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "WhMsgBoxForm";
-            this.ResumeLayout(false);
-
+            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Text = "BaseDialogFormcs";
         }
 
         #endregion
