@@ -216,7 +216,7 @@ namespace WHControlLib.Forms
             set { _isTitleTwoColor = value; Invalidate(); }
         }
         private int _titleHeight=15;
-        [Category("A我的标题栏"), Description("标题栏的高度像素，默认，窗体高度的20分之一 "), Browsable(true)]
+        [Category("A我的标题栏"), Description("标题栏的高度像素，默认，窗体高度的15分之一 "), Browsable(true)]
         public int TitleHeight
         {
             get { return _titleHeight; }
