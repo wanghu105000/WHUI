@@ -237,7 +237,46 @@ namespace WHControlLib
             return image;
         }
 
+        public void SetBits(Bitmap bitmap, IntPtr FormHandle, bool haveHandle )
+        {
+            if (!haveHandle) return;
 
+            if (!Bitmap.IsCanonicalPixelFormat(bitmap.PixelFormat) || !Bitmap.IsAlphaPixelFormat(bitmap.PixelFormat))
+                throw new ApplicationException("The picture must be 32bit picture with alpha channel.");
+
+            IntPtr oldBits = IntPtr.Zero;
+            IntPtr screenDC = Win32.GetDC(IntPtr.Zero);
+            IntPtr hBitmap = IntPtr.Zero;
+            IntPtr memDc = Win32.CreateCompatibleDC(screenDC);
+
+            try
+            {
+                //Win32.Point topLoc = new Win32.Point(Left, Top);
+                Win32.Size bitMapSize = new Win32.Size(bitmap.Width, bitmap.Height);
+                Win32.BLENDFUNCTION blendFunc = new Win32.BLENDFUNCTION();
+                Win32.Point srcLoc = new Win32.Point(0, 0);
+
+                hBitmap = bitmap.GetHbitmap(Color.FromArgb(0));
+                oldBits = Win32.SelectObject(memDc, hBitmap);
+
+                blendFunc.BlendOp = Win32.AC_SRC_OVER;
+                blendFunc.SourceConstantAlpha = 255;//这里设置窗体绘制的透明度
+                blendFunc.AlphaFormat = Win32.AC_SRC_ALPHA;
+                blendFunc.BlendFlags = 0;
+
+                //Win32.UpdateLayeredWindow(FormHandle, screenDC, ref topLoc, ref bitMapSize, memDc, ref srcLoc, 0, ref blendFunc, Win32.ULW_ALPHA);
+            }
+            finally
+            {
+                if (hBitmap != IntPtr.Zero)
+                {
+                    Win32.SelectObject(memDc, oldBits);
+                    Win32.DeleteObject(hBitmap);
+                }
+                Win32.ReleaseDC(IntPtr.Zero, screenDC);
+                Win32.DeleteDC(memDc);
+            }
+        }
 
         #region 暂时为使用的方法
 
@@ -744,9 +783,125 @@ namespace WHControlLib
 
         public const int WM_APP = 0x8000;
         public const int WM_USER = 0x0400;
+
+        //////////////////////
+        ///
+
+
     }
 
+    /// <summary>
+    /// Wind32API
+    /// </summary>
+    public static class Win32
+    {
+        #region 消息
+        public const int MF_REMOVE = 0x1000;
 
+        public const int SC_RESTORE = 0xF120; //还原
+        public const int SC_MOVE = 0xF010; //移动
+        public const int SC_SIZE = 0xF000; //大小
+        public const int SC_MINIMIZE = 0xF020; //最小化
+        public const int SC_MAXIMIZE = 0xF030; //最大化
+        public const int SC_CLOSE = 0xF060; //关闭 
+
+        public const int WM_SYSCOMMAND = 0x0112;
+        public const int WM_COMMAND = 0x0111;
+
+        public const int GW_HWNDFIRST = 0;
+        public const int GW_HWNDLAST = 1;
+        public const int GW_HWNDNEXT = 2;
+        public const int GW_HWNDPREV = 3;
+        public const int GW_OWNER = 4;
+        public const int GW_CHILD = 5;
+
+        public const int WM_NCCALCSIZE = 0x83;
+        public const int WM_WINDOWPOSCHANGING = 0x46;
+        public const int WM_PAINT = 0xF;
+        public const int WM_CREATE = 0x1;
+        public const int WM_NCCREATE = 0x81;
+        public const int WM_NCPAINT = 0x85;
+        public const int WM_PRINT = 0x317;
+        public const int WM_DESTROY = 0x2;
+        public const int WM_SHOWWINDOW = 0x18;
+        public const int WM_SHARED_MENU = 0x1E2;
+        public const int HC_ACTION = 0;
+        public const int WH_CALLWNDPROC = 4;
+        public const int GWL_WNDPROC = -4;
+
+        public const int WS_SYSMENU = 0x80000;
+        public const int WS_SIZEBOX = 0x40000;
+
+        public const int WS_MAXIMIZEBOX = 0x10000;
+
+        public const int WS_MINIMIZEBOX = 0x20000;
+        #endregion
+        [StructLayout(LayoutKind.Sequential)]
+        public struct Size
+        {
+            public Int32 cx;
+            public Int32 cy;
+
+            public Size(Int32 x, Int32 y)
+            {
+                cx = x;
+                cy = y;
+            }
+        }
+
+        [StructLayout(LayoutKind.Sequential, Pack = 1)]
+        public struct BLENDFUNCTION
+        {
+            public byte BlendOp;
+            public byte BlendFlags;
+            public byte SourceConstantAlpha;
+            public byte AlphaFormat;
+        }
+
+        [StructLayout(LayoutKind.Sequential)]
+        public struct Point
+        {
+            public Int32 x;
+            public Int32 y;
+
+            public Point(Int32 x, Int32 y)
+            {
+                this.x = x;
+                this.y = y;
+            }
+        }
+
+        public const byte AC_SRC_OVER = 0;
+        public const Int32 ULW_ALPHA = 2;
+        public const byte AC_SRC_ALPHA = 1;
+
+        [DllImport("gdi32.dll", ExactSpelling = true, SetLastError = true)]
+        public static extern IntPtr CreateCompatibleDC(IntPtr hDC);
+
+        [DllImport("user32.dll", ExactSpelling = true, SetLastError = true)]
+        public static extern IntPtr GetDC(IntPtr hWnd);
+
+        [DllImport("gdi32.dll", ExactSpelling = true)]
+        public static extern IntPtr SelectObject(IntPtr hDC, IntPtr hObj);
+
+        [DllImport("user32.dll", ExactSpelling = true)]
+        public static extern int ReleaseDC(IntPtr hWnd, IntPtr hDC);
+
+        [DllImport("gdi32.dll", ExactSpelling = true, SetLastError = true)]
+        public static extern int DeleteDC(IntPtr hDC);
+
+        [DllImport("gdi32.dll", ExactSpelling = true, SetLastError = true)]
+        public static extern int DeleteObject(IntPtr hObj);
+
+        [DllImport("user32.dll", ExactSpelling = true, SetLastError = true)]
+        public static extern int UpdateLayeredWindow(IntPtr hwnd, IntPtr hdcDst, ref Point pptDst, ref Size psize, IntPtr hdcSrc, ref Point pptSrc, Int32 crKey, ref BLENDFUNCTION pblend, Int32 dwFlags);
+
+        [DllImport("gdi32.dll", ExactSpelling = true, SetLastError = true)]
+        public static extern IntPtr ExtCreateRegion(IntPtr lpXform, uint nCount, IntPtr rgnData);
+
+        [DllImport("user32")]
+        public static extern int SendMessage(IntPtr hwnd, int msg, int wp, int lp);
+    }
     #region win32消息功能参考
     /**
      * 

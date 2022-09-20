@@ -35,13 +35,12 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(384, 256);
-            this.firstColor = System.Drawing.Color.AliceBlue;
-            this.FormBorderWidth = 10;
+            this.firstColor = System.Drawing.Color.Indigo;
+            this.FormBorderWidth = 3F;
             this.IsUseTwoColor = true;
             this.Name = "WhMsgBoxForm";
-            this.Radius = 3F;
+            this.Radius = 7F;
             this.SecondColor = System.Drawing.Color.RoyalBlue;
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "WhMsgBoxForm";
             this.ResumeLayout(false);
 

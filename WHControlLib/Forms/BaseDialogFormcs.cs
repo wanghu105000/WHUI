@@ -13,16 +13,33 @@ namespace WHControlLib.Forms
 {
     public partial class BaseDialogFormcs : Form
     {
+
+        private void InitializeStyles()
+        {
+            SetStyle(
+                ControlStyles.UserPaint |
+                ControlStyles.AllPaintingInWmPaint |
+                ControlStyles.OptimizedDoubleBuffer |
+                ControlStyles.ResizeRedraw |
+                ControlStyles.SupportsTransparentBackColor, true);
+            SetStyle(ControlStyles.Selectable, false);
+            UpdateStyles();
+        }
+
+
+
         public BaseDialogFormcs()
         {//设置双缓冲
 
-            this.SetStyle(ControlStyles.OptimizedDoubleBuffer |
-                     ControlStyles.ResizeRedraw |
-                     ControlStyles.AllPaintingInWmPaint, true);
-
+            //this.SetStyle(ControlStyles.OptimizedDoubleBuffer |
+            //         ControlStyles.ResizeRedraw |
+            //         ControlStyles.AllPaintingInWmPaint, true);
+            InitializeStyles();
             InitializeComponent();
             this.FormBorderStyle = FormBorderStyle.None;
-         
+
+            //this.TopMost = true;
+            this.StartPosition = FormStartPosition.CenterScreen;
 
         }
 
@@ -145,24 +162,30 @@ namespace WHControlLib.Forms
             //SolidBrush FillFormBrush=new SolidBrush()
 
             RectangleF DrawRct = new RectangleF();
+            DrawRct.X = Myrect.X-FormBorderWidth/2;
+            DrawRct.Y = Myrect.Y-FormBorderWidth/2;
+            DrawRct.Width = Myrect.Width-FormBorderWidth;
+            DrawRct.Height = Myrect.Height-FormBorderWidth ;
+
             GraphicsPath RoundPath = new GraphicsPath();
 
-            RoundPath = DrawHelper.GetFillRoundRectFPath(Myrect, FormBorderWidth, Radius);
+            RoundPath = DrawHelper.GetFillRoundRectFPath(DrawRct, FormBorderWidth, Radius);
             Region Formreg = new Region(RoundPath);
             if (IsUseTwoColor)
             {
-                RectangleF topRct = new RectangleF();
-                RectangleF BottomRct = new RectangleF();
-                topRct.X = MyRect.X;
-                topRct.Y = MyRect.Y;
-                topRct.Width = MyRect.Width;
-                topRct.Height = MyRect.Height / 3;
-                BottomRct.X = MyRect.X;
-                BottomRct.Y = MyRect.Y + topRct.Height;
-                BottomRct.Width = MyRect.Width;
-                BottomRct.Height = MyRect.Height - topRct.Height;
+                //RectangleF topRct = new RectangleF();
+                //RectangleF BottomRct = new RectangleF();
+                //topRct.X = MyRect.X;
+                //topRct.Y = MyRect.Y;
+                //topRct.Width = MyRect.Width;
+                //topRct.Height = MyRect.Height / 3;
+                //BottomRct.X = MyRect.X;
+                //BottomRct.Y = MyRect.Y + topRct.Height;
+                //BottomRct.Width = MyRect.Width;
+                //BottomRct.Height = MyRect.Height - topRct.Height;
                 using (LinearGradientBrush LinerBrush = new LinearGradientBrush(Myrect, firstColor, SecondColor, LinearGradientMode.Vertical))
                 {
+                    Myg.FillRectangle(new SolidBrush( Color.Transparent), DrawRct);
                     Myg.FillRegion(LinerBrush, Formreg);
                 }
 
@@ -177,7 +200,9 @@ namespace WHControlLib.Forms
             {
                 using (Pen formBodyPen=new Pen(FormBorderColor,FormBorderWidth))
                 {
-                    Myg.DrawPath(formBodyPen, RoundPath);
+                     GraphicsPath formbodypath=new GraphicsPath();
+                    formbodypath= DrawHelper.GetFillRoundRectFPath(Myrect, FormBorderWidth, Radius);
+                    Myg.DrawPath(formBodyPen, formbodypath);
                 }
             }
 
@@ -191,6 +216,16 @@ namespace WHControlLib.Forms
         }
 
 
+
+        //protected override CreateParams CreateParams
+        //{
+        //    get
+        //    {
+        //        CreateParams cParms = base.CreateParams;
+        //        cParms.ExStyle |= 0x00080000; // WS_EX_LAYERED
+        //        return cParms;
+        //    }
+        //}
 
 
 
