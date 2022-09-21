@@ -49,7 +49,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(448, 363);
+            this.ClientSize = new System.Drawing.Size(894, 552);
             this.CloseBoxSelectColor = System.Drawing.Color.Tomato;
             this.Controls.Add(this.button1);
             this.FormBorderColor = System.Drawing.Color.DarkOrange;
@@ -58,7 +58,7 @@
             this.IsUserChangeSize = true;
             this.MaxMinSelectColor = System.Drawing.Color.DeepSkyBlue;
             this.Name = "testForm";
-            this.Text = "testForm";
+            this.Text = "信息提示";
             this.TitleBoxShapeColor = System.Drawing.Color.AliceBlue;
             this.TitleFirstColor = System.Drawing.Color.Crimson;
             this.TitleHeight = 30;

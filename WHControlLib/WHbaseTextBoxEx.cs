@@ -129,10 +129,7 @@ namespace WHControlLib
 
         }
 
-        private void WHbaseTextBoxEx_Layout(object sender, LayoutEventArgs e)
-        {
-            
-        }
+     
         //   win32 发窗口消息方法 画水印
 
         //if (IsDisplayWaterMark&& WaterMarkString!=""&& !textbox.Focused)

@@ -150,6 +150,41 @@ namespace WHControlLib
             get { return (WaterMarkDirection)  textbox.WaterMarkDire; }
             set {  textbox.WaterMarkDire= (int)value; Invalidate(); }
         }
+        //private bool _isAllowMultieLine;
+        [Category("A我的"), Description("是否允许多行文本，默认 false，单行"), Browsable(true)]
+        public bool IsAllowMultieLine
+        {
+            get { return textbox.Multiline; }
+            set { textbox.Multiline = value; }
+        }
+        //private Color _myFontColor=Color.Black;
+        [Category("A我的"), Description("文本的颜色，默认   黑色，"), Browsable(true)]
+        public Color MyFontColor
+        {
+            get { return textbox.ForeColor; }
+            set { textbox.ForeColor= value; }
+        }
+
+        //private bool _isCanEditText;
+        [Category("A我的"), Description("是否可以编辑文本框内容，默认  true，"), Browsable(true)]
+        public bool IsCanEditText
+        {
+            get
+            {
+                if (textbox.ReadOnly)
+                {
+                    return false;
+                }
+                else return true;
+                 }
+            set
+            {
+                if (value)
+                {
+                    textbox.ReadOnly = false;
+                }
+               else textbox.ReadOnly = true; }
+        }
 
 
         #endregion
@@ -176,7 +211,7 @@ namespace WHControlLib
             Myg.InterpolationMode = InterpolationMode.HighQualityBicubic;
            
             //**************资源申请********************
-            SolidBrush backgroundBrush =new SolidBrush(Parent.BackColor);
+            SolidBrush backgroundBrush =new SolidBrush(Color.Transparent);
             SolidBrush fillbackgroundBrush=new SolidBrush(FillBackgroundColor);
             //****************************************
       
