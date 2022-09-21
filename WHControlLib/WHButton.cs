@@ -21,14 +21,24 @@ namespace WHControlLib
                      ControlStyles.AllPaintingInWmPaint, true);
            
             InitializeComponent();
+
+            this.BackColor = Color.Yellow;
+
         }
+
+        //全局定义
+
+        Rectangle MyRect = new Rectangle();
+        Rectangle DrawRect=new Rectangle();
+
+       //********************
         #region 属性字段定义
         private Color bornColor = Color.Blue;
 
         /// <summary>
         /// 边框颜色
         /// </summary>
-        [Category("我的"), Description("边框颜色"), Browsable(true)]
+        [Category("A我的"), Description("边框颜色"), Browsable(true)]
         public Color BornColor
         {
             get { return bornColor; }
@@ -39,7 +49,7 @@ namespace WHControlLib
         /// <summary>
         /// 圆角大小比例
         /// </summary>
-        [Category("我的"), Description(" 圆角大小比例默认5.0,值越大圆角比例越小，不能小于2"), Browsable(true)]
+        [Category("A我的"), Description(" 圆角大小比例默认5.0,值越大圆角比例越小，不能小于2"), Browsable(true)]
         public float Radius
         {
             get { return radius; }
@@ -58,7 +68,7 @@ namespace WHControlLib
         /// 背景填充色
         /// </summary>
         private Color _fillcolor = Color.Orange;
-        [Category("我的"), Description(" 背景填充色"), Browsable(true)]
+        [Category("A我的"), Description(" 背景填充色"), Browsable(true)]
         public Color Fillcolor
         {
             get { return _fillcolor; }
@@ -68,7 +78,7 @@ namespace WHControlLib
                 this.Invalidate(); }
         }
         private Color fontColor = Color.Black;
-        [Category("我的"), Description(" 字体颜色，默认黑色"), Browsable(true)]
+        [Category("A我的"), Description(" 字体颜色，默认黑色"), Browsable(true)]
         public Color FontColor
         {
             get { return fontColor; }
@@ -76,14 +86,14 @@ namespace WHControlLib
         }
 
         private bool isHightLight=true;
-        [Category("我的"), Description("是否添加高光，默认True"), Browsable(true)]
+        [Category("A我的"), Description("是否添加高光，默认True"), Browsable(true)]
         public bool IsHightLight
         {
             get { return isHightLight; }
             set { isHightLight= value; this.Invalidate(); }
         }
 
-        [Category("我的"), Description("是否有边框"), Browsable(true)]
+        [Category("A我的"), Description("是否有边框"), Browsable(true)]
         public bool IsDrawBoin { get; set; }
         /// <summary>
         /// 储存控件变亮后的填充颜色
@@ -94,19 +104,38 @@ namespace WHControlLib
         /// </summary>
         private Color OrgoinFillcolor;
 
+        private int _borderWidth=2;
+        [Category("A我的"), Description("边框的宽度，默认 2"), Browsable(true)]
+        public int BorderWidth
+        {
+            get { return _borderWidth; }
+            set { _borderWidth = value; }
+        }
+
         #endregion
 
 
+        void BeginPainIni()
+        {
+            MyRect = this.ClientRectangle;
+            DrawRect.X  = MyRect.X + BorderWidth / 2;
+            DrawRect.Y = MyRect.Y + BorderWidth / 2;
+            DrawRect.Width = MyRect.Width - BorderWidth;
+            DrawRect.Height=MyRect.Height - BorderWidth;    
+            
+
+
+        }
 
         protected override void OnPaint(PaintEventArgs pevent)
         {
             base.OnPaint(pevent);
-
+            BeginPainIni();
 
 
             Graphics g = pevent.Graphics;
 
-            SolidBrush backgroundBrush = new SolidBrush(this.Parent.BackColor);
+            SolidBrush backgroundBrush = new SolidBrush(Color.Transparent);
             SolidBrush FillBrush = new SolidBrush(Fillcolor);
             SolidBrush FontBrush = new SolidBrush(FontColor);
 
@@ -115,20 +144,26 @@ namespace WHControlLib
             g.InterpolationMode = InterpolationMode.HighQualityBicubic;
             
             Pen BornPen = new Pen(BornColor, 2);
-            Rectangle MyRect = this.ClientRectangle;
+                  
 
             //画控件
 
-            GraphicsPath FillPath = GetMyRegion(MyRect);
-            g.FillRectangle(backgroundBrush, MyRect);
+            //GraphicsPath FillPath = GetMyRegion(MyRect);
+            GraphicsPath FillPath = DrawHelper.GetRoundRectangePath(DrawRect, BorderWidth, Radius);
+            this.Region = new Region(FillPath);
+            //g.FillRectangle(backgroundBrush, MyRect);
 
             g.FillPath(FillBrush, FillPath);
             //画边框
             if (IsDrawBoin)
             {
+                GraphicsPath borderPath = DrawHelper.GetRoundRectangePath(MyRect, BorderWidth, Radius);
+                   
+                g.DrawPath(BornPen, borderPath);
 
-                DrawBoin(g, BornPen, MyRect);
+                //DrawBoin(g, BornPen, MyRect);
             }
+          
             //添加高光
             if (IsHightLight) SetMyLightOn(g, MyRect);
 
@@ -139,7 +174,7 @@ namespace WHControlLib
 
             //画文字
 
-            DrawText(g, FontBrush, MyRect);
+            DrawText(g, FontBrush, DrawRect);
 
 
 

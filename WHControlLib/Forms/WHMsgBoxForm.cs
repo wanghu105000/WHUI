@@ -18,5 +18,17 @@ namespace WHControlLib.Forms
 
           
         }
+
+        private void whButtonPro1_Load(object sender, EventArgs e)
+        {
+          
+
+        }
+
+        private void whButtonPro1_MouseClick(object sender, MouseEventArgs e)
+        {
+            whTextBox1.MyText = "你好";
+
+        }
     }
 }

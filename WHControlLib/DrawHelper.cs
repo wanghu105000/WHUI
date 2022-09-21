@@ -236,8 +236,37 @@ namespace WHControlLib
             Image image = Image.FromStream(mStream);
             return image;
         }
+        /// <summary>
+        /// 返回变亮或变暗后的颜色
+        /// </summary>
+        /// <param name="OrginColor">原来的颜色</param>
+        /// <param name="AddLight">加亮的程度，参考+变亮-变暗 参考数 50</param>
+        /// <returns></returns>
+        public static Color GetChangeColor(Color OrginColor,int AddLight)
+        {
+            /// 将控件颜色变亮
+            Color Tempcolor = new Color(); 
+          
 
-        public void SetBits(Bitmap bitmap, IntPtr FormHandle, bool haveHandle )
+            Color c = OrginColor;
+            int r = c.R + AddLight;
+            if (r > 255) r = 255;
+
+            int g = c.G + AddLight-10;
+            if (g > 255) g = 255;
+
+            int b = c.B + AddLight-20;
+            if (b > 255) b = 255;
+
+
+         return   Tempcolor = Color.FromArgb(r, g, b);
+
+
+
+        }
+
+        #region 暂时为使用的方法
+     public void SetBits(Bitmap bitmap, IntPtr FormHandle, bool haveHandle )
         {
             if (!haveHandle) return;
 
@@ -277,9 +306,9 @@ namespace WHControlLib
                 Win32.DeleteDC(memDc);
             }
         }
-
-        #region 暂时为使用的方法
-
+       
+        
+        
         /// <summary>
         /// 得到两种颜色的过渡色（1代表开始色，100表示结束色）
         /// </summary>

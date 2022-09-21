@@ -34,7 +34,14 @@ namespace WHControlLib
             MyFont = this.textbox.Font;
         }
         #region 属性，字段，定义
- 
+      
+        [Category("A我的"), Description("本控件是否可用，默认，true、"), Browsable(true)]
+        public bool IsEnable
+        {
+            get { return textbox.Enabled; }
+            set { textbox.Enabled = value; }
+        }
+
 
         private int _borderWidth = 2;
         [Category("A我的"), DefaultValue(typeof(int), "2"), Description("控件外边框宽度，默认，2,不能小于1"), Browsable(true)]

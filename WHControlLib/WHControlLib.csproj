@@ -72,6 +72,12 @@
     <Compile Include="WHButton.Designer.cs">
       <DependentUpon>WHButton.cs</DependentUpon>
     </Compile>
+    <Compile Include="WHButtonPro.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="WHButtonPro.Designer.cs">
+      <DependentUpon>WHButtonPro.cs</DependentUpon>
+    </Compile>
     <Compile Include="WHCheckBox.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -113,6 +119,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="WHButton.resx">
       <DependentUpon>WHButton.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="WHButtonPro.resx">
+      <DependentUpon>WHButtonPro.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="WHCheckBox.resx">
       <DependentUpon>WHCheckBox.cs</DependentUpon>
