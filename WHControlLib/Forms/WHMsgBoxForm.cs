@@ -25,10 +25,12 @@ namespace WHControlLib.Forms
 
         }
 
-        private void whButtonPro1_MouseClick(object sender, MouseEventArgs e)
-        {
-            whTextBox1.MyText = "你好";
 
+
+        private void whButtonPro1_Click(object sender, EventArgs e)
+        {
+            whButtonPro1.Text = "你好";
+            MessageBox.Show(whButtonPro1.Text);
         }
     }
 }

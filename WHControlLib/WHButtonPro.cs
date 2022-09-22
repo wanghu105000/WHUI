@@ -11,6 +11,8 @@ using System.Windows.Forms;
 
 namespace WHControlLib
 {
+        [DefaultEvent("Click")]
+        [DefaultProperty("Text")]
     public partial class WHButtonPro : UserControl
     {
         public WHButtonPro()
@@ -48,15 +50,20 @@ namespace WHControlLib
         {
             Center,Left,Right
         }
-        private string _myText;
-        [Category("A我的"), Description("文字在控件上显示文字，默认"), Browsable(true)]
-        public  string MyText
-          
-        {
-            get { return _myText; }
-            set { _myText = value; Invalidate(); }
-        }
 
+
+        //private string _myText;
+
+        //public  string MyText
+
+        //{
+        //    get { return _myText; }
+        //    set { _myText = value; Invalidate(); }
+        //}
+        [Category("A我的"), Description("文字在控件上显示文字，默认"), Browsable(true)]
+        [EditorBrowsable(EditorBrowsableState.Always)]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
+        public override string Text { get; set; }
 
         private TextAlign _myTextAlign=TextAlign.Center;
         [Category("A我的"), Description("文字在控件上显示的对齐方式，默认，中间对齐"), Browsable(true)]
@@ -151,24 +158,18 @@ namespace WHControlLib
             set { fontColor = value; this.Invalidate(); }
         }
 
-        private bool isHightLight = true;
-        [Category("A我的"), Description("是否添加高光，默认True"), Browsable(true)]
-        public bool IsHightLight
+        private Font _myFont=new Font("微软雅黑", 12.0f, 0, GraphicsUnit.Point, 1);
+        [Category("A我的"), Description(" 控件字体，默认 微软雅黑12t"), Browsable(true)]
+        public Font MyFont
         {
-            get { return isHightLight; }
-            set { isHightLight = value; this.Invalidate(); }
+            get { return _myFont; }
+            set { _myFont = value; this.Invalidate(); }
         }
+
 
         [Category("A我的"), Description("是否有边框"), Browsable(true)]
         public bool IsDrawBoin { get; set; }
-        /// <summary>
-        /// 储存控件变亮后的填充颜色
-        /// </summary>
-        private Color TempFillcolor;
-        /// <summary>
-        /// 储存控件原来的填充色
-        /// </summary>
-        private Color OrgoinFillcolor;
+
 
         private int _borderWidth = 2;
         [Category("A我的"), Description("边框的宽度，默认 2"), Browsable(true)]
@@ -314,9 +315,46 @@ namespace WHControlLib
             }
            
             GraphicsPath Borderpath = new GraphicsPath();
-            Borderpath = DrawHelper.GetRoundRectangePath(MyRect, BorderWidth, Radius);
+            //得到外形轮廓路径
+            switch (MyShape)
+            {       
+                case Shape.RoundRectange:
+                    Borderpath = DrawHelper.GetRoundRectangePath(MyRect, BorderWidth, Radius);
+                    break;
+                case Shape.HalfCircle:
+                    Borderpath = DrawHelper.GetTwoHalfCircleRect(MyRect, BorderWidth);
+                    break;
+                case Shape.Rectange:
+                    Borderpath = DrawHelper.GetRectangePath(MyRect, BorderWidth);
+                    break;
+                default:
+                    Borderpath = DrawHelper.GetRoundRectangePath(MyRect, BorderWidth, Radius);
+                    break;
+            }
+
+            //Borderpath = DrawHelper.GetRoundRectangePath(MyRect, BorderWidth, Radius);
             GraphicsPath FillPath = new GraphicsPath();
-            FillPath = DrawHelper.GetRoundRectangePath(DrawRect, BorderWidth, Radius);
+            //得到内部填充路径
+
+            switch (MyShape)
+            {
+                case Shape.RoundRectange:
+                    FillPath = DrawHelper.GetRoundRectangePath(DrawRect, BorderWidth, Radius);
+                    break;
+                case Shape.HalfCircle:
+                    FillPath = DrawHelper.GetTwoHalfCircleRect(DrawRect, BorderWidth);
+                    break;
+                case Shape.Rectange:
+                    FillPath = DrawHelper.GetRectangePath(DrawRect, BorderWidth);
+                    break;
+                default:
+                    FillPath = DrawHelper.GetRoundRectangePath(DrawRect, BorderWidth, Radius);
+                    break;
+            }
+
+
+
+            //FillPath = DrawHelper.GetRoundRectangePath(DrawRect, BorderWidth, Radius);
             if (IsUseTwoColor)
             {
                 Myg.FillPath(FillBrush, FillPath);
@@ -352,7 +390,7 @@ namespace WHControlLib
             if (MyTextAlign == TextAlign.Right) sf.Alignment = StringAlignment.Far;
 
             sf.LineAlignment = StringAlignment.Center;
-           Myg.DrawString(MyText, this.Font, FontBrush, TexRect, sf);
+           Myg.DrawString(Text, MyFont, FontBrush, TexRect, sf);
 
             //也可以用效果不好
             //TextRenderer.DrawText(g, this.Text, this.Font, pevent.ClipRectangle, FontColor);

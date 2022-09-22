@@ -123,7 +123,27 @@ namespace WHControlLib
             return myfillPath;
 
         }
+        /// <summary>
+        /// 获得矩形路径
+        /// </summary>
+        /// <param name="Myrect"></param>
+        /// <param name="BorderWidth"></param>
+        /// <returns></returns>
+        public static GraphicsPath GetRectangePath(Rectangle Myrect, float BorderWidth)
+        {
+            GraphicsPath path = new GraphicsPath();
+            float PenWidth = BorderWidth / 2;
 
+            RectangleF WorkRct = new Rectangle();
+            WorkRct.X = Myrect.X + PenWidth;
+            WorkRct.Y = Myrect.Y + PenWidth;
+            WorkRct.Width = Myrect.Width - BorderWidth-PenWidth;
+            WorkRct.Height = Myrect.Height - BorderWidth-PenWidth;
+            path.AddRectangle(WorkRct);
+            return path;
+
+
+        }
 
         //public static GraphicsPath GetBorderRoundRectFPath(RectangleF Myrect, int borderWidth, float Radius)
         //{
