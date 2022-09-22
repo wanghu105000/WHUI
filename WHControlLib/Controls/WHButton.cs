@@ -8,21 +8,16 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace WHControlLib.Forms
+namespace WHControlLib.Controls
 {
-    public partial class WhMsgBoxForm : BaseDialogFormcs
+    [ToolboxItem(true)]
+    [DefaultEvent("Click")]
+    [DefaultProperty("Text")]
+    public partial class WHButton : baseStaticCtrl
     {
-        public WhMsgBoxForm()
+        public WHButton()
         {
             InitializeComponent();
-
-          
         }
-
-
-
-
-
-
     }
 }

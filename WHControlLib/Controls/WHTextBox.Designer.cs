@@ -30,7 +30,7 @@
         {
             this.components = new System.ComponentModel.Container();
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.textbox = new WHControlLib.WHbaseTextBoxEx();
+            this.textbox = new WHControlLib.baseTextBoxEx();
             this.SuspendLayout();
             // 
             // contextMenuStrip1
@@ -68,6 +68,6 @@
 
         #endregion
         private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
-        private WHbaseTextBoxEx textbox;
+        private baseTextBoxEx textbox;
     }
 }

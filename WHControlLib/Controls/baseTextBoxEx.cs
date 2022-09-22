@@ -12,8 +12,8 @@ using System.Windows.Forms;
 namespace WHControlLib
 {
 
-  
-    public partial class WHbaseTextBoxEx :TextBox
+    [ToolboxItem(false)]
+    public partial class baseTextBoxEx :TextBox
     {
         /// <summary>
         /// 自绘消息
@@ -63,7 +63,7 @@ namespace WHControlLib
 
 
 
-        public WHbaseTextBoxEx()
+        public baseTextBoxEx()
         {
            
             InitializeComponent();

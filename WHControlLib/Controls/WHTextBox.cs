@@ -107,16 +107,23 @@ namespace WHControlLib
         }
 
         //private  string _text = null;
-        [Category("A我的"), Description("文本框显示的文字文本取代Text属性 ，只能用MyText不能用Text属性，默认 无文字，"), Browsable(true)]
+        //[Category("A我的"), Description("文本框显示的文字文本取代Text属性 ，只能用MyText不能用Text属性，默认 无文字，"), Browsable(true)]
 
 
-        public  string MyText
-        {
-            get {  return textbox.Text; }
+        //public  string MyText
+        //{
+        //    get {  return textbox.Text; }
 
-            set { textbox.Text = value; ; }
+        //    set { textbox.Text = value; ; }
 
-        }
+        //}
+
+        ////当用隐藏的Text属性时必须这么加特性才能使本控件使用
+        [Category("A我的"), Description("文本框显示的文字文本，默认"), Browsable(true)]
+        [EditorBrowsable(EditorBrowsableState.Always)]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
+        public override string Text { get; set; }
+
 
         //private bool _isDisplayWaterMark=false;
         [Category("A我的"), Description("是否显示水印，默认 ，不显示水印文字，"), Browsable(true)]

@@ -13,9 +13,10 @@ namespace WHControlLib
 {
         [DefaultEvent("Click")]
         [DefaultProperty("Text")]
-    public partial class WHButtonPro : UserControl
+    [ToolboxItem(false)]
+    public partial class baseStaticCtrl : UserControl
     {
-        public WHButtonPro()
+        public baseStaticCtrl()
         {
             this.SetStyle(ControlStyles.OptimizedDoubleBuffer |
                   ControlStyles.ResizeRedraw |
@@ -52,14 +53,7 @@ namespace WHControlLib
         }
 
 
-        //private string _myText;
-
-        //public  string MyText
-
-        //{
-        //    get { return _myText; }
-        //    set { _myText = value; Invalidate(); }
-        //}
+         ////当用隐藏的Text属性时必须这么加特性才能使本控件使用
         [Category("A我的"), Description("文字在控件上显示文字，默认"), Browsable(true)]
         [EditorBrowsable(EditorBrowsableState.Always)]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
@@ -196,7 +190,7 @@ namespace WHControlLib
         }
 
         private Color _onMouseColor=Color.BurlyWood;
-        [Category("A我的"), Description("当鼠标停留在控件上的颜色填充，默认 浅橙色 "), Browsable(true)]
+        [Category("A我的"), Description("当鼠标停留在控件上的颜色填充,只有启用一种颜色填充时候才起作用，默认 浅橙色 "), Browsable(true)]
         public Color OnMouseColor
         {
             get { return _onMouseColor; }

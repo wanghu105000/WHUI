@@ -1,6 +1,6 @@
 ﻿namespace WHControlLib
 {
-    partial class WHButtonPro
+    partial class baseTextBoxEx
     {
         /// <summary> 
         /// 必需的设计器变量。
@@ -30,13 +30,11 @@
         {
             this.SuspendLayout();
             // 
-            // WHButtonPro
+            // WHbaseTextBoxEx
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.Transparent;
-            this.Name = "WHButtonPro";
-            this.Size = new System.Drawing.Size(187, 110);
+            this.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.Font = new System.Drawing.Font("微软雅黑", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+    
             this.ResumeLayout(false);
 
         }
