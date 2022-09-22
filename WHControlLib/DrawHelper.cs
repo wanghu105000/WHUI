@@ -194,8 +194,8 @@ namespace WHControlLib
             GraphicsPath path = new GraphicsPath();
             float  PenWidth=BorderWidth/2;
            float HWheight = MYRect.Height / Radius;
-            //float w = HWheight- textboxlinewidth;
-            float w = HWheight ;
+            //定义四角小正方形的长度  这里不减一半线宽会发现画外边框两边的对不齐
+            float w = HWheight-PenWidth ;
             /*     */
             //float h = HWheight ;
             RectangleF topLeftRect=new RectangleF(MYRect.X+PenWidth, MYRect.Y+PenWidth, w, w);
@@ -271,15 +271,16 @@ namespace WHControlLib
             Color c = OrginColor;
             int r = c.R + AddLight;
             if (r > 255) r = 255;
+            if (r < 0) r = 0;   
 
             int g = c.G + AddLight-10;
             if (g > 255) g = 255;
-
+            if (g < 0) g = 0;
             int b = c.B + AddLight-20;
             if (b > 255) b = 255;
+            if (b < 0) b = 0;
 
-
-         return   Tempcolor = Color.FromArgb(r, g, b);
+            return   Tempcolor = Color.FromArgb(r, g, b);
 
 
 

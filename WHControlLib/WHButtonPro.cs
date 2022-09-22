@@ -165,7 +165,7 @@ namespace WHControlLib
             get { return _myFont; }
             set { _myFont = value; this.Invalidate(); }
         }
-
+  
 
         [Category("A我的"), Description("是否有边框"), Browsable(true)]
         public bool IsDrawBoin { get; set; }
@@ -185,6 +185,16 @@ namespace WHControlLib
             get { return _isUseTwoColor; }
             set { _isUseTwoColor = value; Invalidate(); }
         }
+        //const int ColorChangeint = 50;
+
+        private int _colorChangeint=50;
+        [Category("A我的"), Description("当选择两种颜色填空控件时，鼠标移动上控件时的控件颜色变化值，正值变亮，负值变暗，默认 50"), Browsable(true)]
+        public int ColorChangeint
+        {
+            get { return _colorChangeint; }
+            set { _colorChangeint = value; }
+        }
+
         private Color _onMouseColor=Color.BurlyWood;
         [Category("A我的"), Description("当鼠标停留在控件上的颜色填充，默认 浅橙色 "), Browsable(true)]
         public Color OnMouseColor
@@ -250,7 +260,7 @@ namespace WHControlLib
         }
         void  DrawRoungRectShape(Graphics Myg)
         {
-            const int ColorChangeint = 50;
+       
             LinearGradientBrush FillBrush;
             SolidBrush SFillBrush;
             if (IsMouseOnFlag)
