@@ -5,6 +5,7 @@ using System.Data;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -38,9 +39,9 @@ namespace WHControlLib
        /// 鼠标是否停留在控件上的标志
        /// </summary>
         bool IsMouseOnFlag=false;
-        bool IsMouseOverFlag=false;
-        bool    IsMouseLeaveFlag=false;
-        bool IsMouseClickFlag=false;
+        //bool IsMouseOverFlag=false;
+        //bool    IsMouseLeaveFlag=false;
+        //bool IsMouseClickFlag=false;
         //********************
         #region 属性字段定义
       public  enum FillColorDec
@@ -224,6 +225,98 @@ namespace WHControlLib
             set { _isShowFouceLine = value; }
         }
 
+        //角标属性设置
+        private bool _isShowMark;
+        [Category("A我的角标"), Description("控件上是否显示角标，默认 false 不显示 "), Browsable(true)]
+        public bool  IsShowMark
+        {
+            get { return _isShowMark; }
+            set { _isShowMark = value; Invalidate(); }
+        }
+        private Color _markBackColor=Color.Red;
+        [Category("A我的角标"), Description("控件上角标的背景色，默认 红色 "), Browsable(true)]
+        public Color MarkBackColor
+        {
+            get { return _markBackColor; }
+            set { _markBackColor = value; Invalidate(); }
+        }
+        private Color _markTextColor = Color.White;
+        [Category("A我的角标"), Description("控件上角标上文字的颜色，默认 白色 "), Browsable(true)]
+        public Color MarkTextColor
+        {
+            get { return _markTextColor; }
+            set { _markTextColor = value; Invalidate(); }
+        }
+
+        private string _markText="";
+        [Category("A我的角标"), Description("控件上角标上文字 文本，默认 无 "), Browsable(true)]
+        public string MarkText
+        {
+            get { return _markText; }
+            set { _markText= value; Invalidate(); }
+        }
+
+        private float _markHeight=2.0f  ;
+        [Category("A我的角标"), Description("控件上角标的高度，采用比例形式 为控件高度的几份之一，默认 2.0f 分之一,不能小于1.0f "), Browsable(true)]
+        public float MarkHeight  
+        {
+            get { return _markHeight ; }
+            set
+            {
+                if (value<1)
+                {
+                    _markHeight = 1.0f;
+
+                }
+                else
+                _markHeight  = value; Invalidate(); }
+        }
+        private bool _isShowMarkBorder  ;
+        [Category("A我的角标"), Description("是否显示角标外形边框 ，默认 无 "), Browsable(true)]
+        public bool IsShowMarkBorder
+        {
+            get { return _isShowMarkBorder; }
+            set { _isShowMarkBorder = value; Invalidate(); }
+        }
+        private int _markBorderWidth=1;
+        [Category("A我的角标"), Description("角标外形边框的宽度 ，默认 1 "), Browsable(true)]
+        public int MarkBorderWidth
+        {
+            get { return _markBorderWidth; }
+            set { _markBorderWidth = value; Invalidate(); }
+        }
+        private Color _markBorderColor=Color.White;
+        [Category("A我的角标"), Description("角标外形边框的颜色 ，默认 白色 "), Browsable(true)]
+        public Color MarkBorderColor
+        {
+            get { return _markBorderColor; }
+            set { _markBorderColor = value; Invalidate(); }
+        }
+        private Color _markerTextColor=Color.White;
+        [Category("A我的角标"), Description("角标文本的颜色 ，默认 白色 "), Browsable(true)]
+        public Color MarkerTextColor
+        {
+            get { return _markerTextColor; }
+            set { _markerTextColor= value; Invalidate(); }
+        }
+
+        private int _markerTextSzie = 10;
+        [Category("A我的角标"), Description("角标文字的大小，默认  10 ,数值越大文字越大"), Browsable(true)]
+        public int MarkerTextSzie
+        {
+            get { return _markerTextSzie; }
+            set
+            {
+                if (value <= 0) _markerTextSzie = 10;
+
+                else _markerTextSzie = value;
+
+                Invalidate();
+            }
+        }
+
+           
+
         #endregion
 
 
@@ -247,13 +340,20 @@ namespace WHControlLib
             Myg.CompositingQuality = CompositingQuality.HighQuality;
             Myg.InterpolationMode = InterpolationMode.HighQualityBicubic;
 
-
+            //////////画形状并填充
+            
             DrawShape(Myg);
+           
+            ////画获得焦点时候的虚线
             if (IsShowFouceLine)
             {
                 DrawFouceLine(MyShape, Myg, DrawRect);
             }
-            
+            ////话角标
+            if (IsShowMark)
+            {
+                DrawMark(Myg, MyRect, BorderWidth);
+            }
             
         }
         protected override void OnMouseEnter(EventArgs e)
@@ -291,7 +391,7 @@ namespace WHControlLib
        /// <returns></returns>
         public virtual GraphicsPath GetShapeBorderPath(Shape MyShape,Rectangle MyRect,int BorderWidth,float Radius )
         {
-            GraphicsPath borderpath = new GraphicsPath();
+            GraphicsPath borderpath ;
             switch (MyShape)
             {
                 case Shape.RoundRectange:
@@ -323,7 +423,7 @@ namespace WHControlLib
         public virtual GraphicsPath GetShapeFillPath(Shape MyShape, Rectangle DrawRect, int BorderWidth, float Radius)
 
         {
-            GraphicsPath fillPath = new GraphicsPath();
+            GraphicsPath fillPath ;
 
 
             switch (MyShape)
@@ -351,10 +451,10 @@ namespace WHControlLib
         {
        
 
-            GraphicsPath Borderpath = new GraphicsPath();
+            GraphicsPath Borderpath ;
             //得到外形轮廓路径
             Borderpath = GetShapeBorderPath(MyShape, MyRect, BorderWidth, Radius);
-            GraphicsPath FillPath = new GraphicsPath();
+            GraphicsPath FillPath ;
             //得到内部填充路径
             FillPath = GetShapeFillPath(MyShape, DrawRect, BorderWidth, Radius);
 
@@ -410,7 +510,7 @@ namespace WHControlLib
                         else
 
 
-                            FillBrush = FillBrush = new LinearGradientBrush(DrawRect, FirstFillcolor, SecondFillcolor, LinearGradientMode.Vertical);
+                           FillBrush = new LinearGradientBrush(DrawRect, FirstFillcolor, SecondFillcolor, LinearGradientMode.Vertical);
                         break;
                 }
 
@@ -484,7 +584,7 @@ namespace WHControlLib
             if (this.Focused)
             {
                 Rectangle rct = new Rectangle( DrawRect.X+ 4,DrawRect.Y+ 4,DrawRect.Width - 8, DrawRect.Height - 8);
-                GraphicsPath path = new GraphicsPath();
+                GraphicsPath path ;
                 switch (MyShape)
                 {   
                     case Shape.RoundRectange:
@@ -517,10 +617,61 @@ namespace WHControlLib
             }
 
         }
-        public virtual void DrawMark(Graphics Myg, Rectangle MyRect)
-        {
-
+        public virtual void DrawMark(Graphics Myg, Rectangle MyRect, int BorderWidth)
+        { 
+            float penwidth = BorderWidth / 2;
+            RectangleF MarkRect = new RectangleF();
+            float R = MyRect.Height / MarkHeight;
+            MarkRect.Width = R-MarkBorderWidth;
+            MarkRect.Height = R-MarkBorderWidth;
+            MarkRect.X = MarkRect.X + MyRect.Width - R - BorderWidth- MarkBorderWidth / 2;
+            MarkRect.Y = MarkRect.Y +penwidth+MarkBorderWidth/2;
+            using (SolidBrush markfillbrush=new SolidBrush(MarkBackColor))
+            {
+                Myg.FillEllipse(markfillbrush, MarkRect);
+            }
+            if (IsShowMarkBorder)
+            {
+             using (Pen markborderPen=new Pen(MarkBorderColor,MarkBorderWidth))
+            {
+                Myg.DrawEllipse(markborderPen, MarkRect);
+            }
+            }
+            if (MarkText!="")
+            {
+                DrawMarkText(Myg, MarkRect);
+            }
 
         }
+    
+    
+    public virtual void DrawMarkText(Graphics Myg,RectangleF MarkRect)
+        {
+            SolidBrush MarkerTextBrush = new SolidBrush(MarkerTextColor);
+            Rectangle MarktextRct = new Rectangle();
+
+            Font f = new Font("微软雅黑", MarkerTextSzie);
+                 //////文字区域定义在了圆的内接正方形
+            int NowFontWidth = (int)(Math.Sqrt(2.0) * MarkRect.Width / 2);
+            int NowFontHeight = NowFontWidth;
+            MarktextRct.Width = NowFontWidth;
+            MarktextRct.Height = NowFontHeight;
+            MarktextRct.X = (int)(MarkRect.X + MarkRect.Width / 2 - MarktextRct.Width / 2);
+            MarktextRct.Y = (int)(MarkRect.Y + MarkRect.Height / 2 - MarktextRct.Height / 2);
+            ////文字的对齐方式
+            StringFormat sf = new StringFormat();
+            sf.Alignment = StringAlignment.Center;
+            sf.LineAlignment = StringAlignment.Center;
+      
+            sf.FormatFlags = StringFormatFlags.NoWrap;
+            Myg.DrawString(MarkText, f, MarkerTextBrush, MarktextRct, sf);
+        
+            f.Dispose();
+            MarkerTextBrush.Dispose();
+
+        }
+    
+    
+    
     }
 }

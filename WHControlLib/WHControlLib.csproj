@@ -46,11 +46,23 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controls\baseStaticCtrl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\baseStaticCtrl.designer.cs">
+      <DependentUpon>baseStaticCtrl.cs</DependentUpon>
+    </Compile>
     <Compile Include="Controls\WHButton.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="Controls\WHButton.Designer.cs">
       <DependentUpon>WHButton.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\WHCheckBox.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\WHCheckBox.designer.cs">
+      <DependentUpon>WHCheckBox.cs</DependentUpon>
     </Compile>
     <Compile Include="DrawHelper.cs" />
     <Compile Include="Forms\BaseDialogFormcs.cs">
@@ -72,18 +84,6 @@
       <DependentUpon>WhMsgBoxForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Controls\baseStaticCtrl.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Controls\baseStaticCtrl.Designer.cs">
-      <DependentUpon>baseStaticCtrl.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Controls\WHCheckBox.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Controls\WHCheckBox.Designer.cs">
-      <DependentUpon>WHCheckBox.cs</DependentUpon>
-    </Compile>
     <Compile Include="Controls\WHLable.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -111,20 +111,20 @@
     <Service Include="{94E38DFF-614B-4cbd-B67C-F211BB35CE8B}" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Controls\baseStaticCtrl.resx">
+      <DependentUpon>baseStaticCtrl.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Controls\WHButton.resx">
       <DependentUpon>WHButton.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\WHCheckBox.resx">
+      <DependentUpon>WHCheckBox.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\WHForm.resx">
       <DependentUpon>WHForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\WhMsgBoxForm.resx">
       <DependentUpon>WhMsgBoxForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Controls\baseStaticCtrl.resx">
-      <DependentUpon>baseStaticCtrl.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Controls\WHCheckBox.resx">
-      <DependentUpon>WHCheckBox.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Controls\WHSwithch.resx">
       <DependentUpon>WHSwithch.cs</DependentUpon>

@@ -189,6 +189,7 @@ namespace WHControlLib
             return Rpath;
         }
 
+        [Obsolete]
         void DrawFillSelectSquart(Graphics Myg,Rectangle MyRect)
         {
            SolidBrush Fillbrush=new SolidBrush(SelectSquartFillColor);
@@ -311,7 +312,7 @@ namespace WHControlLib
                
               int NowFontWidth =  (int) Myg.MeasureString(MyText, this.Font).Width;
                     
-                this.Width= insiderWidth + InSiderBorderWidth * 2 + NowFontWidth;
+                this.Width= insiderWidth + InSiderBorderWidth * 2 + NowFontWidth+5;
 
             }
           //不自动大小的时候
