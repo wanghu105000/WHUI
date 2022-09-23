@@ -47,22 +47,23 @@
             this.whButton1.BorderWidth = 2;
             this.whButton1.BornColor = System.Drawing.Color.Blue;
             this.whButton1.ColorChangeint = 50;
-            this.whButton1.FirstFillcolor = System.Drawing.Color.PapayaWhip;
+            this.whButton1.FirstFillcolor = System.Drawing.Color.Sienna;
             this.whButton1.FontColor = System.Drawing.Color.Black;
             this.whButton1.IsDrawBoin = false;
+            this.whButton1.IsShowText = true;
             this.whButton1.IsUseTwoColor = true;
-            this.whButton1.Location = new System.Drawing.Point(49, 128);
+            this.whButton1.Location = new System.Drawing.Point(72, 141);
             this.whButton1.MyFillColorDec = WHControlLib.baseStaticCtrl.FillColorDec.Vertical;
             this.whButton1.MyFont = new System.Drawing.Font("微软雅黑", 12F);
             this.whButton1.MyShape = WHControlLib.baseStaticCtrl.Shape.HalfCircle;
             this.whButton1.MyTextAlign = WHControlLib.baseStaticCtrl.TextAlign.Center;
             this.whButton1.Name = "whButton1";
-            this.whButton1.OnMouseColor = System.Drawing.Color.BurlyWood;
+            this.whButton1.OnMouseColor = System.Drawing.Color.Linen;
             this.whButton1.Radius = 5F;
             this.whButton1.SecondFillcolor = System.Drawing.Color.Orange;
-            this.whButton1.Size = new System.Drawing.Size(234, 75);
+            this.whButton1.Size = new System.Drawing.Size(246, 58);
             this.whButton1.TabIndex = 4;
-            this.whButton1.Text = "8ii";
+            this.whButton1.Text = "whButton1";
             // 
             // WhMsgBoxForm
             // 

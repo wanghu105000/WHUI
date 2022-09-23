@@ -26,8 +26,17 @@ namespace WHControlLib
 
         //全局定义
 
+        /// <summary>
+        /// 控件整体的矩形大小
+        /// </summary>
         Rectangle MyRect = new Rectangle();
+      /// <summary>
+      /// 需要画出控件的矩形大小因为控件本身是透明色，为了消除锯齿现象所以画出的控件 小于 本控件的实际大小。
+      /// </summary>
         Rectangle DrawRect = new Rectangle();
+       /// <summary>
+       /// 鼠标是否停留在控件上的标志
+       /// </summary>
         bool IsMouseOnFlag=false;
 
         //********************
@@ -197,6 +206,14 @@ namespace WHControlLib
             set { _onMouseColor = value; }
         }
 
+        private bool _isShowText=true;
+        [Category("A我的"), Description("控件上是否显示文字，默认 true 显示 "), Browsable(true)]
+        public bool IsShowText
+        {
+            get { return _isShowText; }
+            set { _isShowText = value; Invalidate(); }
+        }
+
 
         #endregion
 
@@ -222,7 +239,7 @@ namespace WHControlLib
             Myg.InterpolationMode = InterpolationMode.HighQualityBicubic;
 
 
-            DrawRoungRectShape(Myg);
+            DrawShape(Myg);
           
             
             
@@ -252,138 +269,187 @@ namespace WHControlLib
             IsMouseOnFlag = false;
             Invalidate();
         }
-        void  DrawRoungRectShape(Graphics Myg)
+       /// <summary>
+       /// 得到所选形状的外框路径
+       /// </summary>
+       /// <param name="MyShape">枚举中的一个形状</param>
+       /// <param name="MyRect">控件本身的全尺寸</param>
+       /// <param name="BorderWidth">控件的外框线宽</param>
+       /// <param name="Radius">如果是圆角矩形的圆角站该矩形的高的比例</param>
+       /// <returns></returns>
+        public virtual GraphicsPath GetShapeBorderPath(Shape MyShape,Rectangle MyRect,int BorderWidth,float Radius )
+        {
+            GraphicsPath borderpath = new GraphicsPath();
+            switch (MyShape)
+            {
+                case Shape.RoundRectange:
+                    borderpath = DrawHelper.GetRoundRectangePath(MyRect, BorderWidth, Radius);
+                    break;
+                case Shape.HalfCircle:
+                    borderpath = DrawHelper.GetTwoHalfCircleRect(MyRect, BorderWidth);
+                    break;
+                case Shape.Rectange:
+                    borderpath = DrawHelper.GetRectangePath(MyRect, BorderWidth);
+                    break;
+                default:
+                    borderpath = DrawHelper.GetRoundRectangePath(MyRect, BorderWidth, Radius);
+                    break;
+            }
+            return borderpath;
+
+        }
+
+        /// <summary>
+        /// 得到所选形状的内部填充色的路径，要小于外框路径
+        /// </summary>
+        /// <param name="MyShape"></param>
+        /// <param name="DrawRect"></param>
+        /// <param name="BorderWidth"></param>
+        /// <param name="Radius"></param>
+        /// <returns></returns>
+
+        public virtual GraphicsPath GetShapeFillPath(Shape MyShape, Rectangle DrawRect, int BorderWidth, float Radius)
+
+        {
+            GraphicsPath fillPath = new GraphicsPath();
+
+
+            switch (MyShape)
+            {
+                case Shape.RoundRectange:
+                    fillPath = DrawHelper.GetRoundRectangePath(DrawRect, BorderWidth, Radius);
+                    break;
+                case Shape.HalfCircle:
+                    fillPath = DrawHelper.GetTwoHalfCircleRect(DrawRect, BorderWidth);
+                    break;
+                case Shape.Rectange:
+                    fillPath = DrawHelper.GetRectangePath(DrawRect, BorderWidth);
+                    break;
+                default:
+                    fillPath = DrawHelper.GetRoundRectangePath(DrawRect, BorderWidth, Radius);
+                    break;
+            }
+            return fillPath;    
+
+        }
+
+
+
+        void  DrawShape(Graphics Myg)
         {
        
-            LinearGradientBrush FillBrush;
-            SolidBrush SFillBrush;
-            if (IsMouseOnFlag)
-            {
-                SFillBrush = new SolidBrush(OnMouseColor);
 
-            }
-            else SFillBrush = new SolidBrush(FirstFillcolor);
-
-
-            Pen BorderPen = new Pen(BornColor, BorderWidth);
-  
-            switch (MyFillColorDec)
-            {       
-                case FillColorDec.Vertical:
-                    if (IsMouseOnFlag)
-                    {
-                        FillBrush = new LinearGradientBrush(DrawRect,  DrawHelper.GetChangeColor(FirstFillcolor, ColorChangeint), DrawHelper.GetChangeColor(SecondFillcolor, ColorChangeint), LinearGradientMode.Vertical);
-                    }
-                    else
-
-                    FillBrush = new LinearGradientBrush(DrawRect, FirstFillcolor, SecondFillcolor, LinearGradientMode.Vertical);
-                    break;
-                case FillColorDec.Horizontal:
-                    if (IsMouseOnFlag)
-                    {
-                        FillBrush = new LinearGradientBrush(DrawRect, DrawHelper.GetChangeColor(FirstFillcolor, ColorChangeint), DrawHelper.GetChangeColor(SecondFillcolor, ColorChangeint), LinearGradientMode.Horizontal);
-                    }
-                    else
-
-                        FillBrush = new LinearGradientBrush(DrawRect, FirstFillcolor, SecondFillcolor, LinearGradientMode.Horizontal);
-                    break;
-                case FillColorDec.LeftVH:
-                    if (IsMouseOnFlag)
-                    {
-                        FillBrush = new LinearGradientBrush(DrawRect, DrawHelper.GetChangeColor(FirstFillcolor, ColorChangeint), DrawHelper.GetChangeColor(SecondFillcolor, ColorChangeint), LinearGradientMode.ForwardDiagonal);
-                    }
-                    else
-
-                        FillBrush = new LinearGradientBrush(DrawRect, FirstFillcolor, SecondFillcolor, LinearGradientMode.ForwardDiagonal);
-                    break;
-
-                case FillColorDec.RightVH:
-                    if (IsMouseOnFlag)
-                    {
-                        FillBrush = new LinearGradientBrush(DrawRect, DrawHelper.GetChangeColor(FirstFillcolor, ColorChangeint), DrawHelper.GetChangeColor(SecondFillcolor, ColorChangeint), LinearGradientMode.BackwardDiagonal);
-                    }
-                    else
-
-                        FillBrush = new LinearGradientBrush(DrawRect, FirstFillcolor, SecondFillcolor, LinearGradientMode.BackwardDiagonal);
-                    break;
-                default:
-                    if (IsMouseOnFlag)
-                    {
-                        FillBrush = new LinearGradientBrush(DrawRect, DrawHelper.GetChangeColor(FirstFillcolor, ColorChangeint), DrawHelper.GetChangeColor(SecondFillcolor, ColorChangeint), LinearGradientMode.Vertical);
-                    }
-                    else
-
-
-                        FillBrush = FillBrush = new LinearGradientBrush(DrawRect, FirstFillcolor, SecondFillcolor, LinearGradientMode.Vertical);
-                    break;
-            }
-           
             GraphicsPath Borderpath = new GraphicsPath();
             //得到外形轮廓路径
-            switch (MyShape)
-            {       
-                case Shape.RoundRectange:
-                    Borderpath = DrawHelper.GetRoundRectangePath(MyRect, BorderWidth, Radius);
-                    break;
-                case Shape.HalfCircle:
-                    Borderpath = DrawHelper.GetTwoHalfCircleRect(MyRect, BorderWidth);
-                    break;
-                case Shape.Rectange:
-                    Borderpath = DrawHelper.GetRectangePath(MyRect, BorderWidth);
-                    break;
-                default:
-                    Borderpath = DrawHelper.GetRoundRectangePath(MyRect, BorderWidth, Radius);
-                    break;
-            }
-
-            //Borderpath = DrawHelper.GetRoundRectangePath(MyRect, BorderWidth, Radius);
+            Borderpath = GetShapeBorderPath(MyShape, MyRect, BorderWidth, Radius);
             GraphicsPath FillPath = new GraphicsPath();
             //得到内部填充路径
+            FillPath = GetShapeFillPath(MyShape, DrawRect, BorderWidth, Radius);
 
-            switch (MyShape)
-            {
-                case Shape.RoundRectange:
-                    FillPath = DrawHelper.GetRoundRectangePath(DrawRect, BorderWidth, Radius);
-                    break;
-                case Shape.HalfCircle:
-                    FillPath = DrawHelper.GetTwoHalfCircleRect(DrawRect, BorderWidth);
-                    break;
-                case Shape.Rectange:
-                    FillPath = DrawHelper.GetRectangePath(DrawRect, BorderWidth);
-                    break;
-                default:
-                    FillPath = DrawHelper.GetRoundRectangePath(DrawRect, BorderWidth, Radius);
-                    break;
-            }
-
-
-
-            //FillPath = DrawHelper.GetRoundRectangePath(DrawRect, BorderWidth, Radius);
+            //当填充两种颜色时后，鼠标经过控件的填充色，使控件原始色变亮或变暗变化
             if (IsUseTwoColor)
             {
-                Myg.FillPath(FillBrush, FillPath);
+                LinearGradientBrush FillBrush;
+
+                switch (MyFillColorDec)
+                {
+                    case FillColorDec.Vertical:
+                        if (IsMouseOnFlag)
+                        {
+                            FillBrush = new LinearGradientBrush(DrawRect, DrawHelper.GetChangeColor(FirstFillcolor, ColorChangeint), DrawHelper.GetChangeColor(SecondFillcolor, ColorChangeint), LinearGradientMode.Vertical);
+                        }
+                        else
+
+                            FillBrush = new LinearGradientBrush(DrawRect, FirstFillcolor, SecondFillcolor, LinearGradientMode.Vertical);
+                        break;
+                    case FillColorDec.Horizontal:
+                        if (IsMouseOnFlag)
+                        {
+                            FillBrush = new LinearGradientBrush(DrawRect, DrawHelper.GetChangeColor(FirstFillcolor, ColorChangeint), DrawHelper.GetChangeColor(SecondFillcolor, ColorChangeint), LinearGradientMode.Horizontal);
+                        }
+                        else
+
+                            FillBrush = new LinearGradientBrush(DrawRect, FirstFillcolor, SecondFillcolor, LinearGradientMode.Horizontal);
+                        break;
+                    case FillColorDec.LeftVH:
+                        if (IsMouseOnFlag)
+                        {
+                            FillBrush = new LinearGradientBrush(DrawRect, DrawHelper.GetChangeColor(FirstFillcolor, ColorChangeint), DrawHelper.GetChangeColor(SecondFillcolor, ColorChangeint), LinearGradientMode.ForwardDiagonal);
+                        }
+                        else
+
+                            FillBrush = new LinearGradientBrush(DrawRect, FirstFillcolor, SecondFillcolor, LinearGradientMode.ForwardDiagonal);
+                        break;
+
+                    case FillColorDec.RightVH:
+                        if (IsMouseOnFlag)
+                        {
+                            FillBrush = new LinearGradientBrush(DrawRect, DrawHelper.GetChangeColor(FirstFillcolor, ColorChangeint), DrawHelper.GetChangeColor(SecondFillcolor, ColorChangeint), LinearGradientMode.BackwardDiagonal);
+                        }
+                        else
+
+                            FillBrush = new LinearGradientBrush(DrawRect, FirstFillcolor, SecondFillcolor, LinearGradientMode.BackwardDiagonal);
+                        break;
+                    default:
+                        if (IsMouseOnFlag)
+                        {
+                            FillBrush = new LinearGradientBrush(DrawRect, DrawHelper.GetChangeColor(FirstFillcolor, ColorChangeint), DrawHelper.GetChangeColor(SecondFillcolor, ColorChangeint), LinearGradientMode.Vertical);
+                        }
+                        else
+
+
+                            FillBrush = FillBrush = new LinearGradientBrush(DrawRect, FirstFillcolor, SecondFillcolor, LinearGradientMode.Vertical);
+                        break;
                 }
+
+                Myg.FillPath(FillBrush, FillPath);
+                   FillBrush.Dispose();
+                }
+            // 当填充色是单色时候 的鼠标经过颜色和 原填充色变化
             else
             {
-             
+                SolidBrush SFillBrush;
+
+                if (IsMouseOnFlag)
+                {
+                    SFillBrush = new SolidBrush(OnMouseColor);
+
+                }
+                else SFillBrush = new SolidBrush(FirstFillcolor);
+
                 Myg.FillPath(SFillBrush, FillPath);
 
+              SFillBrush.Dispose();
             }
-
+            //如果显示边框画边框
             if (IsDrawBoin)
             {
+
+                Pen BorderPen = new Pen(BornColor, BorderWidth);
+
                 Myg.DrawPath(BorderPen,Borderpath);
+               BorderPen.Dispose();
+            }
+            //如果显示文字画文字
+            if (IsShowText)
+            {
+                 DrawText(Myg,DrawRect);
             }
     
-            DrawText(Myg,DrawRect);
+       
           
             
             //////释放资源
-            FillBrush.Dispose();
-            SFillBrush.Dispose();
-            BorderPen.Dispose();
+         
+          
+           
         }
-        void DrawText(Graphics Myg,Rectangle TexRect)
+        /// <summary>
+        /// 画该控件要显示的文本要与 MyTextAlign 连用决定文字对齐方式
+        /// </summary>
+        /// <param name="Myg">那个DC上画</param>
+        /// <param name="TexRect">文本所在的矩形区域</param>
+        public virtual void DrawText(Graphics Myg,Rectangle TexRect)
         {
             SolidBrush FontBrush = new SolidBrush(FontColor);
             //Rectangle TexRect = DrawRect;
