@@ -47,7 +47,7 @@ namespace WHControlLib
         /// <param name="borderWidth">该矩形外框的线宽</param>
         /// <param name="Radius">圆角度，越大圆角越小不能小于2.0f</param>
         /// <returns></returns>
-        //[Obsolete("此方法是旧方法; ")]
+        [Obsolete("此方法是旧方法; ")]
         public static GraphicsPath GetFillRoundRectFPath(RectangleF Myrect, int borderWidth, float Radius)
         {
             float RadiusWidth = Myrect.Width / Radius;
@@ -85,7 +85,7 @@ namespace WHControlLib
             return myfillPath;
 
         }
-
+        [Obsolete("此方法是旧方法; ")]
         public static GraphicsPath GetFillRoundRectFPath(RectangleF Myrect, float borderWidth, float Radius)
         {
             float RadiusWidth = Myrect.Width / Radius;
@@ -123,13 +123,17 @@ namespace WHControlLib
             return myfillPath;
 
         }
+
+
+
+
         /// <summary>
         /// 获得矩形路径
         /// </summary>
         /// <param name="Myrect"></param>
         /// <param name="BorderWidth"></param>
         /// <returns></returns>
-        public static GraphicsPath GetRectangePath(Rectangle Myrect, float BorderWidth)
+        public static GraphicsPath GetRectangePath(RectangleF Myrect, float BorderWidth)
         {
             GraphicsPath path = new GraphicsPath();
             float PenWidth = BorderWidth / 2;
@@ -145,48 +149,8 @@ namespace WHControlLib
 
         }
 
-        //public static GraphicsPath GetBorderRoundRectFPath(RectangleF Myrect, int borderWidth, float Radius)
-        //{
 
-
-        //    float RadiusWidth = Myrect.Width / Radius;
-        //    //int RadiusHeight = Myrect.Height / Radius;
-        //    float RadiusHeight = RadiusWidth;
-        //    //定义画弧线的四个角的矩形
-
-        //    RectangleF LeftTopRect = new RectangleF(Myrect.X + borderWidth, Myrect.Y + borderWidth, RadiusWidth, RadiusHeight);
-        //    RectangleF RightTopRect = new RectangleF(Myrect.X + Myrect.Width - RadiusWidth - borderWidth, Myrect.Y + borderWidth, RadiusWidth, RadiusHeight);
-        //    RectangleF RightButtonRect = new RectangleF(Myrect.X + Myrect.Width - RadiusWidth - borderWidth, Myrect.Y + Myrect.Height - RadiusHeight - borderWidth, RadiusWidth, RadiusHeight);
-        //    RectangleF LeftButtomRect = new RectangleF(Myrect.X + borderWidth, Myrect.Y + Myrect.Height - RadiusHeight - borderWidth, RadiusWidth, RadiusHeight);
-        //    //定义需要连接的8给点
-
-        //    PointF LeftTopPointH = new PointF((float)Myrect.X + LeftTopRect.Width / 2, (float)Myrect.Y + borderWidth);
-        //    PointF LeftTopPointV = new PointF((float)Myrect.X + borderWidth, (float)Myrect.Y + LeftTopRect.Height / 2);
-
-        //    PointF RightTopPointH = new PointF((float)Myrect.X + Myrect.Width - RightTopRect.Width / 2, (float)Myrect.Y + borderWidth);
-        //    PointF RightTopPointV = new PointF((float)Myrect.X + Myrect.Width - borderWidth, (float)Myrect.Y + RightTopRect.Height / 2);
-
-        //    PointF RightButtonPointV = new PointF((float)Myrect.X + Myrect.Width - borderWidth, (float)Myrect.Y + Myrect.Height - RightButtonRect.Height / 2);
-        //    PointF RightButtonPointH = new PointF((float)Myrect.X + Myrect.Width - RightButtonRect.Width / 2, (float)Myrect.Y + Myrect.Height - borderWidth);
-
-        //    PointF LeftButtonPointH = new PointF((float)Myrect.X + LeftButtomRect.Width / 2, (float)Myrect.Y + Myrect.Height - borderWidth);
-        //    PointF LeftButtonPointV = new PointF((float)Myrect.X + borderWidth, (float)Myrect.Y + Myrect.Height - LeftButtomRect.Height / 2);
-        //    //画边框
-        //    GraphicsPath path = new GraphicsPath();
-        //    Myg.DrawArc(BorderPen, LeftTopRect, 180, 90);
-        //    path.AddArc
-        //    Myg.DrawLine(BorderPen, LeftTopPointH, RightTopPointH);
-        //    Myg.DrawArc(BorderPen, RightTopRect, 270, 90);
-        //    Myg.DrawLine(BorderPen, RightTopPointV, RightButtonPointV);
-        //    Myg.DrawArc(BorderPen, RightButtonRect, 0, 90);
-        //    Myg.DrawLine(BorderPen, RightButtonPointH, LeftButtonPointH);
-        //    Myg.DrawArc(BorderPen, LeftButtomRect, 90, 90);
-        //    Myg.DrawLine(BorderPen, LeftButtonPointV, LeftTopPointV);
-
-
-
-        //}
-        public static GraphicsPath GetRoundRectangePath(Rectangle MYRect,int BorderWidth,float Radius)
+        public static GraphicsPath GetRoundRectangePath(RectangleF MYRect,int BorderWidth,float Radius)
 
         {
             const float textboxlinewidth = 2.0f;
@@ -213,6 +177,35 @@ namespace WHControlLib
       
 
         }
+
+        public static GraphicsPath GetRoundRectangePath(RectangleF MYRect, float BorderWidth, float Radius)
+
+        {
+            const float textboxlinewidth = 2.0f;
+
+            GraphicsPath path = new GraphicsPath();
+            float PenWidth = BorderWidth / 2;
+            float HWheight = MYRect.Height / Radius;
+            //定义四角小正方形的长度  这里不减一半线宽会发现画外边框两边的对不齐
+            float w = HWheight - PenWidth;
+            /*     */
+            //float h = HWheight ;
+            RectangleF topLeftRect = new RectangleF(MYRect.X + PenWidth, MYRect.Y + PenWidth, w, w);
+            RectangleF topRightRect = new RectangleF(MYRect.X + MYRect.Width - HWheight - textboxlinewidth, topLeftRect.Y, w, w);
+            RectangleF bottomLeftRact = new RectangleF(topLeftRect.X, MYRect.Y + MYRect.Height - HWheight - textboxlinewidth, w, w);
+            RectangleF bottomRightRact = new RectangleF(topRightRect.X, bottomLeftRact.Y, w, w);
+            path.AddArc(topLeftRect, 180, 90);
+            path.AddArc(topRightRect, 270, 90);
+
+            path.AddArc(bottomRightRact, 0, 90);
+
+            path.AddArc(bottomLeftRact, 90, 90);
+            path.CloseAllFigures();
+            return path;
+
+
+        }
+
 
         /// <summary>
         /// 获得 两头是半圆的矩形路径

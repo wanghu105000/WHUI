@@ -30,6 +30,7 @@
         {
             this.label1 = new System.Windows.Forms.Label();
             this.whButton1 = new WHControlLib.Controls.WHButton();
+            this.whButton2 = new WHControlLib.Controls.WHButton();
             this.SuspendLayout();
             // 
             // label1
@@ -47,12 +48,13 @@
             this.whButton1.BorderWidth = 2;
             this.whButton1.BornColor = System.Drawing.Color.Blue;
             this.whButton1.ColorChangeint = 50;
-            this.whButton1.FirstFillcolor = System.Drawing.Color.Sienna;
+            this.whButton1.FirstFillcolor = System.Drawing.Color.SeaShell;
             this.whButton1.FontColor = System.Drawing.Color.Black;
             this.whButton1.IsDrawBoin = false;
+            this.whButton1.IsShowFouceLine = true;
             this.whButton1.IsShowText = true;
             this.whButton1.IsUseTwoColor = true;
-            this.whButton1.Location = new System.Drawing.Point(72, 141);
+            this.whButton1.Location = new System.Drawing.Point(12, 148);
             this.whButton1.MyFillColorDec = WHControlLib.baseStaticCtrl.FillColorDec.Vertical;
             this.whButton1.MyFont = new System.Drawing.Font("微软雅黑", 12F);
             this.whButton1.MyShape = WHControlLib.baseStaticCtrl.Shape.HalfCircle;
@@ -61,15 +63,42 @@
             this.whButton1.OnMouseColor = System.Drawing.Color.Linen;
             this.whButton1.Radius = 5F;
             this.whButton1.SecondFillcolor = System.Drawing.Color.Orange;
-            this.whButton1.Size = new System.Drawing.Size(246, 58);
+            this.whButton1.Size = new System.Drawing.Size(144, 40);
             this.whButton1.TabIndex = 4;
             this.whButton1.Text = "whButton1";
+            this.whButton1.Click += new System.EventHandler(this.whButton1_Click);
+            // 
+            // whButton2
+            // 
+            this.whButton2.BackColor = System.Drawing.Color.Transparent;
+            this.whButton2.BorderWidth = 2;
+            this.whButton2.BornColor = System.Drawing.Color.Blue;
+            this.whButton2.ColorChangeint = 50;
+            this.whButton2.FirstFillcolor = System.Drawing.Color.SeaShell;
+            this.whButton2.FontColor = System.Drawing.Color.Black;
+            this.whButton2.IsDrawBoin = false;
+            this.whButton2.IsShowFouceLine = true;
+            this.whButton2.IsShowText = true;
+            this.whButton2.IsUseTwoColor = true;
+            this.whButton2.Location = new System.Drawing.Point(186, 148);
+            this.whButton2.MyFillColorDec = WHControlLib.baseStaticCtrl.FillColorDec.Vertical;
+            this.whButton2.MyFont = new System.Drawing.Font("微软雅黑", 12F);
+            this.whButton2.MyShape = WHControlLib.baseStaticCtrl.Shape.HalfCircle;
+            this.whButton2.MyTextAlign = WHControlLib.baseStaticCtrl.TextAlign.Center;
+            this.whButton2.Name = "whButton2";
+            this.whButton2.OnMouseColor = System.Drawing.Color.Linen;
+            this.whButton2.Radius = 5F;
+            this.whButton2.SecondFillcolor = System.Drawing.Color.Orange;
+            this.whButton2.Size = new System.Drawing.Size(144, 40);
+            this.whButton2.TabIndex = 5;
+            this.whButton2.Text = "whButton2";
             // 
             // WhMsgBoxForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(120F, 120F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.ClientSize = new System.Drawing.Size(384, 228);
+            this.Controls.Add(this.whButton2);
             this.Controls.Add(this.whButton1);
             this.Controls.Add(this.label1);
             this.firstColor = System.Drawing.Color.Indigo;
@@ -78,6 +107,7 @@
             this.Radius = 9F;
             this.SecondColor = System.Drawing.Color.RoyalBlue;
             this.Text = "WhMsgBoxForm";
+            this.Load += new System.EventHandler(this.WhMsgBoxForm_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -86,5 +116,6 @@
         #endregion
         private System.Windows.Forms.Label label1;
         private Controls.WHButton whButton1;
+        private Controls.WHButton whButton2;
     }
 }

@@ -19,10 +19,14 @@ namespace WHControlLib.Forms
           
         }
 
+        private void WhMsgBoxForm_Load(object sender, EventArgs e)
+        {
+            whButton1.Focus();
+        }
 
-
-
-
-
+        private void whButton1_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show(whButton1.Text);
+        }
     }
 }

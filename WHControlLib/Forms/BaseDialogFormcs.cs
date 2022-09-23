@@ -275,20 +275,11 @@ namespace WHControlLib.Forms
 
             GraphicsPath RoundPath = new GraphicsPath();
 
-            RoundPath = DrawHelper.GetFillRoundRectFPath(DrawRct, FormBorderWidth, Radius);
+            RoundPath = DrawHelper.GetRoundRectangePath(DrawRct, FormBorderWidth, Radius);
           
             if (IsUseTwoColor)
             {
-                //RectangleF topRct = new RectangleF();
-                //RectangleF BottomRct = new RectangleF();
-                //topRct.X = MyRect.X;
-                //topRct.Y = MyRect.Y;
-                //topRct.Width = MyRect.Width;
-                //topRct.Height = MyRect.Height / 3;
-                //BottomRct.X = MyRect.X;
-                //BottomRct.Y = MyRect.Y + topRct.Height;
-                //BottomRct.Width = MyRect.Width;
-                //BottomRct.Height = MyRect.Height - topRct.Height;
+               
                 using (LinearGradientBrush LinerBrush = new LinearGradientBrush(DrawRct, firstColor, SecondColor, LinearGradientMode.Vertical))
                 {
                     Myg.FillPath(LinerBrush, RoundPath);
@@ -305,14 +296,14 @@ namespace WHControlLib.Forms
                 using (Pen formBodyPen=new Pen(FormBorderColor,FormBorderWidth))
                 {
                      GraphicsPath formbodypath=new GraphicsPath();
-                    formbodypath= DrawHelper.GetFillRoundRectFPath(DrawRct, FormBorderWidth, Radius);
+                    formbodypath= DrawHelper.GetRoundRectangePath(DrawRct, FormBorderWidth, Radius);
                     Myg.DrawPath(formBodyPen, formbodypath);
 
                 }
             }
 
             GraphicsPath formPath = new GraphicsPath();
-            formPath = DrawHelper.GetFillRoundRectFPath(Myrect, FormBorderWidth, Radius);
+            formPath = DrawHelper.GetRoundRectangePath(Myrect, FormBorderWidth, Radius);
             Region Formreg = new Region(formPath);
             this.Region = Formreg;
 

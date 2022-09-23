@@ -38,7 +38,9 @@ namespace WHControlLib
        /// 鼠标是否停留在控件上的标志
        /// </summary>
         bool IsMouseOnFlag=false;
-
+        bool IsMouseOverFlag=false;
+        bool    IsMouseLeaveFlag=false;
+        bool IsMouseClickFlag=false;
         //********************
         #region 属性字段定义
       public  enum FillColorDec
@@ -214,6 +216,13 @@ namespace WHControlLib
             set { _isShowText = value; Invalidate(); }
         }
 
+        private bool _isShowFouceLine;
+        [Category("A我的"), Description("控件上是否显示获得焦点后的虚线框，默认 false 不显示 "), Browsable(true)]
+        public bool IsShowFouceLine
+        {
+            get { return _isShowFouceLine; }
+            set { _isShowFouceLine = value; }
+        }
 
         #endregion
 
@@ -240,7 +249,10 @@ namespace WHControlLib
 
 
             DrawShape(Myg);
-          
+            if (IsShowFouceLine)
+            {
+                DrawFouceLine(MyShape, Myg, DrawRect);
+            }
             
             
         }
@@ -452,7 +464,6 @@ namespace WHControlLib
         public virtual void DrawText(Graphics Myg,Rectangle TexRect)
         {
             SolidBrush FontBrush = new SolidBrush(FontColor);
-            //Rectangle TexRect = DrawRect;
             StringFormat sf = new StringFormat();
             //格式化显示文本 指定在工作矩形的中心显示
             if (MyTextAlign== TextAlign.Center) sf.Alignment = StringAlignment.Center;
@@ -462,8 +473,53 @@ namespace WHControlLib
             sf.LineAlignment = StringAlignment.Center;
            Myg.DrawString(Text, MyFont, FontBrush, TexRect, sf);
 
-            //也可以用效果不好
-            //TextRenderer.DrawText(g, this.Text, this.Font, pevent.ClipRectangle, FontColor);
+            ////也可以用效果不好
+            ////TextRenderer.DrawText(g, this.Text, this.Font, pevent.ClipRectangle, FontColor);
+
+        }
+
+
+        public virtual void DrawFouceLine( Shape MyShape, Graphics Myg,Rectangle DrawRect)
+        {
+            if (this.Focused)
+            {
+                Rectangle rct = new Rectangle( DrawRect.X+ 4,DrawRect.Y+ 4,DrawRect.Width - 8, DrawRect.Height - 8);
+                GraphicsPath path = new GraphicsPath();
+                switch (MyShape)
+                {   
+                    case Shape.RoundRectange:
+                        path = DrawHelper.GetRoundRectangePath(rct, 1, Radius);
+
+
+                        break;
+                    case Shape.HalfCircle:
+                        path = DrawHelper.GetTwoHalfCircleRect(rct, 1);
+                        
+                        break;
+                    case Shape.Rectange:
+                              path = DrawHelper.GetRectangePath(rct, 1);
+                        
+                        break;
+                    default:
+                        path = DrawHelper.GetRoundRectangePath(rct, 1, Radius);
+                        break;
+               
+                
+                }
+
+                using (Pen pn = new Pen(FontColor))
+                {
+                    pn.DashStyle = DashStyle.Dot;
+                    Myg.DrawPath(pn, path);
+                }
+
+                path.Dispose();
+            }
+
+        }
+        public virtual void DrawMark(Graphics Myg, Rectangle MyRect)
+        {
+
 
         }
     }

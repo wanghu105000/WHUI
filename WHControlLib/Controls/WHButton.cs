@@ -19,5 +19,34 @@ namespace WHControlLib.Controls
         {
             InitializeComponent();
         }
+
+        protected override void OnGotFocus(EventArgs e)
+        {
+            base.OnGotFocus(e);
+
+            Invalidate();
+
+        }
+        protected override void OnLostFocus(EventArgs e)
+        {
+            base.OnLostFocus(e);
+            Invalidate();
+        }
+        protected override void OnKeyDown(KeyEventArgs e)
+        {
+                    if (this.Focused&& e.KeyCode== Keys.Enter&& this.Enabled)
+            {
+                OnClick(EventArgs.Empty);
+            }
+            
+            base.OnKeyDown(e);
+        }
+        protected override void OnKeyPress(KeyPressEventArgs e)
+        {
+    
+            
+            base.OnKeyPress(e);
+
+        }
     }
 }
