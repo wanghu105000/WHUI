@@ -1,11 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace WHControlLib.Forms
@@ -16,7 +9,7 @@ namespace WHControlLib.Forms
         {
             InitializeComponent();
 
-          
+
         }
 
         private void WhMsgBoxForm_Load(object sender, EventArgs e)

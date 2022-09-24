@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Drawing.Drawing2D;
+using System.Drawing.Imaging;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
@@ -314,8 +315,73 @@ namespace WHControlLib
                 Invalidate();
             }
         }
+        // 图标定义\\
+        private bool _isShowMyImage;
+        [Category("A我的图标"), Description("控件是否显示图像，默认 否"), Browsable(true)]
+        public bool IsShowMyImage
+        {
+            get { return _isShowMyImage; }
+            set
+            {
+       
+                _isShowMyImage = value; 
+                    Invalidate();
+                
+                 }
+        }
 
-           
+        private Image _myImage=null;
+        [Category("A我的图标"), Description("控件的图标图像，默认 null"), Browsable(true)]
+        public Image MyImage
+        {
+            get { return _myImage; }
+            set { _myImage = value; Invalidate(); }
+        }
+      public  enum ImageDec
+        {
+            left,
+            top,
+            right,
+            bottom,
+        }
+        private ImageDec _myImageDec=ImageDec.left;
+        [Category("A我的图标"), Description("控件的图标图像的方向，默认 左边"), Browsable(true)]
+        public ImageDec MyImageDec
+        {
+            get { return _myImageDec; }
+            set { _myImageDec= value; Invalidate(); }
+        }
+        private float _myimageWidth=0.5f;
+        [Category("A我的图标"), Description("控件的图标图像的宽度，用控件的比例表示不能大于1，默认0.5"), Browsable(true)]
+        public float MyimageWidth
+        {
+            get { return _myimageWidth; }
+            set { _myimageWidth= value; Invalidate(); }
+        }
+        private float _myimageHeight=0.5f
+            ;
+        [Category("A我的图标"), Description("控件的图标图像的宽度，用控件的比例表示不能大于1，默认0.5"), Browsable(true)]
+        public float MyimageHeight
+        {
+            get { return _myimageHeight; }
+            set { _myimageHeight = value; Invalidate(); }
+        }
+        private bool _isOpenimageTranparentColor;
+        [Category("A我的图标"), Description("是否开启 导入的控件图标 的背景色透明过滤，注：windows支持png，ico格式透明色不用开启 默认 false 不开启"), Browsable(true)]
+        public bool IsOpenimageTranparentColor
+        {
+            get { return _isOpenimageTranparentColor; }
+            set { _isOpenimageTranparentColor= value; }
+        }
+
+
+        private Color _imageTranparentColo=Color.White;
+        [Category("A我的图标"), Description("选取的 导入的控件图标透明过滤色，默认 用 白色 做 透明色"), Browsable(true)]
+        public Color ImageTranparentColor
+        {
+            get { return _imageTranparentColo; }
+            set { _imageTranparentColo= value; }
+        }
 
         #endregion
 
@@ -354,7 +420,15 @@ namespace WHControlLib
             {
                 DrawMark(Myg, MyRect, BorderWidth);
             }
-            
+
+            //画图标
+            if (IsShowMyImage&& MyImage!=null)
+            {
+                DrawMyImage(Myg, DrawRect, MyImage);
+
+            }
+
+
         }
         protected override void OnMouseEnter(EventArgs e)
         {
@@ -671,7 +745,76 @@ namespace WHControlLib
 
         }
     
-    
+      public virtual void DrawMyImage(Graphics Myg,Rectangle DrawRect,Image MyImage)
+        {
+           if (MyImage==null)
+            {
+                return;
+            }
+            
+            RectangleF imageRect = new RectangleF();
+            const int offsetX = 5;
+            const int offsetY = 5;
+            float imageBl = MyImage.Width / MyImage.Height;
+
+               //int imagewidth =(int) (DrawRect.Width * MyimageWidth);
+                float imageheight =DrawRect.Height * MyimageHeight;
+            float imagewidth = imageheight*imageBl;
+
+     
+
+            //Image drawimage = MyImage;
+            if (Text==""||Text!=null||IsShowText==false)
+            {
+                //int h =(int)  Myg.MeasureString(Text, MyFont).Height;
+                //int w= (int)Myg.MeasureString(Text, MyFont).Width;
+             
+              
+                imageRect.Width = imagewidth;
+                imageRect.Height = imageheight;
+
+                switch (MyImageDec)
+                {
+                    case ImageDec.left:
+                        imageRect.X = DrawRect.X+offsetX;
+                        imageRect.Y= DrawRect.Y+DrawRect.Height/2-imageRect.Height/2;
+                        break;
+                    case ImageDec.top:
+                        imageRect.X=DrawRect.X+DrawRect.Width/2-imageRect.Width/2;
+                        imageRect.Y = DrawRect.Y + offsetY;
+                        break;
+                    case ImageDec.right:
+                        imageRect.X = DrawRect.X + DrawRect.Width - imageRect.Width - offsetX;
+                        imageRect.Y=DrawRect.Y+ DrawRect.Height / 2 - imageRect.Height / 2;
+                        break;
+                    case ImageDec.bottom:
+                        imageRect.X = DrawRect.X + DrawRect.Width / 2 - imageRect.Width / 2;
+                        imageRect.Y = DrawRect.Y + DrawRect.Height - imageRect.Height - offsetY;
+                        break;
+                    default:
+                        break;
+                }
+
+                if (IsOpenimageTranparentColor)
+                {
+                    Bitmap bt = new Bitmap(MyImage);
+                    bt.MakeTransparent(ImageTranparentColor);
+
+
+                    Myg.DrawImage(bt, imageRect);
+                    bt.Dispose();
+
+
+                }
+
+                else
+                    Myg.DrawImage(MyImage, imageRect);
+
+            }
+            
+
+
+        }
     
     }
 }
