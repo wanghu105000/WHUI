@@ -13,8 +13,8 @@ using System.Windows.Forms;
 
 namespace WHControlLib
 {
-        [DefaultEvent("Click")]
-        [DefaultProperty("Text")]
+    [DefaultEvent("Click")]
+    [DefaultProperty("Text")]
     [ToolboxItem(false)]
     public partial class baseStaticCtrl : UserControl
     {
@@ -23,6 +23,7 @@ namespace WHControlLib
             this.SetStyle(ControlStyles.OptimizedDoubleBuffer |
                   ControlStyles.ResizeRedraw |
                   ControlStyles.AllPaintingInWmPaint, true);
+
             InitializeComponent();
         }
 
@@ -31,21 +32,25 @@ namespace WHControlLib
         /// <summary>
         /// 控件整体的矩形大小
         /// </summary>
-      public  Rectangle MyRect = new Rectangle();
-      /// <summary>
-      /// 需要画出控件的矩形大小因为控件本身是透明色，为了消除锯齿现象所以画出的控件 小于 本控件的实际大小。
-      /// </summary>
-      public  Rectangle DrawRect = new Rectangle();
-       /// <summary>
-       /// 鼠标是否停留在控件上的标志
-       /// </summary>
-       public bool IsMouseOnFlag=false;
+        public Rectangle MyRect = new Rectangle();
+        /// <summary>
+        /// 需要画出控件的矩形大小因为控件本身是透明色，为了消除锯齿现象所以画出的控件 小于 本控件的实际大小。
+        /// </summary>
+        public Rectangle DrawRect = new Rectangle();
+
+        RectangleF imageRect = new RectangleF();
+
+
+        /// <summary>
+        /// 鼠标是否停留在控件上的标志
+        /// </summary>
+        public bool IsMouseOnFlag = false;
         //bool IsMouseOverFlag=false;
         //bool    IsMouseLeaveFlag=false;
         //bool IsMouseClickFlag=false;
         //********************
         #region 属性字段定义
-      public  enum FillColorDec
+        public enum FillColorDec
         {
             Vertical,
             Horizontal,
@@ -53,26 +58,26 @@ namespace WHControlLib
             RightVH
 
         }
-       public enum Shape
+        public enum Shape
         {
-                RoundRectange,
-                HalfCircle,
-                Rectange
+            RoundRectange,
+            HalfCircle,
+            Rectange
         }
 
-       public enum TextAlign
+        public enum TextAlign
         {
-            Center,Left,Right,CenterButtom ,CenterTop,
+            Center, Left, Right, CenterButtom, CenterTop,
         }
 
 
-         ////当用隐藏的Text属性时必须这么加特性才能使本控件使用
+        ////当用隐藏的Text属性时必须这么加特性才能使本控件使用
         [Category("A我的"), Description("文字在控件上显示文字，默认"), Browsable(true)]
         [EditorBrowsable(EditorBrowsableState.Always)]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         public override string Text { get; set; }
 
-        private TextAlign _myTextAlign=TextAlign.Center;
+        private TextAlign _myTextAlign = TextAlign.Center;
         [Category("A我的"), Description("文字在控件上显示的对齐方式，默认，中间对齐"), Browsable(true)]
         public TextAlign MyTextAlign
         {
@@ -82,14 +87,14 @@ namespace WHControlLib
 
 
 
-        private Shape  _myShape=Shape.RoundRectange;
+        private Shape _myShape = Shape.RoundRectange;
         [Category("A我的"), Description("要显示的控件的形状，默认，圆角矩形"), Browsable(true)]
         public Shape MyShape
         {
             get { return _myShape; }
             set { _myShape = value; Invalidate(); }
         }
-        private FillColorDec _myFillColorDec=FillColorDec.Vertical;
+        private FillColorDec _myFillColorDec = FillColorDec.Vertical;
         [Category("A我的"), Description("控件填充渐变色的方向，默认，上下方向"), Browsable(true)]
         public FillColorDec MyFillColorDec
         {
@@ -120,7 +125,7 @@ namespace WHControlLib
             get { return radius; }
             set
             {
-                if (value >1.1f)
+                if (value > 1.1f)
                 {
                     radius = value;
                     this.Invalidate();
@@ -140,7 +145,7 @@ namespace WHControlLib
             set
             {
                 _firstFillcolor = value;
-             
+
                 this.Invalidate();
             }
         }
@@ -165,14 +170,14 @@ namespace WHControlLib
             set { fontColor = value; this.Invalidate(); }
         }
 
-        private Font _myFont=new Font("微软雅黑", 12.0f, 0, GraphicsUnit.Point, 1);
+        private Font _myFont = new Font("微软雅黑", 12.0f, 0, GraphicsUnit.Point, 1);
         [Category("A我的"), Description(" 控件字体，默认 微软雅黑12t"), Browsable(true)]
         public Font MyFont
         {
             get { return _myFont; }
             set { _myFont = value; this.Invalidate(); }
         }
-  
+
 
         [Category("A我的"), Description("是否有边框"), Browsable(true)]
         public bool IsDrawBoin { get; set; }
@@ -194,7 +199,7 @@ namespace WHControlLib
         }
         //const int ColorChangeint = 50;
 
-        private int _colorChangeint=50;
+        private int _colorChangeint = 50;
         [Category("A我的"), Description("当选择两种颜色填空控件时，鼠标移动上控件时的控件颜色变化值，正值变亮，负值变暗，默认 50"), Browsable(true)]
         public int ColorChangeint
         {
@@ -218,7 +223,7 @@ namespace WHControlLib
             set { _onMouseColor = value; }
         }
 
-        private bool _isShowText=true;
+        private bool _isShowText = true;
         [Category("A我的"), Description("控件上是否显示文字，默认 true 显示 "), Browsable(true)]
         public bool IsShowText
         {
@@ -237,12 +242,12 @@ namespace WHControlLib
         //角标属性设置
         private bool _isShowMark;
         [Category("A我的角标"), Description("控件上是否显示角标，默认 false 不显示 "), Browsable(true)]
-        public bool  IsShowMark
+        public bool IsShowMark
         {
             get { return _isShowMark; }
             set { _isShowMark = value; Invalidate(); }
         }
-        private Color _markBackColor=Color.Red;
+        private Color _markBackColor = Color.Red;
         [Category("A我的角标"), Description("控件上角标的背景色，默认 红色 "), Browsable(true)]
         public Color MarkBackColor
         {
@@ -257,56 +262,56 @@ namespace WHControlLib
             set { _markTextColor = value; Invalidate(); }
         }
 
-        private string _markText="";
+        private string _markText = "";
         [Category("A我的角标"), Description("控件上角标上文字 文本，默认 无 "), Browsable(true)]
         public string MarkText
         {
             get { return _markText; }
-            set { _markText= value; Invalidate(); }
+            set { _markText = value; Invalidate(); }
         }
 
-        private float _markHeight=2.0f  ;
+        private float _markHeight = 2.0f;
         [Category("A我的角标"), Description("控件上角标的高度，采用比例形式 为控件高度的几份之一，默认 2.0f 分之一,不能小于1.0f "), Browsable(true)]
-        public float MarkHeight  
+        public float MarkHeight
         {
-            get { return _markHeight ; }
+            get { return _markHeight; }
             set
             {
-                if (value<1)
+                if (value < 1)
                 {
                     _markHeight = 1.0f;
 
                 }
                 else
-                _markHeight  = value; Invalidate(); }
+                    _markHeight = value; Invalidate(); }
         }
-        private bool _isShowMarkBorder  ;
+        private bool _isShowMarkBorder;
         [Category("A我的角标"), Description("是否显示角标外形边框 ，默认 无 "), Browsable(true)]
         public bool IsShowMarkBorder
         {
             get { return _isShowMarkBorder; }
             set { _isShowMarkBorder = value; Invalidate(); }
         }
-        private int _markBorderWidth=1;
+        private int _markBorderWidth = 1;
         [Category("A我的角标"), Description("角标外形边框的宽度 ，默认 1 "), Browsable(true)]
         public int MarkBorderWidth
         {
             get { return _markBorderWidth; }
             set { _markBorderWidth = value; Invalidate(); }
         }
-        private Color _markBorderColor=Color.White;
+        private Color _markBorderColor = Color.White;
         [Category("A我的角标"), Description("角标外形边框的颜色 ，默认 白色 "), Browsable(true)]
         public Color MarkBorderColor
         {
             get { return _markBorderColor; }
             set { _markBorderColor = value; Invalidate(); }
         }
-        private Color _markerTextColor=Color.White;
+        private Color _markerTextColor = Color.White;
         [Category("A我的角标"), Description("角标文本的颜色 ，默认 白色 "), Browsable(true)]
         public Color MarkerTextColor
         {
             get { return _markerTextColor; }
-            set { _markerTextColor= value; Invalidate(); }
+            set { _markerTextColor = value; Invalidate(); }
         }
 
         private int _markerTextSzie = 10;
@@ -331,14 +336,14 @@ namespace WHControlLib
             get { return _isShowMyImage; }
             set
             {
-       
-                _isShowMyImage = value; 
-                    Invalidate();
-                
-                 }
+
+                _isShowMyImage = value;
+                Invalidate();
+
+            }
         }
 
-        private Image _myImage=null;
+        private Image _myImage = null;
         [Category("A我的图标"), Description("控件的图标图像，默认 null"), Browsable(true)]
         public Image MyImage
         {
@@ -359,52 +364,58 @@ namespace WHControlLib
             get { return _myImageUnEnable; }
             set { _myImageUnEnable = value; Invalidate(); }
         }
-        public  enum ImageDec
+        public enum ImageDec
         {
             left,
             top,
             right,
             bottom,
         }
-        private ImageDec _myImageDec=ImageDec.left;
+        private ImageDec _myImageDec = ImageDec.left;
         [Category("A我的图标"), Description("控件的图标图像的方向，默认 左边"), Browsable(true)]
         public ImageDec MyImageDec
         {
             get { return _myImageDec; }
-            set { _myImageDec= value; Invalidate(); }
+            set { _myImageDec = value; Invalidate(); }
         }
-        private float _myimageWidth=0.5f;
-        [Category("A我的图标"), Description("控件的图标图像的宽度，用控件的比例表示不能大于1，默认0.5"), Browsable(true)]
-        public float MyimageWidth
-        {
-            get { return _myimageWidth; }
-            set { _myimageWidth= value; Invalidate(); }
-        }
-        private float _myimageHeight=0.5f
+        //private float _myimageWidth=0.5f;
+        //[Category("A我的图标"), Description("控件的图标图像的宽度，用控件的比例表示不能大于1，默认0.5"), Browsable(true)]
+        //public float MyimageWidth
+        //{
+        //    get { return _myimageWidth; }
+        //    set { _myimageWidth= value; Invalidate(); }
+        //}
+        private float _myimageHeight = 0.5f
             ;
         [Category("A我的图标"), Description("控件的图标图像的宽度，用控件的比例表示不能大于1，默认0.5"), Browsable(true)]
         public float MyimageHeight
         {
             get { return _myimageHeight; }
-            set { _myimageHeight = value; Invalidate(); }
+            set
+            {
+                if (value > 1)
+                {
+                    _myimageHeight = 1;
+                }
+                else _myimageHeight = value; Invalidate(); }
         }
         private bool _isOpenimageTranparentColor;
         [Category("A我的图标"), Description("是否开启 导入的控件图标 的背景色透明过滤，注：windows支持png，ico格式透明色不用开启 默认 false 不开启"), Browsable(true)]
         public bool IsOpenimageTranparentColor
         {
             get { return _isOpenimageTranparentColor; }
-            set { _isOpenimageTranparentColor= value; }
+            set { _isOpenimageTranparentColor = value; }
         }
 
 
-        private Color _imageTranparentColo=Color.White;
+        private Color _imageTranparentColo = Color.White;
         [Category("A我的图标"), Description("选取的 导入的控件图标透明过滤色，默认 用 白色 做 透明色"), Browsable(true)]
         public Color ImageTranparentColor
         {
             get { return _imageTranparentColo; }
-            set { _imageTranparentColo= value; }
+            set { _imageTranparentColo = value; }
         }
-        private Size _imageOffSet=new Size(0,0);
+        private Size _imageOffSet = new Size(0, 0);
         [Category("A我的图标"), Description("图片在当前位置的偏移量，默认 0,0"), Browsable(true)]
         public Size ImageOffSet
         {
@@ -431,14 +442,17 @@ namespace WHControlLib
             base.OnPaint(e);
             BeginPainIni();
             Graphics Myg = e.Graphics;
+            //如果选择自动大小
+            ISAutoSize(Myg);
+
             Myg.SmoothingMode = SmoothingMode.AntiAlias;
             Myg.CompositingQuality = CompositingQuality.HighQuality;
             Myg.InterpolationMode = InterpolationMode.HighQualityBicubic;
 
             //////////画形状并填充
-            
+
             DrawShape(Myg);
-           
+
             ////画获得焦点时候的虚线
             if (IsShowFouceLine)
             {
@@ -450,52 +464,21 @@ namespace WHControlLib
                 DrawMark(Myg, MyRect, BorderWidth);
             }
 
-            //画图标
-            if (IsShowMyImage )
-            {
-                if (MyImage!=null||MyImageOnMouse != null || MyImageUnEnable != null)
-                       DrawNeedDrawImage(Myg,DrawRect);
-
-            }
 
 
         }
-        protected override void OnMouseEnter(EventArgs e)
-        {
-            //base.OnMouseEnter(e);
 
-            //IsMouseOnFlag = true;
-            //Invalidate();
-        }
-        protected override void OnMouseLeave(EventArgs e)
+        /// <summary>
+        /// 得到所选形状的外框路径
+        /// </summary>
+        /// <param name="MyShape">枚举中的一个形状</param>
+        /// <param name="MyRect">控件本身的全尺寸</param>
+        /// <param name="BorderWidth">控件的外框线宽</param>
+        /// <param name="Radius">如果是圆角矩形的圆角站该矩形的高的比例</param>
+        /// <returns></returns>
+        public virtual GraphicsPath GetShapeBorderPath(Shape MyShape, Rectangle MyRect, int BorderWidth, float Radius)
         {
-            //base.OnMouseLeave(e);
-            //IsMouseOnFlag = false;
-            //Invalidate();
-        }
-        protected override void OnMouseUp(MouseEventArgs e)
-        {
-            //base.OnMouseUp(e);
-            //IsMouseOnFlag = true;
-            //Invalidate();
-        }
-        protected override void OnMouseDown(MouseEventArgs e)
-        {
-            //base.OnMouseDown(e);
-            //IsMouseOnFlag = false;
-            //Invalidate();
-        }
-       /// <summary>
-       /// 得到所选形状的外框路径
-       /// </summary>
-       /// <param name="MyShape">枚举中的一个形状</param>
-       /// <param name="MyRect">控件本身的全尺寸</param>
-       /// <param name="BorderWidth">控件的外框线宽</param>
-       /// <param name="Radius">如果是圆角矩形的圆角站该矩形的高的比例</param>
-       /// <returns></returns>
-        public virtual GraphicsPath GetShapeBorderPath(Shape MyShape,Rectangle MyRect,int BorderWidth,float Radius )
-        {
-            GraphicsPath borderpath ;
+            GraphicsPath borderpath;
             switch (MyShape)
             {
                 case Shape.RoundRectange:
@@ -527,7 +510,7 @@ namespace WHControlLib
         public virtual GraphicsPath GetShapeFillPath(Shape MyShape, Rectangle DrawRect, int BorderWidth, float Radius)
 
         {
-            GraphicsPath fillPath ;
+            GraphicsPath fillPath;
 
 
             switch (MyShape)
@@ -545,104 +528,104 @@ namespace WHControlLib
                     fillPath = DrawHelper.GetRoundRectangePath(DrawRect, BorderWidth, Radius);
                     break;
             }
-            return fillPath;    
+            return fillPath;
 
         }
 
 
 
-        void  DrawShape(Graphics Myg)
+        void DrawShape(Graphics Myg)
         {
-       
 
-            GraphicsPath Borderpath ;
+
+            GraphicsPath Borderpath;
             //得到外形轮廓路径
             Borderpath = GetShapeBorderPath(MyShape, MyRect, BorderWidth, Radius);
-            GraphicsPath FillPath ;
+            GraphicsPath FillPath;
             //得到内部填充路径
             FillPath = GetShapeFillPath(MyShape, DrawRect, BorderWidth, Radius);
-        //当控件处于可用状态时候 的颜色填充
+            //当控件处于可用状态时候 的颜色填充
             if (this.Enabled)
             {
 
-          
-            //当填充两种颜色时后，鼠标经过控件的填充色，使控件原始色变亮或变暗变化
-            if (IsUseTwoColor)
-            {
-                LinearGradientBrush FillBrush;
 
-                switch (MyFillColorDec)
+                //当填充两种颜色时后，鼠标经过控件的填充色，使控件原始色变亮或变暗变化
+                if (IsUseTwoColor)
                 {
-                    case FillColorDec.Vertical:
-                        if (IsMouseOnFlag)
-                        {
-                            FillBrush = new LinearGradientBrush(DrawRect, DrawHelper.GetChangeColor(FirstFillcolor, ColorChangeint), DrawHelper.GetChangeColor(SecondFillcolor, ColorChangeint), LinearGradientMode.Vertical);
-                        }
-                        else
+                    LinearGradientBrush FillBrush;
 
-                            FillBrush = new LinearGradientBrush(DrawRect, FirstFillcolor, SecondFillcolor, LinearGradientMode.Vertical);
-                        break;
-                    case FillColorDec.Horizontal:
-                        if (IsMouseOnFlag)
-                        {
-                            FillBrush = new LinearGradientBrush(DrawRect, DrawHelper.GetChangeColor(FirstFillcolor, ColorChangeint), DrawHelper.GetChangeColor(SecondFillcolor, ColorChangeint), LinearGradientMode.Horizontal);
-                        }
-                        else
+                    switch (MyFillColorDec)
+                    {
+                        case FillColorDec.Vertical:
+                            if (IsMouseOnFlag)
+                            {
+                                FillBrush = new LinearGradientBrush(DrawRect, DrawHelper.GetChangeColor(FirstFillcolor, ColorChangeint), DrawHelper.GetChangeColor(SecondFillcolor, ColorChangeint), LinearGradientMode.Vertical);
+                            }
+                            else
 
-                            FillBrush = new LinearGradientBrush(DrawRect, FirstFillcolor, SecondFillcolor, LinearGradientMode.Horizontal);
-                        break;
-                    case FillColorDec.LeftVH:
-                        if (IsMouseOnFlag)
-                        {
-                            FillBrush = new LinearGradientBrush(DrawRect, DrawHelper.GetChangeColor(FirstFillcolor, ColorChangeint), DrawHelper.GetChangeColor(SecondFillcolor, ColorChangeint), LinearGradientMode.ForwardDiagonal);
-                        }
-                        else
+                                FillBrush = new LinearGradientBrush(DrawRect, FirstFillcolor, SecondFillcolor, LinearGradientMode.Vertical);
+                            break;
+                        case FillColorDec.Horizontal:
+                            if (IsMouseOnFlag)
+                            {
+                                FillBrush = new LinearGradientBrush(DrawRect, DrawHelper.GetChangeColor(FirstFillcolor, ColorChangeint), DrawHelper.GetChangeColor(SecondFillcolor, ColorChangeint), LinearGradientMode.Horizontal);
+                            }
+                            else
 
-                            FillBrush = new LinearGradientBrush(DrawRect, FirstFillcolor, SecondFillcolor, LinearGradientMode.ForwardDiagonal);
-                        break;
+                                FillBrush = new LinearGradientBrush(DrawRect, FirstFillcolor, SecondFillcolor, LinearGradientMode.Horizontal);
+                            break;
+                        case FillColorDec.LeftVH:
+                            if (IsMouseOnFlag)
+                            {
+                                FillBrush = new LinearGradientBrush(DrawRect, DrawHelper.GetChangeColor(FirstFillcolor, ColorChangeint), DrawHelper.GetChangeColor(SecondFillcolor, ColorChangeint), LinearGradientMode.ForwardDiagonal);
+                            }
+                            else
 
-                    case FillColorDec.RightVH:
-                        if (IsMouseOnFlag)
-                        {
-                            FillBrush = new LinearGradientBrush(DrawRect, DrawHelper.GetChangeColor(FirstFillcolor, ColorChangeint), DrawHelper.GetChangeColor(SecondFillcolor, ColorChangeint), LinearGradientMode.BackwardDiagonal);
-                        }
-                        else
+                                FillBrush = new LinearGradientBrush(DrawRect, FirstFillcolor, SecondFillcolor, LinearGradientMode.ForwardDiagonal);
+                            break;
 
-                            FillBrush = new LinearGradientBrush(DrawRect, FirstFillcolor, SecondFillcolor, LinearGradientMode.BackwardDiagonal);
-                        break;
-                    default:
-                        if (IsMouseOnFlag)
-                        {
-                            FillBrush = new LinearGradientBrush(DrawRect, DrawHelper.GetChangeColor(FirstFillcolor, ColorChangeint), DrawHelper.GetChangeColor(SecondFillcolor, ColorChangeint), LinearGradientMode.Vertical);
-                        }
-                        else
+                        case FillColorDec.RightVH:
+                            if (IsMouseOnFlag)
+                            {
+                                FillBrush = new LinearGradientBrush(DrawRect, DrawHelper.GetChangeColor(FirstFillcolor, ColorChangeint), DrawHelper.GetChangeColor(SecondFillcolor, ColorChangeint), LinearGradientMode.BackwardDiagonal);
+                            }
+                            else
+
+                                FillBrush = new LinearGradientBrush(DrawRect, FirstFillcolor, SecondFillcolor, LinearGradientMode.BackwardDiagonal);
+                            break;
+                        default:
+                            if (IsMouseOnFlag)
+                            {
+                                FillBrush = new LinearGradientBrush(DrawRect, DrawHelper.GetChangeColor(FirstFillcolor, ColorChangeint), DrawHelper.GetChangeColor(SecondFillcolor, ColorChangeint), LinearGradientMode.Vertical);
+                            }
+                            else
 
 
-                           FillBrush = new LinearGradientBrush(DrawRect, FirstFillcolor, SecondFillcolor, LinearGradientMode.Vertical);
-                        break;
+                                FillBrush = new LinearGradientBrush(DrawRect, FirstFillcolor, SecondFillcolor, LinearGradientMode.Vertical);
+                            break;
+                    }
+
+                    Myg.FillPath(FillBrush, FillPath);
+                    FillBrush.Dispose();
                 }
-
-                Myg.FillPath(FillBrush, FillPath);
-                   FillBrush.Dispose();
-                }
-            // 当填充色是单色时候 的鼠标经过颜色和 原填充色变化
-            else
-            {
-                SolidBrush SFillBrush;
-
-                if (IsMouseOnFlag)
+                // 当填充色是单色时候 的鼠标经过颜色和 原填充色变化
+                else
                 {
-                    SFillBrush = new SolidBrush(OnMouseColor);
+                    SolidBrush SFillBrush;
 
+                    if (IsMouseOnFlag)
+                    {
+                        SFillBrush = new SolidBrush(OnMouseColor);
+
+                    }
+                    else SFillBrush = new SolidBrush(FirstFillcolor);
+
+                    Myg.FillPath(SFillBrush, FillPath);
+
+                    SFillBrush.Dispose();
                 }
-                else SFillBrush = new SolidBrush(FirstFillcolor);
-
-                Myg.FillPath(SFillBrush, FillPath);
-
-              SFillBrush.Dispose();
             }
-               }
-           //当控件处于不可用状态时候的颜色填充
+            //当控件处于不可用状态时候的颜色填充
             else
             {
                 SolidBrush UnEnableFillBrush;
@@ -658,48 +641,129 @@ namespace WHControlLib
 
                 Pen BorderPen = new Pen(BornColor, BorderWidth);
 
-                Myg.DrawPath(BorderPen,Borderpath);
-               BorderPen.Dispose();
+                Myg.DrawPath(BorderPen, Borderpath);
+                BorderPen.Dispose();
             }
+
+            //画图标
+            if (IsShowMyImage)
+            {
+                if (MyImage != null || MyImageOnMouse != null || MyImageUnEnable != null)
+                    DrawNeedDrawImage(Myg, DrawRect);
+
+            }
+
+
             //如果显示文字画文字
             if (IsShowText)
             {
-                 DrawText(Myg,DrawRect);
+
+                DrawText(Myg);
+
             }
-    
-       
-          
-            
+
+
+
+
             //////释放资源
-         
-          
-           
+
+
+
         }
         /// <summary>
         /// 画该控件要显示的文本要与 MyTextAlign 连用决定文字对齐方式
         /// </summary>
         /// <param name="Myg">那个DC上画</param>
         /// <param name="TexRect">文本所在的矩形区域</param>
-        public virtual void DrawText(Graphics Myg,Rectangle TexRect)
+        public virtual void DrawText(Graphics Myg)
         {
             SolidBrush FontBrush = new SolidBrush(FontColor);
             StringFormat sf = new StringFormat();
             //格式化显示文本 指定在工作矩形的中心显示
             sf.LineAlignment = StringAlignment.Center;
-            if (MyTextAlign== TextAlign.Center) sf.Alignment = StringAlignment.Center;
+            if (MyTextAlign == TextAlign.Center) sf.Alignment = StringAlignment.Center;
             if (MyTextAlign == TextAlign.Left) sf.Alignment = StringAlignment.Near;
             if (MyTextAlign == TextAlign.Right) sf.Alignment = StringAlignment.Far;
-            if (MyTextAlign==TextAlign.CenterButtom)
+            if (MyTextAlign == TextAlign.CenterButtom)
             {
                 sf.Alignment = StringAlignment.Center;
-            sf.LineAlignment = StringAlignment.Far;
-                    }
-            if (MyTextAlign==TextAlign.CenterTop)
+                sf.LineAlignment = StringAlignment.Far;
+            }
+            if (MyTextAlign == TextAlign.CenterTop)
             {
                 sf.Alignment = StringAlignment.Center;
                 sf.LineAlignment = StringAlignment.Near;
             }
-           Myg.DrawString(Text, MyFont, FontBrush, TexRect, sf);
+            ////
+            if (!AutoSize || !IsShowMyImage || MyImage == null)
+
+            {
+                Rectangle TextRect = new Rectangle();
+                int textwidth = (int)Myg.MeasureString(Text, MyFont).Width;
+                int textheight = (int)Myg.MeasureString(Text, MyFont).Height;
+                this.Width = textwidth + 10;
+                this.Height = textheight + 10;
+                TextRect.X = 2;
+                TextRect.Y = 2;
+                TextRect.Width = textwidth + 5;
+                TextRect.Height= textheight + 5;
+
+
+                Myg.DrawString(Text, MyFont, FontBrush, TextRect, sf); return;
+            }
+
+            if (AutoSize && (IsShowMyImage==false || MyImage == null))
+            {
+                Rectangle TextRect = new Rectangle();
+                int textwidth = (int)Myg.MeasureString(Text, MyFont).Width;
+                int textheight = (int)Myg.MeasureString(Text, MyFont).Height;
+                this.Width = textwidth + 10;
+                this.Height = textheight + 10;
+                TextRect.X = 2;
+                TextRect.Y = 2;
+                TextRect.Width = textwidth + 5;
+                TextRect.Height = textheight + 5;
+
+                Myg.DrawString(Text, MyFont, FontBrush, TextRect, sf); return;
+
+
+            }
+            if (AutoSize&& IsShowMyImage && MyImage != null)
+            {   
+
+                switch (MyImageDec)
+                {
+                    case ImageDec.left:
+                        Rectangle TextRect = new Rectangle();
+                        int textwidth= (int)  Myg.MeasureString(Text, MyFont).Width;
+                        int textheight = (int)Myg.MeasureString(Text, MyFont).Height;
+                        this.Width = (int)imageRect.Width + textwidth+15;
+                        TextRect.X =(int ) imageRect.Width +10;
+             
+                        TextRect.Y=DrawRect.Y;
+                        TextRect.Height = DrawRect.Height;
+                        TextRect.Width = textwidth+5;
+
+
+                        //this.Height = Math.Max((int)imageRect.Height, textheight)+10;
+                        Myg.DrawString(Text, MyFont, FontBrush, TextRect, sf); 
+
+
+
+                        break;
+                    case ImageDec.top:
+                        break;
+                    case ImageDec.right:
+                        break;
+                    case ImageDec.bottom:
+                        break;
+                    default:
+                        break;
+                }
+
+            }
+
+       
 
             ////也可以用效果不好
             ////TextRenderer.DrawText(g, this.Text, this.Font, pevent.ClipRectangle, FontColor);
@@ -914,8 +978,9 @@ namespace WHControlLib
           
             int offsetX = ImageOffSet.Width;
              int offsetY = ImageOffSet.Height;
+            
             float imageBl = Drawimage.Width / Drawimage.Height;
-         RectangleF imageRect = new RectangleF();
+       
             float imageheight =DrawRect.Height * MyimageHeight;
                float imagewidth = imageheight*imageBl;
                imageRect.Width = imagewidth;
@@ -948,9 +1013,29 @@ namespace WHControlLib
 
             }
             
+    //Size FindBigerImage()
+    //    {
+    //        Size imagesize = new Size();
+    //        if (MyImage!=null)
+                
+    //        {
+
+    //        }
 
 
-       
-    
+
+        //}
+
+
+        public virtual void ISAutoSize(Graphics Myg)
+        {
+            
+
+        }
+
+
+
+        ////////////////////////////
     }
+
 }

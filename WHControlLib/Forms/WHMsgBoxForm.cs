@@ -31,5 +31,15 @@ namespace WHControlLib.Forms
         {
             MessageBox.Show("HEEO");
         }
+
+        private void whButton1_Click_2(object sender, EventArgs e)
+        {
+
+        }
+
+        private void whButton1_Click_3(object sender, EventArgs e)
+        {
+
+        }
     }
 }
