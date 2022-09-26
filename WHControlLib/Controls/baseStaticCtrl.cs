@@ -31,15 +31,15 @@ namespace WHControlLib
         /// <summary>
         /// 控件整体的矩形大小
         /// </summary>
-        Rectangle MyRect = new Rectangle();
+      public  Rectangle MyRect = new Rectangle();
       /// <summary>
       /// 需要画出控件的矩形大小因为控件本身是透明色，为了消除锯齿现象所以画出的控件 小于 本控件的实际大小。
       /// </summary>
-        Rectangle DrawRect = new Rectangle();
+      public  Rectangle DrawRect = new Rectangle();
        /// <summary>
        /// 鼠标是否停留在控件上的标志
        /// </summary>
-        bool IsMouseOnFlag=false;
+       public bool IsMouseOnFlag=false;
         //bool IsMouseOverFlag=false;
         //bool    IsMouseLeaveFlag=false;
         //bool IsMouseClickFlag=false;
@@ -62,7 +62,7 @@ namespace WHControlLib
 
        public enum TextAlign
         {
-            Center,Left,Right
+            Center,Left,Right,CenterButtom ,CenterTop,
         }
 
 
@@ -202,7 +202,15 @@ namespace WHControlLib
             set { _colorChangeint = value; }
         }
 
-        private Color _onMouseColor=Color.BurlyWood;
+        private Color _unEnableColor = Color.Gray;
+        [Category("A我的"), Description("当控件处于不可用状态时候的颜色，默认 灰色 "), Browsable(true)]
+        public Color UnEnableColor
+        {
+            get { return _unEnableColor; }
+            set { _unEnableColor = value; }
+        }
+
+        private Color _onMouseColor = Color.BurlyWood;
         [Category("A我的"), Description("当鼠标停留在控件上的颜色填充,只有启用一种颜色填充时候才起作用，默认 浅橙色 "), Browsable(true)]
         public Color OnMouseColor
         {
@@ -337,7 +345,21 @@ namespace WHControlLib
             get { return _myImage; }
             set { _myImage = value; Invalidate(); }
         }
-      public  enum ImageDec
+        private Image _myImageOnMouse = null;
+        [Category("A我的图标"), Description("控件的鼠标停留在控件上的图标图像，默认 null"), Browsable(true)]
+        public Image MyImageOnMouse
+        {
+            get { return _myImageOnMouse; }
+            set { _myImageOnMouse = value; Invalidate(); }
+        }
+        private Image _myImageUnEnable = null;
+        [Category("A我的图标"), Description("控件不可用状态时候的图标图像，默认 null"), Browsable(true)]
+        public Image MyImageUnEnable
+        {
+            get { return _myImageUnEnable; }
+            set { _myImageUnEnable = value; Invalidate(); }
+        }
+        public  enum ImageDec
         {
             left,
             top,
@@ -382,6 +404,13 @@ namespace WHControlLib
             get { return _imageTranparentColo; }
             set { _imageTranparentColo= value; }
         }
+        private Size _imageOffSet=new Size(0,0);
+        [Category("A我的图标"), Description("图片在当前位置的偏移量，默认 0,0"), Browsable(true)]
+        public Size ImageOffSet
+        {
+            get { return _imageOffSet; }
+            set { _imageOffSet = value; Invalidate(); }
+        }
 
         #endregion
 
@@ -422,9 +451,10 @@ namespace WHControlLib
             }
 
             //画图标
-            if (IsShowMyImage&& MyImage!=null)
+            if (IsShowMyImage )
             {
-                DrawMyImage(Myg, DrawRect, MyImage);
+                if (MyImage!=null||MyImageOnMouse != null || MyImageUnEnable != null)
+                       DrawNeedDrawImage(Myg,DrawRect);
 
             }
 
@@ -432,28 +462,28 @@ namespace WHControlLib
         }
         protected override void OnMouseEnter(EventArgs e)
         {
-            base.OnMouseEnter(e);
+            //base.OnMouseEnter(e);
 
-            IsMouseOnFlag = true;
-            Invalidate();
+            //IsMouseOnFlag = true;
+            //Invalidate();
         }
         protected override void OnMouseLeave(EventArgs e)
         {
-            base.OnMouseLeave(e);
-            IsMouseOnFlag = false;
-            Invalidate();
+            //base.OnMouseLeave(e);
+            //IsMouseOnFlag = false;
+            //Invalidate();
         }
         protected override void OnMouseUp(MouseEventArgs e)
         {
-            base.OnMouseUp(e);
-            IsMouseOnFlag = true;
-            Invalidate();
+            //base.OnMouseUp(e);
+            //IsMouseOnFlag = true;
+            //Invalidate();
         }
         protected override void OnMouseDown(MouseEventArgs e)
         {
-            base.OnMouseDown(e);
-            IsMouseOnFlag = false;
-            Invalidate();
+            //base.OnMouseDown(e);
+            //IsMouseOnFlag = false;
+            //Invalidate();
         }
        /// <summary>
        /// 得到所选形状的外框路径
@@ -531,7 +561,11 @@ namespace WHControlLib
             GraphicsPath FillPath ;
             //得到内部填充路径
             FillPath = GetShapeFillPath(MyShape, DrawRect, BorderWidth, Radius);
+        //当控件处于可用状态时候 的颜色填充
+            if (this.Enabled)
+            {
 
+          
             //当填充两种颜色时后，鼠标经过控件的填充色，使控件原始色变亮或变暗变化
             if (IsUseTwoColor)
             {
@@ -607,6 +641,17 @@ namespace WHControlLib
 
               SFillBrush.Dispose();
             }
+               }
+           //当控件处于不可用状态时候的颜色填充
+            else
+            {
+                SolidBrush UnEnableFillBrush;
+                UnEnableFillBrush = new SolidBrush(UnEnableColor);
+                Myg.FillPath(UnEnableFillBrush, FillPath);
+                UnEnableFillBrush.Dispose();
+
+            }
+
             //如果显示边框画边框
             if (IsDrawBoin)
             {
@@ -640,11 +685,20 @@ namespace WHControlLib
             SolidBrush FontBrush = new SolidBrush(FontColor);
             StringFormat sf = new StringFormat();
             //格式化显示文本 指定在工作矩形的中心显示
+            sf.LineAlignment = StringAlignment.Center;
             if (MyTextAlign== TextAlign.Center) sf.Alignment = StringAlignment.Center;
             if (MyTextAlign == TextAlign.Left) sf.Alignment = StringAlignment.Near;
             if (MyTextAlign == TextAlign.Right) sf.Alignment = StringAlignment.Far;
-
-            sf.LineAlignment = StringAlignment.Center;
+            if (MyTextAlign==TextAlign.CenterButtom)
+            {
+                sf.Alignment = StringAlignment.Center;
+            sf.LineAlignment = StringAlignment.Far;
+                    }
+            if (MyTextAlign==TextAlign.CenterTop)
+            {
+                sf.Alignment = StringAlignment.Center;
+                sf.LineAlignment = StringAlignment.Near;
+            }
            Myg.DrawString(Text, MyFont, FontBrush, TexRect, sf);
 
             ////也可以用效果不好
@@ -744,77 +798,159 @@ namespace WHControlLib
             MarkerTextBrush.Dispose();
 
         }
-    
-      public virtual void DrawMyImage(Graphics Myg,Rectangle DrawRect,Image MyImage)
+        public virtual void DrawNeedDrawImage(Graphics Myg,Rectangle DrawRct)
         {
-           if (MyImage==null)
+            ////是否开启颜色过滤画图片
+            if (IsOpenimageTranparentColor)
             {
-                return;
+
+                if (IsMouseOnFlag && MyImageOnMouse != null)
+                {
+
+                    Bitmap bt = new Bitmap(MyImageOnMouse);
+                    bt.MakeTransparent(ImageTranparentColor);
+
+                   DrawMyImage(Myg,DrawRect,bt);
+                    bt.Dispose();
+                    return;
+                }
+                else if (IsMouseOnFlag && MyImageOnMouse == null && MyImage != null)
+                {
+                    Bitmap bt = new Bitmap(MyImage);
+                    bt.MakeTransparent(ImageTranparentColor);
+
+                    DrawMyImage(Myg, DrawRect, bt);
+                    bt.Dispose();
+                    return;
+                }
+
+
+
+
+                if (this.Enabled == false && MyImageUnEnable != null)
+                {
+                    Bitmap bt = new Bitmap(MyImageUnEnable);
+                    bt.MakeTransparent(ImageTranparentColor);
+
+                    DrawMyImage(Myg, DrawRect, bt);
+                    bt.Dispose();
+                    return;
+                }
+                else if (this.Enabled == false && MyImageUnEnable == null && MyImage != null)
+                {
+                    Bitmap bt = new Bitmap(MyImage);
+                    bt.MakeTransparent(ImageTranparentColor);
+
+                    DrawMyImage(Myg, DrawRect, bt);
+                    bt.Dispose();
+                    return;
+                }
+
+
+                if (MyImage != null && this.Enabled && IsMouseOnFlag == false)
+                {
+                    Bitmap bt = new Bitmap(MyImage);
+                    bt.MakeTransparent(ImageTranparentColor);
+
+                    DrawMyImage(Myg, DrawRect, bt);
+                    bt.Dispose();
+                    return;
+                }
+
+
+
+
+
             }
-            
-            RectangleF imageRect = new RectangleF();
-            const int offsetX = 5;
-            const int offsetY = 5;
-            float imageBl = MyImage.Width / MyImage.Height;
-
-               //int imagewidth =(int) (DrawRect.Width * MyimageWidth);
-                float imageheight =DrawRect.Height * MyimageHeight;
-            float imagewidth = imageheight*imageBl;
-
-     
-
-            //Image drawimage = MyImage;
-            if (Text==""||Text!=null||IsShowText==false)
+            ////////不开启颜色过滤画图片
+            else
             {
-                //int h =(int)  Myg.MeasureString(Text, MyFont).Height;
-                //int w= (int)Myg.MeasureString(Text, MyFont).Width;
-             
-              
-                imageRect.Width = imagewidth;
-                imageRect.Height = imageheight;
+                if (IsMouseOnFlag && MyImageOnMouse != null)
+                {
+                    DrawMyImage(Myg, DrawRect, MyImageOnMouse);
 
+             
+                    return;
+                }
+                else if (IsMouseOnFlag && MyImageOnMouse == null && MyImage != null)
+                {
+                    DrawMyImage(Myg, DrawRect, MyImage);
+
+           
+                    return;
+                }
+
+
+
+                if (this.Enabled == false && MyImageUnEnable != null)
+                {
+                    DrawMyImage(Myg, DrawRect, MyImageUnEnable);
+
+                 return;
+                }
+                else if (this.Enabled == false && MyImageUnEnable == null && MyImage != null)
+                {
+                    DrawMyImage(Myg, DrawRect, MyImage);
+                     return; }
+
+
+                if (MyImage != null && this.Enabled && IsMouseOnFlag == false)
+                {
+
+                    DrawMyImage(Myg, DrawRect, MyImage);
+                 return;
+
+                }
+            }
+
+
+
+
+        }
+
+        public virtual void DrawMyImage(Graphics Myg,Rectangle DrawRect,Image Drawimage)
+        {
+
+          
+            int offsetX = ImageOffSet.Width;
+             int offsetY = ImageOffSet.Height;
+            float imageBl = Drawimage.Width / Drawimage.Height;
+         RectangleF imageRect = new RectangleF();
+            float imageheight =DrawRect.Height * MyimageHeight;
+               float imagewidth = imageheight*imageBl;
+               imageRect.Width = imagewidth;
+                imageRect.Height = imageheight;
+            //判断需要画图片的方向
                 switch (MyImageDec)
                 {
                     case ImageDec.left:
-                        imageRect.X = DrawRect.X+offsetX;
-                        imageRect.Y= DrawRect.Y+DrawRect.Height/2-imageRect.Height/2;
+                        imageRect.X = DrawRect.X+offsetX+5;
+                        imageRect.Y= DrawRect.Y+DrawRect.Height/2-imageRect.Height/2+offsetY;
                         break;
                     case ImageDec.top:
-                        imageRect.X=DrawRect.X+DrawRect.Width/2-imageRect.Width/2;
-                        imageRect.Y = DrawRect.Y + offsetY;
+                        imageRect.X=DrawRect.X+DrawRect.Width/2-imageRect.Width/2+offsetX;
+                        imageRect.Y = DrawRect.Y + offsetY+5;
                         break;
                     case ImageDec.right:
-                        imageRect.X = DrawRect.X + DrawRect.Width - imageRect.Width - offsetX;
-                        imageRect.Y=DrawRect.Y+ DrawRect.Height / 2 - imageRect.Height / 2;
+                        imageRect.X = DrawRect.X + DrawRect.Width - imageRect.Width - offsetX-5;
+                        imageRect.Y=DrawRect.Y+ DrawRect.Height / 2 - imageRect.Height / 2+offsetY;
                         break;
                     case ImageDec.bottom:
-                        imageRect.X = DrawRect.X + DrawRect.Width / 2 - imageRect.Width / 2;
-                        imageRect.Y = DrawRect.Y + DrawRect.Height - imageRect.Height - offsetY;
+                        imageRect.X = DrawRect.X + DrawRect.Width / 2 - imageRect.Width / 2+offsetX;
+                        imageRect.Y = DrawRect.Y + DrawRect.Height - imageRect.Height - offsetY-5;
                         break;
                     default:
                         break;
                 }
 
-                if (IsOpenimageTranparentColor)
-                {
-                    Bitmap bt = new Bitmap(MyImage);
-                    bt.MakeTransparent(ImageTranparentColor);
-
-
-                    Myg.DrawImage(bt, imageRect);
-                    bt.Dispose();
-
-
-                }
-
-                else
-                    Myg.DrawImage(MyImage, imageRect);
+            Myg.DrawImage(Drawimage, imageRect);
+     
 
             }
             
 
 
-        }
+       
     
     }
 }

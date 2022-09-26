@@ -41,12 +41,51 @@ namespace WHControlLib.Controls
             
             base.OnKeyDown(e);
         }
-        protected override void OnKeyPress(KeyPressEventArgs e)
+
+
+        protected override void OnMouseEnter(EventArgs e)
         {
-    
-            
-            base.OnKeyPress(e);
+
+            IsMouseOnFlag = true;
+            Invalidate();
+
+            base.OnMouseEnter(e);
 
         }
+
+
+        protected override void OnMouseLeave(EventArgs e)
+        {    
+              base.OnMouseLeave(e);
+            IsMouseOnFlag = false;
+            Invalidate();
+         
+        }
+
+        protected override void OnMouseDown(MouseEventArgs e)
+        {
+            base.OnMouseDown(e);
+            IsMouseOnFlag = false;
+            Invalidate();
+
+          
+           
+
+        }
+        protected override void OnMouseUp(MouseEventArgs e)
+        {
+            
+            base.OnMouseUp(e);
+            
+            if (this.RectangleToScreen(this.DrawRect).Contains(MousePosition))
+            {
+              IsMouseOnFlag = true;
+              Invalidate();
+            } 
+            
+           
+
+        }
+
     }
 }
