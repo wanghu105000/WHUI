@@ -37,6 +37,7 @@ namespace WHControlLib.Forms
             //         ControlStyles.AllPaintingInWmPaint, true);
             InitializeStyles();
             InitializeComponent();
+            ////////设置成无边框窗体
             this.FormBorderStyle = FormBorderStyle.None;
 
             //this.TopMost = true;
@@ -46,7 +47,12 @@ namespace WHControlLib.Forms
         //************全局参数定义***************
         Rectangle MyRect = new Rectangle();
         RectangleF DrawRct = new RectangleF();
+        Rectangle TitleRect = new Rectangle();
         Rectangle CloseBoxRect = new Rectangle();
+
+
+        private bool InMouseCloseBoxRect;
+
         //**************************************
         #region 无边框窗体拖动
 
@@ -59,6 +65,7 @@ namespace WHControlLib.Forms
         public const int HTCAPTION = 0x0002;
         public const int WM_VSCROLL = 0x0115;
         public const int WM_HSCROLL = 0x0114;
+     
         #endregion
 
 
@@ -141,13 +148,36 @@ namespace WHControlLib.Forms
             get { return _secondColor; }
             set { _secondColor = value; Invalidate(); }
         }
+        private bool _isShowTitle=true;
+        [Category("A我的"), Description("是否显示标题栏，默认，显示 "), Browsable(true)]
+        public bool IsShowTitle
+        {
+            get { return _isShowTitle; }
+            set { _isShowTitle = value; Invalidate(); }
+        }
+
+
+
         //***********有关标题栏属性定义***开始***********************
-        private int _boxJG=10;
+ 
+       public enum CloseBoxShape { square,Circle}
+
+       
+        private CloseBoxShape _myCloseBoxShape=CloseBoxShape.square;
+        [Category("A我的标题栏"), Description("关闭按钮距的形状，默认，方形 "), Browsable(true)]
+        public CloseBoxShape MyCloseBoxShape
+        {
+            get { return _myCloseBoxShape; }
+            set { _myCloseBoxShape = value; Invalidate(); }
+        }
+
+       private int _boxJG=10;
+
         [Category("A我的标题栏"), Description("关闭按钮距离窗体左边的距离，默认，10 "), Browsable(true)]
         public int BoxJG
         {
             get { return _boxJG; }
-            set { _boxJG= value; }
+            set { _boxJG= value; Invalidate(); }
         }
 
         private Color _titleTextColor = Color.Black;
@@ -166,16 +196,16 @@ namespace WHControlLib.Forms
             set { _titleTextFont = value; Invalidate(); }
         }
 
-        private int _titleHeight = 15;
-        [Category("A我的标题栏"), Description("标题栏的高度像素，默认，窗体高度的15分之一 "), Browsable(true)]
+        private int _titleHeight = 4;
+        [Category("A我的标题栏"), Description("标题栏的高度像素，默认，窗体高度的4分之一,不能小于2分之一不然不美观 "), Browsable(true)]
         public int TitleHeight
         {
             get { return _titleHeight; }
             set
             {
-                if (value < 0)
+                if (value < 2)
                 {
-                    _titleHeight = 40;
+                    _titleHeight = 2;
                 }
                 _titleHeight = value; Invalidate();
             }
@@ -194,7 +224,7 @@ namespace WHControlLib.Forms
         public Color CloseBoxSelectColor
         {
             get { return _closeBoxSelectColor; }
-            set { _closeBoxSelectColor = value; }
+            set { _closeBoxSelectColor = value;  }
         }
         private Color _closeBoxShapeColor = Color.White;
         [Category("A我的标题栏"), Description("标题栏按钮形状的颜色，默认，白色 "), Browsable(true)]
@@ -202,6 +232,21 @@ namespace WHControlLib.Forms
         {
             get { return _closeBoxShapeColor; }
             set { _closeBoxShapeColor = value; Invalidate(); }
+        }
+        private Color _titleBackColor=Color.DeepSkyBlue;
+        [Category("A我的标题栏"), Description("标题栏背景的颜色，默认，蓝色 "), Browsable(true)]
+        public Color TitleBackColor
+        {
+            get { return _titleBackColor; }
+            set { _titleBackColor = value; Invalidate(); }
+        }
+
+        private bool _isShowCloseBoxBorder;
+        [Category("A我的标题栏"), Description("是否显示关闭按钮外边框，默认，否 "), Browsable(true)]
+        public bool IsShowCloseBoxBorder
+        {
+            get { return _isShowCloseBoxBorder; }
+            set { _isShowCloseBoxBorder = value; }
         }
 
         #endregion
@@ -212,7 +257,7 @@ namespace WHControlLib.Forms
             switch (m.Msg)
             {
                 case 0x0201: //截获鼠标左键按下的消息实现鼠标拖到窗体移动 
-                    if (this.RectangleToScreen(MyRect).Contains(MousePosition))
+                    if (this.RectangleToScreen(TitleRect).Contains(MousePosition)&& !this.RectangleToScreen(CloseBoxRect).Contains(MousePosition))
                     {
                     ReleaseCapture();
                     SendMessage(this.Handle, WM_SYSCOMMAND, SC_MOVE + HTCAPTION, 0);
@@ -239,6 +284,28 @@ namespace WHControlLib.Forms
             this.Height = this.Width / 5 * 3;
             MyRect = this.ClientRectangle;
 
+            DrawRct.X = MyRect.X + FormBorderWidth / 2;
+            DrawRct.Y = MyRect.Y + FormBorderWidth / 2;
+            DrawRct.Width = MyRect.Width - FormBorderWidth;
+            DrawRct.Height = MyRect.Height - FormBorderWidth;
+
+            if (IsDrawFormBorder)
+            {
+               TitleRect.Width =(int) DrawRct.Width;
+            TitleRect.X = (int)DrawRct.X;
+            TitleRect.Height = (int)DrawRct.Height / TitleHeight;
+            TitleRect.Y = (int)DrawRct.Y;
+            }
+            else
+            {
+                TitleRect.Width = MyRect.Width;
+                TitleRect.Height = Height / TitleHeight;
+                TitleRect.X = MyRect.X;
+                TitleRect.Y = MyRect.Y;
+            }
+
+
+
         }
         protected override void OnPaint(PaintEventArgs e)
         {
@@ -263,10 +330,7 @@ namespace WHControlLib.Forms
         {
 
         
-            DrawRct.X = Myrect.X+FormBorderWidth/2;
-            DrawRct.Y = Myrect.Y+FormBorderWidth/2;
-            DrawRct.Width = Myrect.Width-FormBorderWidth ;
-            DrawRct.Height = Myrect.Height-FormBorderWidth ;
+        
             using (SolidBrush backBrush=new SolidBrush(Color.Transparent))
             {
                Myg.FillRectangle(backBrush, Myrect);
@@ -291,6 +355,15 @@ namespace WHControlLib.Forms
             {
                 this.BackColor = firstColor;
             }
+           
+            
+            //画标题栏
+            DrawTitle(Myg, MyRect);
+
+
+
+
+            //画边框
             if (IsDrawFormBorder)
             {
                 using (Pen formBodyPen=new Pen(FormBorderColor,FormBorderWidth))
@@ -308,70 +381,116 @@ namespace WHControlLib.Forms
             this.Region = Formreg;
 
 
+        
+
+
             //释放资源
 
 
 
         }
+        void DrawCloseBox(Graphics Myg,RectangleF TitleRect)
+        {
 
-        /// <summary>
-        /// 画出关闭按钮
-        /// </summary>
-        /// <param name="TitleRect">要画在那个标题区域</param>
-        /// <param name="Myg">在那个设备上下文上面</param>
-        /// <param name="TitleBoxBackColor">按钮背景色</param>
-        /// <param name="MaxMinSelectColor">按钮选中后的背景色</param>
-        /// <param name="TitleBoxShapeColor">按钮内部图形的颜色</param>
-        //void CloseBoxDraw(Rectangle TitleRect, Graphics Myg, Color CloseBoxBackColor, Color ColseBoxSelectColor, Color TitleBoxShapeColor)
-        //{
-        //    SolidBrush TitleBoxBrush = new SolidBrush(CloseBoxBackColor);
-        //    SolidBrush TitleBoxSelectBrush = new SolidBrush(ColseBoxSelectColor);
-        //    Pen TitleBoxPen = new Pen(TitleBoxShapeColor, 2);
-        //    int Boxhight = TitleHeight;
-        //    int wbl = TitleHeight / 2;
-        //    int hbl = wbl;
+            SolidBrush TitleBoxBrush = new SolidBrush(CloseBoxBackColor);
+            SolidBrush TitleBoxSelectBrush = new SolidBrush(CloseBoxSelectColor);
+            Pen TitleBoxPen = new Pen(CloseBoxShapeColor, 2);
 
-        //    //定义 关闭按钮范围
+          float Boxhight = TitleRect.Height-BoxJG ;
+          //叉形状在关闭按钮区域中的占比
+            float wbl =Boxhight/2 ;
+            float hbl = wbl;
 
-        //    if (IsDrawFormBorder)
-        //    {
-        //        CloseBoxRect.X = TitleRect.X + TitleRect.Width - Boxhight - FormBorderWidth - BoxJG;
+            //定义 关闭按钮范围
 
-        //    }
-        //    else
-        //    {
-        //        CloseBoxRect.X = TitleRect.X + TitleRect.Width - Boxhight - BoxJG;
+            if (IsDrawFormBorder)
+            {
+                CloseBoxRect.X = (int)(TitleRect.X + TitleRect.Width - Boxhight - FormBorderWidth - BoxJG);
 
-        //    }
+            }
+            else
+            {
+                CloseBoxRect.X = (int)(TitleRect.X + TitleRect.Width - Boxhight - BoxJG);
+
+            }
+            CloseBoxRect.Y = (int)(TitleRect.Y + FormBorderWidth + BoxJG / 4);
+            CloseBoxRect.Width = (int)Boxhight ;
+            CloseBoxRect.Height = (int)Boxhight;
+            PointF CloseBoxlefttopP = new PointF(CloseBoxRect.X +CloseBoxRect.Width/2-wbl/2 , CloseBoxRect.Y+ CloseBoxRect.Height/2-hbl/2) ;
+            PointF CloseBoxRighttopP = new PointF(CloseBoxlefttopP.X + wbl, CloseBoxlefttopP.Y);
+            PointF CloseBoxLeftbuttomP = new PointF(CloseBoxlefttopP.X, CloseBoxlefttopP.Y + hbl );
+            PointF CloseBoxRightbuttomP = new PointF(CloseBoxlefttopP.X + wbl , CloseBoxlefttopP.Y + hbl );
+            if (InMouseCloseBoxRect)
+            {
+                switch (MyCloseBoxShape)
+                {
+                    case CloseBoxShape.square:
+                             Myg.FillRectangle(TitleBoxSelectBrush, CloseBoxRect); 
+                        break;
+                    case CloseBoxShape.Circle:
+                       Myg.FillEllipse(TitleBoxSelectBrush, CloseBoxRect);
+                        break;
+                    default:
+                        break;
+                }
+         
+
+            }
+            else
+                switch (MyCloseBoxShape)
+                {
+                    case CloseBoxShape.square:
+                          Myg.FillRectangle(TitleBoxBrush, CloseBoxRect);
+                        break;
+                    case CloseBoxShape.Circle:
+                       Myg.FillEllipse (TitleBoxBrush, CloseBoxRect);
+                        break;
+                    default:
+                        break;
+                }
+        
+
+  
+        
+
+            Myg.DrawLine(TitleBoxPen, CloseBoxlefttopP, CloseBoxRightbuttomP);
+            Myg.DrawLine(TitleBoxPen, CloseBoxRighttopP, CloseBoxLeftbuttomP);
+
+            ////////////释放资源
+            ///
+            TitleBoxPen.Dispose();
+            TitleBoxBrush.Dispose();
+            TitleBoxSelectBrush.Dispose();
 
 
-        //    CloseBoxRect.Y = TitleRect.Y;
-        //    CloseBoxRect.Width = Boxhight;
-        //    CloseBoxRect.Height = Boxhight;
-        //    Point CloseBoxlefttopP = new Point(CloseBoxRect.X + wbl / 2, CloseBoxRect.Y + hbl / 2);
-        //    Point CloseBoxRighttopP = new Point(CloseBoxlefttopP.X + wbl, CloseBoxlefttopP.Y);
-        //    Point CloseBoxLeftbuttomP = new Point(CloseBoxlefttopP.X, CloseBoxlefttopP.Y + hbl);
-        //    Point CloseBoxRightbuttomP = new Point(CloseBoxlefttopP.X + wbl, CloseBoxlefttopP.Y + hbl);
-        //    if (InMouseCloseBoxRect)
-        //    {
-        //        Myg.FillRectangle(TitleBoxSelectBrush, CloseBoxRect);
 
-        //    }
-        //    else
-        //        Myg.FillRectangle(TitleBoxBrush, CloseBoxRect);
-
-        //    Myg.DrawLine(TitleBoxPen, CloseBoxlefttopP, CloseBoxRightbuttomP);
-        //    Myg.DrawLine(TitleBoxPen, CloseBoxRighttopP, CloseBoxLeftbuttomP);
-
-        //    ////////////释放资源
-        //    ///
-        //    TitleBoxPen.Dispose();
-        //    TitleBoxBrush.Dispose();
-        //    TitleBoxSelectBrush.Dispose();
-        //}
+        }
 
 
 
+
+
+  
+
+      public virtual  void DrawTitle(Graphics Myg, Rectangle MyRect)
+        {
+
+
+            using (SolidBrush titleBrush = new SolidBrush(TitleBackColor))
+            {
+                GraphicsPath titlePath = new GraphicsPath();
+                titlePath = DrawHelper.GetRoundRectangePath(TitleRect, 0, Radius);
+                //titlePath = DrawHelper.GetRectangePath(TitleRect, 0);
+                //Myg.FillPath(titleBrush, titlePath);
+                Myg.DrawPath(Pens.Brown,titlePath);
+                //Myg.FillRectangle(titleBrush, TitleRect);
+
+            }
+
+            DrawCloseBox(Myg, TitleRect);
+          
+
+        }
 
 
     }

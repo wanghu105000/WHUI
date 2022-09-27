@@ -77,17 +77,17 @@
     <Compile Include="Forms\BaseDialogFormcs.Designer.cs">
       <DependentUpon>BaseDialogFormcs.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\MsgBoxForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\MsgBoxForm.Designer.cs">
+      <DependentUpon>MsgBoxForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\WHForm.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Forms\WHForm.Designer.cs">
       <DependentUpon>WHForm.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Forms\WhMsgBoxForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Forms\WhMsgBoxForm.Designer.cs">
-      <DependentUpon>WhMsgBoxForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Controls\WHLable.cs">
@@ -131,11 +131,11 @@
     <EmbeddedResource Include="Controls\WHCheckBox.resx">
       <DependentUpon>WHCheckBox.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Forms\MsgBoxForm.resx">
+      <DependentUpon>MsgBoxForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\WHForm.resx">
       <DependentUpon>WHForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\WhMsgBoxForm.resx">
-      <DependentUpon>WhMsgBoxForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Controls\WHSwithch.resx">
       <DependentUpon>WHSwithch.cs</DependentUpon>

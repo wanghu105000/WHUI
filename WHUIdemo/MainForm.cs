@@ -28,7 +28,7 @@ namespace WHUIdemo
 
         private void button2_Click(object sender, EventArgs e)
         {
-           WhMsgBoxForm whMsgBoxForm = new WhMsgBoxForm();
+          MsgBoxForm whMsgBoxForm = new MsgBoxForm();
             whMsgBoxForm.Show();    
         }
     }
