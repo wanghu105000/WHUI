@@ -36,13 +36,14 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.SkyBlue;
             this.ClientSize = new System.Drawing.Size(384, 228);
-            this.CloseBoxBackColor = System.Drawing.Color.Green;
-            this.FormBorderWidth = 3F;
+            this.CloseBoxBorderColor = System.Drawing.Color.White;
+            this.FormBorderColor = System.Drawing.Color.Firebrick;
+            this.FormBorderWidth = 4F;
             this.IsUseTwoColor = true;
             this.MyCloseBoxShape = WHControlLib.Forms.BaseDialogFormcs.CloseBoxShape.Circle;
             this.Name = "MsgBoxForm";
             this.Text = "MsgBoxForm";
-            this.TitleBackColor = System.Drawing.Color.Plum;
+            this.TitleBackColor = System.Drawing.Color.Transparent;
             this.TitleHeight = 6;
             this.ResumeLayout(false);
 

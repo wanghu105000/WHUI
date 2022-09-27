@@ -131,6 +131,9 @@
     <EmbeddedResource Include="Controls\WHCheckBox.resx">
       <DependentUpon>WHCheckBox.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Forms\BaseDialogFormcs.resx">
+      <DependentUpon>BaseDialogFormcs.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\MsgBoxForm.resx">
       <DependentUpon>MsgBoxForm.cs</DependentUpon>
     </EmbeddedResource>
