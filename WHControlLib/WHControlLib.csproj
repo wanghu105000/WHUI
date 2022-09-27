@@ -64,6 +64,12 @@
     <Compile Include="Controls\WHCheckBox.designer.cs">
       <DependentUpon>WHCheckBox.cs</DependentUpon>
     </Compile>
+    <Compile Include="Controls\WHLableEx.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\WHLableEx.Designer.cs">
+      <DependentUpon>WHLableEx.cs</DependentUpon>
+    </Compile>
     <Compile Include="DrawHelper.cs" />
     <Compile Include="Forms\BaseDialogFormcs.cs">
       <SubType>Form</SubType>

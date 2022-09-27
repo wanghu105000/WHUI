@@ -14,17 +14,17 @@ namespace WHControlLib.Forms
 
         private void WhMsgBoxForm_Load(object sender, EventArgs e)
         {
-            whButton1.Focus();
+         
         }
 
         private void whButton1_Click(object sender, EventArgs e)
         {
-            MessageBox.Show(whButton1.Text);
+    
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
-            whButton1.Enabled=false;
+    
         }
 
         private void whButton1_Click_1(object sender, EventArgs e)
@@ -38,6 +38,11 @@ namespace WHControlLib.Forms
         }
 
         private void whButton1_Click_3(object sender, EventArgs e)
+        {
+
+        }
+
+        private void whLableEx1_Click(object sender, EventArgs e)
         {
 
         }

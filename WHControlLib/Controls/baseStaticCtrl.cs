@@ -67,7 +67,7 @@ namespace WHControlLib
 
         public enum TextAlign
         {
-            Center, Left, Right, CenterButtom, CenterTop,
+            CenterMiddle, CenterLeft, CenterRight, CenterButtom, CenterTop,TopLeft,TopRight,BottomLeft,BottomRight
         }
 
 
@@ -77,9 +77,9 @@ namespace WHControlLib
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         public override string Text { get; set; }
 
-        private TextAlign _myTextAlign = TextAlign.Center;
+        private TextAlign _myTextAlign = TextAlign.CenterMiddle;
         [Category("A我的"), Description("文字在控件上显示的对齐方式，默认，中间对齐"), Browsable(true)]
-        public TextAlign MyTextAlign
+        public virtual TextAlign MyTextAlign
         {
             get { return _myTextAlign; }
             set { _myTextAlign = value; Invalidate(); }
@@ -680,90 +680,75 @@ namespace WHControlLib
             SolidBrush FontBrush = new SolidBrush(FontColor);
             StringFormat sf = new StringFormat();
             //格式化显示文本 指定在工作矩形的中心显示
-            sf.LineAlignment = StringAlignment.Center;
-            if (MyTextAlign == TextAlign.Center) sf.Alignment = StringAlignment.Center;
-            if (MyTextAlign == TextAlign.Left) sf.Alignment = StringAlignment.Near;
-            if (MyTextAlign == TextAlign.Right) sf.Alignment = StringAlignment.Far;
-            if (MyTextAlign == TextAlign.CenterButtom)
+
+            switch (MyTextAlign)
             {
-                sf.Alignment = StringAlignment.Center;
-                sf.LineAlignment = StringAlignment.Far;
+                case TextAlign.CenterMiddle:
+                    sf.Alignment = StringAlignment.Center;
+                    sf.LineAlignment = StringAlignment.Center;
+                    break;
+                case TextAlign.CenterLeft:
+                    sf.Alignment = StringAlignment.Near;
+                    sf.LineAlignment = StringAlignment.Center;
+                    break;
+                case TextAlign.CenterRight:
+                    sf.Alignment = StringAlignment.Far;
+                    sf.LineAlignment = StringAlignment.Center;
+                    break;
+                case TextAlign.CenterButtom:
+                    sf.Alignment = StringAlignment.Center;
+                    sf.LineAlignment = StringAlignment.Far;
+                    break;
+                case TextAlign.CenterTop:
+                    sf.Alignment = StringAlignment.Center;
+                    sf.LineAlignment = StringAlignment.Near;
+                    break;
+                case TextAlign.TopLeft:
+                    sf.Alignment = StringAlignment.Near;
+                    sf.LineAlignment = StringAlignment.Near;
+                    break;
+                case TextAlign.TopRight:
+                    sf.Alignment = StringAlignment.Far;
+                    sf.LineAlignment = StringAlignment.Near;
+                    break;
+                case TextAlign.BottomLeft:
+                    sf.Alignment = StringAlignment.Near;
+                    sf.LineAlignment = StringAlignment.Far;
+                    break;
+                case TextAlign.BottomRight:
+                    sf.Alignment = StringAlignment.Far;
+                    sf.LineAlignment = StringAlignment.Far;
+
+                    break;
+                default:
+                    break;
             }
-            if (MyTextAlign == TextAlign.CenterTop)
-            {
-                sf.Alignment = StringAlignment.Center;
-                sf.LineAlignment = StringAlignment.Near;
-            }
+
+            Rectangle TextRect = new Rectangle();
+            TextRect = DrawRect;
+                Myg.DrawString(Text, MyFont, FontBrush, TextRect, sf); return;
             ////
-            if (!AutoSize || !IsShowMyImage || MyImage == null)
+            ///自动对齐为实现
 
-            {
-                Rectangle TextRect = new Rectangle();
-                int textwidth = (int)Myg.MeasureString(Text, MyFont).Width;
-                int textheight = (int)Myg.MeasureString(Text, MyFont).Height;
-                this.Width = textwidth + 10;
-                this.Height = textheight + 10;
-                TextRect.X = 2;
-                TextRect.Y = 2;
-                TextRect.Width = textwidth + 5;
-                TextRect.Height= textheight + 5;
+            //if (  IsShowMyImage==false || MyImage == null&&AutoSize)
+            //{
+            //    Rectangle TextRect = new Rectangle();
+            //    int textwidth = (int)Myg.MeasureString(Text, MyFont).Width;
+            //    int textheight = (int)Myg.MeasureString(Text, MyFont).Height;
+            //    this.Width = textwidth + 10;
+            //    this.Height = textheight + 10;
+            //    TextRect.X = 2;
+            //    TextRect.Y = 2;
+            //    TextRect.Width = textwidth + 5;
+            //    TextRect.Height = textheight + 5;
 
-
-                Myg.DrawString(Text, MyFont, FontBrush, TextRect, sf); return;
-            }
-
-            if (AutoSize && (IsShowMyImage==false || MyImage == null))
-            {
-                Rectangle TextRect = new Rectangle();
-                int textwidth = (int)Myg.MeasureString(Text, MyFont).Width;
-                int textheight = (int)Myg.MeasureString(Text, MyFont).Height;
-                this.Width = textwidth + 10;
-                this.Height = textheight + 10;
-                TextRect.X = 2;
-                TextRect.Y = 2;
-                TextRect.Width = textwidth + 5;
-                TextRect.Height = textheight + 5;
-
-                Myg.DrawString(Text, MyFont, FontBrush, TextRect, sf); return;
+            //    Myg.DrawString(Text, MyFont, FontBrush, TextRect, sf); return;
 
 
-            }
-            if (AutoSize&& IsShowMyImage && MyImage != null)
-            {   
-
-                switch (MyImageDec)
-                {
-                    case ImageDec.left:
-                        Rectangle TextRect = new Rectangle();
-                        int textwidth= (int)  Myg.MeasureString(Text, MyFont).Width;
-                        int textheight = (int)Myg.MeasureString(Text, MyFont).Height;
-                        this.Width = (int)imageRect.Width + textwidth+15;
-                        TextRect.X =(int ) imageRect.Width +10;
-             
-                        TextRect.Y=DrawRect.Y;
-                        TextRect.Height = DrawRect.Height;
-                        TextRect.Width = textwidth+5;
-
-
-                        //this.Height = Math.Max((int)imageRect.Height, textheight)+10;
-                        Myg.DrawString(Text, MyFont, FontBrush, TextRect, sf); 
+            //}
 
 
 
-                        break;
-                    case ImageDec.top:
-                        break;
-                    case ImageDec.right:
-                        break;
-                    case ImageDec.bottom:
-                        break;
-                    default:
-                        break;
-                }
-
-            }
-
-       
 
             ////也可以用效果不好
             ////TextRenderer.DrawText(g, this.Text, this.Font, pevent.ClipRectangle, FontColor);
