@@ -227,9 +227,9 @@ namespace WHControlLib.Forms
             set { _titleTextColor = value; Invalidate(); }
         }
 
-        private Font _titleTextFont;
+        private Font _titleTextFont= new Font("宋体", 12);
         [Category("A我的标题栏"), Description("标题栏显示文字字体，默认，当前窗体默认字体 "), Browsable(true)]
-        public Font TitleTextFont
+        public Font TitleTextFont 
         {
             get { return _titleTextFont; }
             set { _titleTextFont = value; Invalidate(); }
@@ -345,6 +345,22 @@ namespace WHControlLib.Forms
             }
         }
 
+        public enum TitleTextAglin { Center, Left }
+        private TitleTextAglin _myTitleTextAglin = TitleTextAglin.Center;
+        [Category("A我的标题栏"), Description("标题栏 文字的对齐方向，默认，中间 "), Browsable(true)]
+        public TitleTextAglin MmyTitleTextAglin
+        {
+            get { return _myTitleTextAglin; }
+            set { _myTitleTextAglin = value; Invalidate(); }
+        }
+
+        private string _titleText = "信息";
+        [Category("A我的标题栏"), Description("标题栏 的 文字，默认，信息 "), Browsable(true)]
+        public string TitleText
+        {
+            get { return _titleText; }
+            set { _titleText = value; Invalidate(); }
+        }
 
 
 
@@ -469,7 +485,7 @@ namespace WHControlLib.Forms
             
             //画标题栏
             DrawTitle(Myg, MyRect);
-
+            DrawTitleText(Myg, TitleRect);
 
 
 
@@ -666,6 +682,45 @@ namespace WHControlLib.Forms
             }
 
         }
+
+        public virtual void DrawTitleText(Graphics Myg, Rectangle TitleRct)
+        {
+            Rectangle titleTextRect = new Rectangle();
+            titleTextRect.X = TitleRct.X - 10;
+            titleTextRect.Y = TitleRct.Y;
+
+            titleTextRect.Width = TitleRct.Width - 10;
+            titleTextRect.Height = TitleRct.Height;
+            StringFormat sf = new StringFormat();
+            sf.LineAlignment = StringAlignment.Center;
+            switch (_myTitleTextAglin)
+            {
+                case TitleTextAglin.Center:
+                    sf.Alignment = StringAlignment.Center;
+                    break;
+                case TitleTextAglin.Left:
+                    sf.Alignment = StringAlignment.Near;
+                    break;
+                default:
+                    sf.Alignment = StringAlignment.Center;
+                    break;
+            }
+            if (TitleText != null)
+            {
+                using (SolidBrush titleTextbrush = new SolidBrush(TitleTextColor))
+                {
+                    Myg.DrawString(TitleText, TitleTextFont, titleTextbrush, titleTextRect, sf);
+                }
+
+
+
+            }
+
+
+
+        }
+
+
         //////////////////////////////////////////////////////////////////////
     }
 }
