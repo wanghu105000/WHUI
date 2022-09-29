@@ -29,6 +29,7 @@ namespace WHUIdemo
         private void button2_Click(object sender, EventArgs e)
         {
           MsgBoxForm whMsgBoxForm = new MsgBoxForm();
+            whMsgBoxForm.MessageText = "你做的很好";
             whMsgBoxForm.Show();    
         }
     }

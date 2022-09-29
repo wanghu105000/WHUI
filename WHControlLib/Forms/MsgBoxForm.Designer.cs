@@ -28,100 +28,99 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.whButton1 = new WHControlLib.Controls.WHButton();
-            this.whLableEx1 = new WHControlLib.Controls.WHLableEx();
+            this.OKbutton = new WHControlLib.Controls.WHButton();
+            this.MsgTextLable = new WHControlLib.Controls.WHLableEx();
             this.SuspendLayout();
             // 
-            // whButton1
+            // OKbutton
             // 
-            this.whButton1.BackColor = System.Drawing.Color.Transparent;
-            this.whButton1.BorderWidth = 2;
-            this.whButton1.BornColor = System.Drawing.Color.Blue;
-            this.whButton1.ColorChangeint = 50;
-            this.whButton1.FirstFillcolor = System.Drawing.Color.Orange;
-            this.whButton1.FontColor = System.Drawing.Color.Black;
-            this.whButton1.ImageOffSet = new System.Drawing.Size(0, 0);
-            this.whButton1.ImageTranparentColor = System.Drawing.Color.White;
-            this.whButton1.IsDrawBoin = false;
-            this.whButton1.IsOpenimageTranparentColor = false;
-            this.whButton1.IsShowFouceLine = true;
-            this.whButton1.IsShowMark = false;
-            this.whButton1.IsShowMarkBorder = false;
-            this.whButton1.IsShowMyImage = false;
-            this.whButton1.IsShowText = true;
-            this.whButton1.IsUseTwoColor = false;
-            this.whButton1.Location = new System.Drawing.Point(149, 181);
-            this.whButton1.MarkBackColor = System.Drawing.Color.Red;
-            this.whButton1.MarkBorderColor = System.Drawing.Color.White;
-            this.whButton1.MarkBorderWidth = 1;
-            this.whButton1.MarkerTextColor = System.Drawing.Color.White;
-            this.whButton1.MarkerTextSzie = 10;
-            this.whButton1.MarkHeight = 2F;
-            this.whButton1.MarkText = "";
-            this.whButton1.MarkTextColor = System.Drawing.Color.White;
-            this.whButton1.MyFillColorDec = WHControlLib.baseStaticCtrl.FillColorDec.Vertical;
-            this.whButton1.MyFont = new System.Drawing.Font("微软雅黑", 12F);
-            this.whButton1.MyImage = null;
-            this.whButton1.MyImageDec = WHControlLib.baseStaticCtrl.ImageDec.left;
-            this.whButton1.MyimageHeight = 0.5F;
-            this.whButton1.MyImageOnMouse = null;
-            this.whButton1.MyImageUnEnable = null;
-            this.whButton1.MyShape = WHControlLib.baseStaticCtrl.Shape.RoundRectange;
-            this.whButton1.MyTextAlign = WHControlLib.baseStaticCtrl.TextAlign.CenterMiddle;
-            this.whButton1.Name = "whButton1";
-            this.whButton1.OnMouseColor = System.Drawing.Color.BurlyWood;
-            this.whButton1.Radius = 5F;
-            this.whButton1.SecondFillcolor = System.Drawing.Color.Orange;
-            this.whButton1.Size = new System.Drawing.Size(133, 35);
-            this.whButton1.TabIndex = 0;
-            this.whButton1.Text = "whButton1";
-            this.whButton1.UnEnableColor = System.Drawing.Color.Gray;
+            this.OKbutton.BackColor = System.Drawing.Color.Transparent;
+            this.OKbutton.BorderWidth = 2;
+            this.OKbutton.BornColor = System.Drawing.Color.Blue;
+            this.OKbutton.ColorChangeint = 50;
+            this.OKbutton.FirstFillcolor = System.Drawing.Color.Orange;
+            this.OKbutton.FontColor = System.Drawing.Color.Black;
+            this.OKbutton.ImageOffSet = new System.Drawing.Size(0, 0);
+            this.OKbutton.ImageTranparentColor = System.Drawing.Color.White;
+            this.OKbutton.IsDrawBoin = false;
+            this.OKbutton.IsOpenimageTranparentColor = false;
+            this.OKbutton.IsShowFouceLine = true;
+            this.OKbutton.IsShowMark = false;
+            this.OKbutton.IsShowMarkBorder = false;
+            this.OKbutton.IsShowMyImage = false;
+            this.OKbutton.IsShowText = true;
+            this.OKbutton.IsUseTwoColor = false;
+            this.OKbutton.Location = new System.Drawing.Point(137, 181);
+            this.OKbutton.MarkBackColor = System.Drawing.Color.Red;
+            this.OKbutton.MarkBorderColor = System.Drawing.Color.White;
+            this.OKbutton.MarkBorderWidth = 1;
+            this.OKbutton.MarkerTextColor = System.Drawing.Color.White;
+            this.OKbutton.MarkerTextSzie = 10;
+            this.OKbutton.MarkHeight = 2F;
+            this.OKbutton.MarkText = "";
+            this.OKbutton.MarkTextColor = System.Drawing.Color.White;
+            this.OKbutton.MyFillColorDec = WHControlLib.baseStaticCtrl.FillColorDec.Vertical;
+            this.OKbutton.MyFont = new System.Drawing.Font("微软雅黑", 12F);
+            this.OKbutton.MyImage = null;
+            this.OKbutton.MyImageDec = WHControlLib.baseStaticCtrl.ImageDec.left;
+            this.OKbutton.MyimageHeight = 0.5F;
+            this.OKbutton.MyImageOnMouse = null;
+            this.OKbutton.MyImageUnEnable = null;
+            this.OKbutton.MyShape = WHControlLib.baseStaticCtrl.Shape.RoundRectange;
+            this.OKbutton.MyTextAlign = WHControlLib.baseStaticCtrl.TextAlign.CenterMiddle;
+            this.OKbutton.Name = "OKbutton";
+            this.OKbutton.OnMouseColor = System.Drawing.Color.BurlyWood;
+            this.OKbutton.Radius = 5F;
+            this.OKbutton.SecondFillcolor = System.Drawing.Color.Orange;
+            this.OKbutton.Size = new System.Drawing.Size(147, 35);
+            this.OKbutton.TabIndex = 0;
+            this.OKbutton.Text = "确定";
+            this.OKbutton.UnEnableColor = System.Drawing.Color.Gray;
             // 
-            // whLableEx1
+            // MsgTextLable
             // 
-            this.whLableEx1.BackColor = System.Drawing.Color.Transparent;
-            this.whLableEx1.BorderWidth = 2;
-            this.whLableEx1.BornColor = System.Drawing.Color.Blue;
-            this.whLableEx1.ColorChangeint = 50;
-            this.whLableEx1.FirstFillcolor = System.Drawing.Color.Orange;
-            this.whLableEx1.FontColor = System.Drawing.Color.Black;
-            this.whLableEx1.ImageOffSet = new System.Drawing.Size(0, 0);
-            this.whLableEx1.ImageTranparentColor = System.Drawing.Color.White;
-            this.whLableEx1.IsAutoSize = false;
-            this.whLableEx1.IsDrawBoin = false;
-            this.whLableEx1.IsOpenimageTranparentColor = false;
-            this.whLableEx1.IsShowFouceLine = false;
-            this.whLableEx1.IsShowMark = false;
-            this.whLableEx1.IsShowMarkBorder = false;
-            this.whLableEx1.IsShowMyImage = false;
-            this.whLableEx1.IsShowText = true;
-            this.whLableEx1.IsUseTwoColor = false;
-            this.whLableEx1.Location = new System.Drawing.Point(12, 54);
-            this.whLableEx1.MarkBackColor = System.Drawing.Color.Red;
-            this.whLableEx1.MarkBorderColor = System.Drawing.Color.White;
-            this.whLableEx1.MarkBorderWidth = 1;
-            this.whLableEx1.MarkerTextColor = System.Drawing.Color.White;
-            this.whLableEx1.MarkerTextSzie = 10;
-            this.whLableEx1.MarkHeight = 2F;
-            this.whLableEx1.MarkText = "";
-            this.whLableEx1.MarkTextColor = System.Drawing.Color.White;
-            this.whLableEx1.MyFillColorDec = WHControlLib.baseStaticCtrl.FillColorDec.Vertical;
-            this.whLableEx1.MyFont = new System.Drawing.Font("微软雅黑", 12F);
-            this.whLableEx1.MyImage = null;
-            this.whLableEx1.MyImageDec = WHControlLib.baseStaticCtrl.ImageDec.left;
-            this.whLableEx1.MyimageHeight = 0.5F;
-            this.whLableEx1.MyImageOnMouse = null;
-            this.whLableEx1.MyImageUnEnable = null;
-            this.whLableEx1.MyShape = WHControlLib.baseStaticCtrl.Shape.RoundRectange;
-            this.whLableEx1.MyTextAlign = WHControlLib.baseStaticCtrl.TextAlign.TopLeft;
-            this.whLableEx1.Name = "whLableEx1";
-            this.whLableEx1.OnMouseColor = System.Drawing.Color.BurlyWood;
-            this.whLableEx1.Radius = 5F;
-            this.whLableEx1.SecondFillcolor = System.Drawing.Color.Orange;
-            this.whLableEx1.Size = new System.Drawing.Size(402, 130);
-            this.whLableEx1.TabIndex = 1;
-            this.whLableEx1.Text = "whLableEx1";
-            this.whLableEx1.UnEnableColor = System.Drawing.Color.Gray;
+            this.MsgTextLable.BackColor = System.Drawing.Color.Transparent;
+            this.MsgTextLable.BorderWidth = 2;
+            this.MsgTextLable.BornColor = System.Drawing.Color.Blue;
+            this.MsgTextLable.ColorChangeint = 50;
+            this.MsgTextLable.FirstFillcolor = System.Drawing.Color.Orange;
+            this.MsgTextLable.FontColor = System.Drawing.Color.Black;
+            this.MsgTextLable.ImageOffSet = new System.Drawing.Size(0, 0);
+            this.MsgTextLable.ImageTranparentColor = System.Drawing.Color.White;
+            this.MsgTextLable.IsAutoSize = false;
+            this.MsgTextLable.IsDrawBoin = false;
+            this.MsgTextLable.IsOpenimageTranparentColor = false;
+            this.MsgTextLable.IsShowFouceLine = false;
+            this.MsgTextLable.IsShowMark = false;
+            this.MsgTextLable.IsShowMarkBorder = false;
+            this.MsgTextLable.IsShowMyImage = false;
+            this.MsgTextLable.IsShowText = true;
+            this.MsgTextLable.IsUseTwoColor = false;
+            this.MsgTextLable.Location = new System.Drawing.Point(101, 55);
+            this.MsgTextLable.MarkBackColor = System.Drawing.Color.Red;
+            this.MsgTextLable.MarkBorderColor = System.Drawing.Color.White;
+            this.MsgTextLable.MarkBorderWidth = 1;
+            this.MsgTextLable.MarkerTextColor = System.Drawing.Color.White;
+            this.MsgTextLable.MarkerTextSzie = 10;
+            this.MsgTextLable.MarkHeight = 2F;
+            this.MsgTextLable.MarkText = "";
+            this.MsgTextLable.MarkTextColor = System.Drawing.Color.White;
+            this.MsgTextLable.MyFillColorDec = WHControlLib.baseStaticCtrl.FillColorDec.Vertical;
+            this.MsgTextLable.MyFont = new System.Drawing.Font("微软雅黑", 12F);
+            this.MsgTextLable.MyImage = null;
+            this.MsgTextLable.MyImageDec = WHControlLib.baseStaticCtrl.ImageDec.left;
+            this.MsgTextLable.MyimageHeight = 0.5F;
+            this.MsgTextLable.MyImageOnMouse = null;
+            this.MsgTextLable.MyImageUnEnable = null;
+            this.MsgTextLable.MyShape = WHControlLib.baseStaticCtrl.Shape.RoundRectange;
+            this.MsgTextLable.MyTextAlign = WHControlLib.baseStaticCtrl.TextAlign.CenterMiddle;
+            this.MsgTextLable.Name = "MsgTextLable";
+            this.MsgTextLable.OnMouseColor = System.Drawing.Color.BurlyWood;
+            this.MsgTextLable.Radius = 5F;
+            this.MsgTextLable.SecondFillcolor = System.Drawing.Color.Orange;
+            this.MsgTextLable.Size = new System.Drawing.Size(218, 120);
+            this.MsgTextLable.TabIndex = 1;
+            this.MsgTextLable.UnEnableColor = System.Drawing.Color.Gray;
             // 
             // MsgBoxForm
             // 
@@ -130,8 +129,8 @@
             this.BackColor = System.Drawing.Color.SkyBlue;
             this.ClientSize = new System.Drawing.Size(426, 228);
             this.CloseBoxBorderColor = System.Drawing.Color.White;
-            this.Controls.Add(this.whLableEx1);
-            this.Controls.Add(this.whButton1);
+            this.Controls.Add(this.MsgTextLable);
+            this.Controls.Add(this.OKbutton);
             this.FormBorderColor = System.Drawing.Color.Firebrick;
             this.FormBorderWidth = 4F;
             this.IsUseTwoColor = true;
@@ -140,13 +139,15 @@
             this.Text = "MsgBoxForm";
             this.TitleBackColor = System.Drawing.Color.Transparent;
             this.TitleHeight = 6;
+            this.Load += new System.EventHandler(this.MsgBoxForm_Load);
+            this.Paint += new System.Windows.Forms.PaintEventHandler(this.MsgBoxForm_Paint);
             this.ResumeLayout(false);
 
         }
 
         #endregion
 
-        private Controls.WHButton whButton1;
-        private Controls.WHLableEx whLableEx1;
+        private Controls.WHButton OKbutton;
+        private Controls.WHLableEx MsgTextLable;
     }
 }

@@ -51,10 +51,10 @@ namespace WHControlLib.Forms
 
         }
         //************全局参数定义***************
-        Rectangle MyRect = new Rectangle();
-        RectangleF DrawRct = new RectangleF();
-        Rectangle TitleRect = new Rectangle();
-        Rectangle CloseBoxRect = new Rectangle();
+       public Rectangle MyRect = new Rectangle();
+      public  RectangleF DrawRct = new RectangleF();
+       public Rectangle TitleRect = new Rectangle();
+       public Rectangle CloseBoxRect = new Rectangle();
 
 
       public bool OnMouseCloseBoxFlag;
@@ -81,6 +81,15 @@ namespace WHControlLib.Forms
             get => base.AutoScroll;
             set => base.AutoScroll = false;
         }
+
+        private string _messageText="";
+        [Category("A我的"), Description("要显示的信息消息文本，默认，无"), Browsable(true)]
+        public string MessageText
+        {
+            get { return _messageText; }
+            set { _messageText = value; Invalidate(); }
+        }
+
 
         private float _myDialogWidthBl=4.5f;
         [Category("A我的"), Description("窗体相对屏幕分辨率的宽度的几分之一，默认，屏幕宽度的4.5分之一，不能小于1f"), Browsable(true)]
@@ -368,18 +377,19 @@ namespace WHControlLib.Forms
 
         protected override void WndProc(ref Message m)
         {
-        
+          
             switch (m.Msg)
             {
                 case 0x0201: //截获鼠标左键按下的消息实现鼠标拖到窗体移动 
+                  base.WndProc(ref m); 
                     if (this.RectangleToScreen(TitleRect).Contains(MousePosition)&& !this.RectangleToScreen(CloseBoxRect).Contains(MousePosition))
                     {
                     ReleaseCapture();
                     SendMessage(this.Handle, WM_SYSCOMMAND, SC_MOVE + HTCAPTION, 0);
                 
                     }
-                
-                  base.WndProc(ref m);
+                    
+              
                     break;
 
                 default:
