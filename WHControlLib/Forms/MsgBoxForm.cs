@@ -32,32 +32,24 @@ namespace WHControlLib.Forms
 
         private void MsgBoxForm_Paint(object sender, PaintEventArgs e)
         {
-
+            float borderwidth = 0;
           
             if (IsDrawFormBorder)
             {
-                MsgTextLable.Left = (int)this.DrawRct.X + (int)FormBorderWidth + 5;
-                MsgTextLable.Width = (int)this.DrawRct.Width - (int)FormBorderWidth*2 - 10;
-         MsgTextLable.Height = (int)((this.DrawRct.Height - this.TitleRect.Height)/10*6.5) ;
-
-            OKbutton.Height = (int)(DrawRct.Height-TitleRect.Height-MsgTextLable.Height-FormBorderWidth-15);
-          OKbutton.Top= (int)(TitleRect.X+TitleRect.Height+MsgTextLable.Height+5);
-                
-                   OKbutton.Width = (int)((DrawRct.Width -FormBorderWidth*2)/ 3);
-                OKbutton.Left= (int)(DrawRct.X+FormBorderWidth+DrawRct.Width/2-OKbutton.Width/2);
+                borderwidth = FormBorderWidth;
      
             }
-            else
-            {
-                MsgTextLable.Left = (int)this.DrawRct.X  + 5;
-                MsgTextLable.Width = (int)this.DrawRct.Width - 10;
 
+            MsgTextLable.Left = (int)this.DrawRct.X + (int)borderwidth + 5;
+            MsgTextLable.Width = (int)this.DrawRct.Width - (int)borderwidth * 2 - 10;
+            MsgTextLable.Height = (int)((this.DrawRct.Height - this.TitleRect.Height) / 10 * 6.5);
+            MsgTextLable.Top= (int)(TitleRect.Y+TitleRect.Height+TitleBorderWidth);
 
-            }
+            OKbutton.Height = (int)((DrawRct.Height - TitleRect.Height - MsgTextLable.Height - borderwidth)/2);
+            OKbutton.Top = (int)(TitleRect.Y + TitleRect.Height + MsgTextLable.Height+25 );
 
-         //MsgTextLable.Top = this.TitleRect.Y + TitleRect.Height ;
-         
-         
+            OKbutton.Width = (int)((DrawRct.Width - borderwidth * 2) / 3);
+            OKbutton.Left = (int)(DrawRct.X + borderwidth + DrawRct.Width / 2 - OKbutton.Width / 2);
 
 
 

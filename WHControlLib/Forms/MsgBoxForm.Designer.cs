@@ -50,7 +50,7 @@
             this.OKbutton.IsShowMyImage = false;
             this.OKbutton.IsShowText = true;
             this.OKbutton.IsUseTwoColor = false;
-            this.OKbutton.Location = new System.Drawing.Point(137, 181);
+            this.OKbutton.Location = new System.Drawing.Point(133, 219);
             this.OKbutton.MarkBackColor = System.Drawing.Color.Red;
             this.OKbutton.MarkBorderColor = System.Drawing.Color.White;
             this.OKbutton.MarkBorderWidth = 1;
@@ -66,13 +66,13 @@
             this.OKbutton.MyimageHeight = 0.5F;
             this.OKbutton.MyImageOnMouse = null;
             this.OKbutton.MyImageUnEnable = null;
-            this.OKbutton.MyShape = WHControlLib.baseStaticCtrl.Shape.RoundRectange;
+            this.OKbutton.MyShape = WHControlLib.baseStaticCtrl.Shape.HalfCircle;
             this.OKbutton.MyTextAlign = WHControlLib.baseStaticCtrl.TextAlign.CenterMiddle;
             this.OKbutton.Name = "OKbutton";
             this.OKbutton.OnMouseColor = System.Drawing.Color.BurlyWood;
             this.OKbutton.Radius = 5F;
             this.OKbutton.SecondFillcolor = System.Drawing.Color.Orange;
-            this.OKbutton.Size = new System.Drawing.Size(147, 35);
+            this.OKbutton.Size = new System.Drawing.Size(147, 26);
             this.OKbutton.TabIndex = 0;
             this.OKbutton.Text = "确定";
             this.OKbutton.UnEnableColor = System.Drawing.Color.Gray;
@@ -83,7 +83,7 @@
             this.MsgTextLable.BorderWidth = 2;
             this.MsgTextLable.BornColor = System.Drawing.Color.Blue;
             this.MsgTextLable.ColorChangeint = 50;
-            this.MsgTextLable.FirstFillcolor = System.Drawing.Color.Orange;
+            this.MsgTextLable.FirstFillcolor = System.Drawing.Color.Transparent;
             this.MsgTextLable.FontColor = System.Drawing.Color.Black;
             this.MsgTextLable.ImageOffSet = new System.Drawing.Size(0, 0);
             this.MsgTextLable.ImageTranparentColor = System.Drawing.Color.White;
@@ -120,6 +120,7 @@
             this.MsgTextLable.SecondFillcolor = System.Drawing.Color.Orange;
             this.MsgTextLable.Size = new System.Drawing.Size(218, 120);
             this.MsgTextLable.TabIndex = 1;
+            this.MsgTextLable.Text = null;
             this.MsgTextLable.UnEnableColor = System.Drawing.Color.Gray;
             // 
             // MsgBoxForm
@@ -127,18 +128,23 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.SkyBlue;
-            this.ClientSize = new System.Drawing.Size(426, 228);
+            this.BoxJG = 8;
+            this.ClientSize = new System.Drawing.Size(426, 257);
             this.CloseBoxBorderColor = System.Drawing.Color.White;
+            this.CloseBoxShapeColor = System.Drawing.Color.FloralWhite;
             this.Controls.Add(this.MsgTextLable);
             this.Controls.Add(this.OKbutton);
-            this.FormBorderColor = System.Drawing.Color.Firebrick;
+            this.FormBorderColor = System.Drawing.Color.LightGray;
             this.FormBorderWidth = 4F;
             this.IsUseTwoColor = true;
             this.MyCloseBoxShape = WHControlLib.Forms.BaseDialogFormcs.CloseBoxShape.Circle;
+            this.MyDialogHeightBl = 4F;
             this.Name = "MsgBoxForm";
+            this.Radius = 9F;
             this.Text = "MsgBoxForm";
             this.TitleBackColor = System.Drawing.Color.Transparent;
             this.TitleHeight = 6;
+            this.TitleTextFont = new System.Drawing.Font("微软雅黑", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.Load += new System.EventHandler(this.MsgBoxForm_Load);
             this.Paint += new System.Windows.Forms.PaintEventHandler(this.MsgBoxForm_Paint);
             this.ResumeLayout(false);

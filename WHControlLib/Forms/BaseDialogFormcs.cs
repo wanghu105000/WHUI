@@ -532,10 +532,10 @@ namespace WHControlLib.Forms
             SolidBrush TitleBoxSelectBrush = new SolidBrush(CloseBoxSelectColor);
             Pen TitleBoxPen = new Pen(CloseBoxShapeColor, CloseBoxBorderWidth);
             Pen CloseBoxBorderPen = new Pen(CloseBoxBorderColor, CloseBoxBorderWidth);
-
-            float Boxhight = TitleRect.Height-BoxJG ;
+            //关闭按钮的相对高度
+            float Boxhight = TitleRect.Height/5*4-BoxJG ;
           //叉形状在关闭按钮区域中的占比
-            float wbl =Boxhight/2 ;
+            float wbl =Boxhight/3 ;
             float hbl = wbl;
 
             //定义 关闭按钮范围
