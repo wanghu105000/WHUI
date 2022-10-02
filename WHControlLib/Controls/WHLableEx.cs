@@ -50,7 +50,7 @@ namespace WHControlLib.Controls
 
 
 
-        public override void DrawText(Graphics Myg)
+      public  override void DrawText(Graphics Myg)
         {
             SolidBrush FontBrush = new SolidBrush(FontColor);
             StringFormat sf = new StringFormat();
@@ -59,7 +59,7 @@ namespace WHControlLib.Controls
             switch (MyTextAlign)
             {
                 case TextAlign.CenterMiddle:
-                    sf.Alignment = StringAlignment.Center;
+                   sf.Alignment = StringAlignment.Center;
                     sf.LineAlignment = StringAlignment.Center;
                     break;
                 case TextAlign.CenterLeft:
@@ -100,10 +100,9 @@ namespace WHControlLib.Controls
             }
 
         
-                 Rectangle TextRect = new Rectangle();   
- 
-          
-          
+                 Rectangle TextRect = new Rectangle();
+
+        
             if (IsAutoSize)
               {
                  if (IsShowMyImage == false || MyImage == null/*|| MyImageOnMouse==null  || MyImageUnEnable==null*/)
@@ -123,14 +122,45 @@ namespace WHControlLib.Controls
             }
 
           
-                TextRect = DrawRect;
-                Myg.DrawString(Text, MyFont, FontBrush, TextRect, sf); return;
+             
+            
+            ////如果有图片根据图片方向设置字体显示的范围
+            if (IsShowMyImage && MyImage != null)
+            {
+                switch (MyImageDec)
+                {
+                    case ImageDec.left:
+                        TextRect.X=(int) imageRect.Width+5;
+                        TextRect.Y = (int)DrawRect.Height;
+                        TextRect.Width = (int)(DrawRect.Width - imageRect.Width - 10);
+                        TextRect.Height= (int)(DrawRect.Height );
+                    
+                        break;
+                    case ImageDec.top:
+                        break;
+                    case ImageDec.right:
+                        break;
+                    case ImageDec.bottom:
+                        break;
+                    default:
+                        break;
+                }
 
-    
 
-       ////////////自动对齐为实现
 
-           
+                Myg.DrawString(Text, MyFont, FontBrush, TextRect, sf);
+            }
+
+            else
+            {
+            TextRect = DrawRect;
+                Myg.DrawString(Text, MyFont, FontBrush, TextRect, sf);
+            }
+
+
+            ////////////自动对齐为实现
+      
+
 
 
 

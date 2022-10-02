@@ -38,7 +38,7 @@ namespace WHControlLib
         /// </summary>
         public Rectangle DrawRect = new Rectangle();
 
-        RectangleF imageRect = new RectangleF();
+        public RectangleF imageRect = new RectangleF();
 
 
         /// <summary>
@@ -725,6 +725,8 @@ namespace WHControlLib
             }
 
             Rectangle TextRect = new Rectangle();
+      
+            
             TextRect = DrawRect;
                 Myg.DrawString(Text, MyFont, FontBrush, TextRect, sf); return;
             ////

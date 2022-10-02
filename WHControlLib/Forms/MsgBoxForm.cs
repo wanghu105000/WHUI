@@ -12,9 +12,11 @@ namespace WHControlLib.Forms
 {
     public partial class MsgBoxForm : BaseDialogFormcs
     {
+   
         public MsgBoxForm()
         {
             InitializeComponent();
+       
         }
 
         //protected override void OnLoad(EventArgs e)
@@ -28,6 +30,8 @@ namespace WHControlLib.Forms
 
 
             MsgTextLable.Text = MessageText;
+       
+
         }
 
         private void MsgBoxForm_Paint(object sender, PaintEventArgs e)

@@ -37,11 +37,9 @@ namespace WHControlLib.Forms
 
 
         public BaseDialogFormcs()
-        {//设置双缓冲
+        {
+         
 
-            //this.SetStyle(ControlStyles.OptimizedDoubleBuffer |
-            //         ControlStyles.ResizeRedraw |
-            //         ControlStyles.AllPaintingInWmPaint, true);
             InitializeStyles();
             InitializeComponent();
             ////////设置成无边框窗体
@@ -50,6 +48,8 @@ namespace WHControlLib.Forms
             //this.TopMost = true;
             this.StartPosition = FormStartPosition.CenterScreen;
 
+     
+
         }
         //************全局参数定义***************
        public Rectangle MyRect = new Rectangle();
@@ -57,9 +57,9 @@ namespace WHControlLib.Forms
        public Rectangle TitleRect = new Rectangle();
        public Rectangle CloseBoxRect = new Rectangle();
 
-
-      public bool OnMouseCloseBoxFlag;
         Form maskFrm;
+        public bool OnMouseCloseBoxFlag;
+      
         MaskFrmClose maskFrmClose;
         //**************************************
         #region 无边框窗体拖动
@@ -752,35 +752,51 @@ namespace WHControlLib.Forms
 
 
         }
-        protected override void OnClosed(EventArgs e)
+        protected override void OnClosing(CancelEventArgs e)
         {
-            base.OnClosed(e);
-            if (maskFrm!=null)
-            {maskFrm.Close();
+            base.OnClosing(e);
+          
+                //判断是否显示遮罩如果有this的owner属性释放不然会异常
+                if (IsShowMaskFrm)
+                {  try
+            {
+               if (maskFrm!=null)
+                     {
+                    this.Owner=null;
+                   maskFrm.Close();  }
+                }
+                catch { }
+          
 
             }
-
+    
+            
         }
+
+
 
         protected override void OnLoad(EventArgs e)
         {
-            base.OnLoad(e);
-
+                base.OnLoad(e);
             if (IsShowMaskFrm)
             {
                 maskFrm = new Form();
                 maskFrm.FormBorderStyle = FormBorderStyle.None;
                 maskFrm.ShowInTaskbar = false;
-                maskFrm.BackColor = Color.Black ;
+                maskFrm.BackColor = Color.Black;
                 maskFrm.Opacity = 0.7;
                 maskFrm.WindowState = FormWindowState.Maximized;
-                maskFrm.Owner = this;
-                //maskFrm.TopLevel = false;
+
+                //只有这样才能将背景隐藏并将信息框最前显示
+              
+                      this.Owner=maskFrm;
                 maskFrm.Show();
-               
-                //this.TopMost=true;
+
 
             }
+
+      
+
         }
         //////////////////////////////////////////////////////////////////////
     }

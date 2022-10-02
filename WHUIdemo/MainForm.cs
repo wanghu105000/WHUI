@@ -28,10 +28,8 @@ namespace WHUIdemo
 
         private void button2_Click(object sender, EventArgs e)
         {
-          MsgBoxForm whMsgBoxForm = new MsgBoxForm();
-            whMsgBoxForm.MessageText = "你做的很好";
-            whMsgBoxForm.IsShowMaskFrm = true;
-            whMsgBoxForm.ShowDialog();   
+            WHMsgDialog.Show("简单的很上课时间都是山东省克劳德萨里的DSAKL DDSDASL阿达SDSA DKSDKSADK 123");
+            WHMsgDialog.ShowErroMsg("写错了","错误",true);
         }
     }
 }
