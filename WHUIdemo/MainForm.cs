@@ -30,7 +30,8 @@ namespace WHUIdemo
         {
           MsgBoxForm whMsgBoxForm = new MsgBoxForm();
             whMsgBoxForm.MessageText = "你做的很好";
-            whMsgBoxForm.Show();    
+            whMsgBoxForm.IsShowMaskFrm = true;
+            whMsgBoxForm.ShowDialog();   
         }
     }
 }

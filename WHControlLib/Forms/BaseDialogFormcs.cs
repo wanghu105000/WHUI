@@ -17,10 +17,11 @@ namespace WHControlLib.Forms
     //***********      继承本类的窗体上的控件，尽量用比例计算出外形*******************
     //***************************************************************************
 
-
+      delegate  void MaskFrmClose();
+   
     public partial class BaseDialogFormcs : Form
     {
-
+ 
         private void InitializeStyles()
         {
             SetStyle(
@@ -58,7 +59,8 @@ namespace WHControlLib.Forms
 
 
       public bool OnMouseCloseBoxFlag;
-
+        Form maskFrm;
+        MaskFrmClose maskFrmClose;
         //**************************************
         #region 无边框窗体拖动
 
@@ -90,6 +92,13 @@ namespace WHControlLib.Forms
             set { _messageText = value; Invalidate(); }
         }
 
+        private bool _isShowMaskFrm;
+        [Category("A我的"), Description("要否要显示遮罩窗体，默认，无"), Browsable(true)]
+        public bool IsShowMaskFrm
+        {
+            get { return _isShowMaskFrm; }
+            set { _isShowMaskFrm = value; }
+        }
 
         private float _myDialogWidthBl=4.5f;
         [Category("A我的"), Description("窗体相对屏幕分辨率的宽度的几分之一，默认，屏幕宽度的4.5分之一，不能小于1f"), Browsable(true)]
@@ -371,6 +380,19 @@ namespace WHControlLib.Forms
             set { _titleText = value; Invalidate(); }
         }
 
+        private float _closeBoxSize=0.8f;
+        [Category("A我的标题栏"), Description("关闭按钮相对于标题栏的大小，默认 0.8f不能大于1.0f小于0.2f "), Browsable(true)]
+        public float CloseBoxSize
+        {
+            get { return _closeBoxSize; }
+            set {
+                if (value>1|value<0.2f)
+                {
+                    value= 0.2f;
+                }
+              else  _closeBoxSize = value; Invalidate();
+            }
+        }
 
 
         #endregion
@@ -443,6 +465,7 @@ namespace WHControlLib.Forms
 
 
         }
+
         protected override void OnPaint(PaintEventArgs e)
         {
             base.OnPaint(e);
@@ -533,7 +556,7 @@ namespace WHControlLib.Forms
             Pen TitleBoxPen = new Pen(CloseBoxShapeColor, CloseBoxBorderWidth);
             Pen CloseBoxBorderPen = new Pen(CloseBoxBorderColor, CloseBoxBorderWidth);
             //关闭按钮的相对高度
-            float Boxhight = TitleRect.Height/5*4-BoxJG ;
+            float Boxhight = TitleRect.Height* CloseBoxSize - BoxJG ;
           //叉形状在关闭按钮区域中的占比
             float wbl =Boxhight/3 ;
             float hbl = wbl;
@@ -729,8 +752,36 @@ namespace WHControlLib.Forms
 
 
         }
+        protected override void OnClosed(EventArgs e)
+        {
+            base.OnClosed(e);
+            if (maskFrm!=null)
+            {maskFrm.Close();
 
+            }
 
+        }
+
+        protected override void OnLoad(EventArgs e)
+        {
+            base.OnLoad(e);
+
+            if (IsShowMaskFrm)
+            {
+                maskFrm = new Form();
+                maskFrm.FormBorderStyle = FormBorderStyle.None;
+                maskFrm.ShowInTaskbar = false;
+                maskFrm.BackColor = Color.Black ;
+                maskFrm.Opacity = 0.7;
+                maskFrm.WindowState = FormWindowState.Maximized;
+                maskFrm.Owner = this;
+                //maskFrm.TopLevel = false;
+                maskFrm.Show();
+               
+                //this.TopMost=true;
+
+            }
+        }
         //////////////////////////////////////////////////////////////////////
     }
 }

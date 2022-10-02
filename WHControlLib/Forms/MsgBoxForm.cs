@@ -45,10 +45,10 @@ namespace WHControlLib.Forms
             MsgTextLable.Height = (int)((this.DrawRct.Height - this.TitleRect.Height) / 10 * 6.5);
             MsgTextLable.Top= (int)(TitleRect.Y+TitleRect.Height+TitleBorderWidth);
 
-            OKbutton.Height = (int)((DrawRct.Height - TitleRect.Height - MsgTextLable.Height - borderwidth)/2);
-            OKbutton.Top = (int)(TitleRect.Y + TitleRect.Height + MsgTextLable.Height+25 );
+            OKbutton.Height = (int)((DrawRct.Height - TitleRect.Height - MsgTextLable.Height - borderwidth)/3*2);
+            OKbutton.Top = (int)(TitleRect.Y + TitleRect.Height + MsgTextLable.Height+10 );
 
-            OKbutton.Width = (int)((DrawRct.Width - borderwidth * 2) / 3);
+            OKbutton.Width = (int)((DrawRct.Width - borderwidth * 2) / 3*2);
             OKbutton.Left = (int)(DrawRct.X + borderwidth + DrawRct.Width / 2 - OKbutton.Width / 2);
 
 

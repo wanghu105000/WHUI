@@ -50,7 +50,7 @@
             this.OKbutton.IsShowMyImage = false;
             this.OKbutton.IsShowText = true;
             this.OKbutton.IsUseTwoColor = false;
-            this.OKbutton.Location = new System.Drawing.Point(133, 219);
+            this.OKbutton.Location = new System.Drawing.Point(133, 208);
             this.OKbutton.MarkBackColor = System.Drawing.Color.Red;
             this.OKbutton.MarkBorderColor = System.Drawing.Color.White;
             this.OKbutton.MarkBorderWidth = 1;
@@ -72,7 +72,7 @@
             this.OKbutton.OnMouseColor = System.Drawing.Color.BurlyWood;
             this.OKbutton.Radius = 5F;
             this.OKbutton.SecondFillcolor = System.Drawing.Color.Orange;
-            this.OKbutton.Size = new System.Drawing.Size(147, 26);
+            this.OKbutton.Size = new System.Drawing.Size(147, 37);
             this.OKbutton.TabIndex = 0;
             this.OKbutton.Text = "确定";
             this.OKbutton.UnEnableColor = System.Drawing.Color.Gray;
@@ -81,14 +81,14 @@
             // 
             this.MsgTextLable.BackColor = System.Drawing.Color.Transparent;
             this.MsgTextLable.BorderWidth = 2;
-            this.MsgTextLable.BornColor = System.Drawing.Color.Blue;
+            this.MsgTextLable.BornColor = System.Drawing.Color.Beige;
             this.MsgTextLable.ColorChangeint = 50;
             this.MsgTextLable.FirstFillcolor = System.Drawing.Color.Transparent;
             this.MsgTextLable.FontColor = System.Drawing.Color.Black;
             this.MsgTextLable.ImageOffSet = new System.Drawing.Size(0, 0);
             this.MsgTextLable.ImageTranparentColor = System.Drawing.Color.White;
             this.MsgTextLable.IsAutoSize = false;
-            this.MsgTextLable.IsDrawBoin = false;
+            this.MsgTextLable.IsDrawBoin = true;
             this.MsgTextLable.IsOpenimageTranparentColor = false;
             this.MsgTextLable.IsShowFouceLine = false;
             this.MsgTextLable.IsShowMark = false;
@@ -96,7 +96,7 @@
             this.MsgTextLable.IsShowMyImage = false;
             this.MsgTextLable.IsShowText = true;
             this.MsgTextLable.IsUseTwoColor = false;
-            this.MsgTextLable.Location = new System.Drawing.Point(101, 55);
+            this.MsgTextLable.Location = new System.Drawing.Point(96, 64);
             this.MsgTextLable.MarkBackColor = System.Drawing.Color.Red;
             this.MsgTextLable.MarkBorderColor = System.Drawing.Color.White;
             this.MsgTextLable.MarkBorderWidth = 1;
