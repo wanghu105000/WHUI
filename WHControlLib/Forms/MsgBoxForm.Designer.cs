@@ -47,7 +47,7 @@
             this.OKbutton.IsShowFouceLine = true;
             this.OKbutton.IsShowMark = false;
             this.OKbutton.IsShowMarkBorder = false;
-            this.OKbutton.IsShowMyImage = true;
+            this.OKbutton.IsShowMyImage = false;
             this.OKbutton.IsShowText = true;
             this.OKbutton.IsUseTwoColor = false;
             this.OKbutton.Location = new System.Drawing.Point(133, 208);
@@ -61,7 +61,7 @@
             this.OKbutton.MarkTextColor = System.Drawing.Color.White;
             this.OKbutton.MyFillColorDec = WHControlLib.baseStaticCtrl.FillColorDec.Vertical;
             this.OKbutton.MyFont = new System.Drawing.Font("微软雅黑", 12F);
-            this.OKbutton.MyImage = global::WHControlLib.Properties.Resources.a5;
+            this.OKbutton.MyImage = null;
             this.OKbutton.MyImageDec = WHControlLib.baseStaticCtrl.ImageDec.left;
             this.OKbutton.MyimageHeight = 0.5F;
             this.OKbutton.MyImageOnMouse = null;
@@ -96,7 +96,7 @@
             this.MsgTextLable.IsShowMyImage = true;
             this.MsgTextLable.IsShowText = true;
             this.MsgTextLable.IsUseTwoColor = false;
-            this.MsgTextLable.Location = new System.Drawing.Point(112, 76);
+            this.MsgTextLable.Location = new System.Drawing.Point(45, 76);
             this.MsgTextLable.MarkBackColor = System.Drawing.Color.Red;
             this.MsgTextLable.MarkBorderColor = System.Drawing.Color.White;
             this.MsgTextLable.MarkBorderWidth = 1;
@@ -107,7 +107,7 @@
             this.MsgTextLable.MarkTextColor = System.Drawing.Color.White;
             this.MsgTextLable.MyFillColorDec = WHControlLib.baseStaticCtrl.FillColorDec.Vertical;
             this.MsgTextLable.MyFont = new System.Drawing.Font("微软雅黑", 12F);
-            this.MsgTextLable.MyImage = global::WHControlLib.Properties.Resources.a5;
+            this.MsgTextLable.MyImage = null;
             this.MsgTextLable.MyImageDec = WHControlLib.baseStaticCtrl.ImageDec.left;
             this.MsgTextLable.MyimageHeight = 0.5F;
             this.MsgTextLable.MyImageOnMouse = null;
@@ -118,7 +118,7 @@
             this.MsgTextLable.OnMouseColor = System.Drawing.Color.BurlyWood;
             this.MsgTextLable.Radius = 5F;
             this.MsgTextLable.SecondFillcolor = System.Drawing.Color.Orange;
-            this.MsgTextLable.Size = new System.Drawing.Size(168, 115);
+            this.MsgTextLable.Size = new System.Drawing.Size(327, 115);
             this.MsgTextLable.TabIndex = 1;
             this.MsgTextLable.Text = null;
             this.MsgTextLable.UnEnableColor = System.Drawing.Color.Gray;

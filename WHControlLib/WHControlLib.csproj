@@ -90,11 +90,6 @@
     <Compile Include="Forms\WHForm.Designer.cs">
       <DependentUpon>WHForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="MyResource\MyImageRes.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>MyImageRes.resx</DependentUpon>
-    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Controls\WHLable.cs">
       <SubType>Component</SubType>
@@ -155,12 +150,9 @@
     <EmbeddedResource Include="Controls\baseTextBoxEx.resx">
       <DependentUpon>baseTextBoxEx.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="MyResource\MyImageRes.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>MyImageRes.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
+      <SubType>Designer</SubType>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
@@ -168,13 +160,7 @@
     <None Include="app.manifest" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\Warning.ico" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\a5.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\a51.png" />
+    <Folder Include="MyResource\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

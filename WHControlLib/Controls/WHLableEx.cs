@@ -131,16 +131,28 @@ namespace WHControlLib.Controls
                 {
                     case ImageDec.left:
                         TextRect.X=(int) imageRect.Width+5;
-                        TextRect.Y = (int)DrawRect.Height;
+                        TextRect.Y = (int)DrawRect.Y;
                         TextRect.Width = (int)(DrawRect.Width - imageRect.Width - 10);
                         TextRect.Height= (int)(DrawRect.Height );
                     
                         break;
                     case ImageDec.top:
+                        TextRect.X = (int)DrawRect.X;
+                        TextRect.Y = (int)(DrawRect.Y+imageRect.Height+5);
+                        TextRect.Width = (int)(DrawRect.Width );
+                        TextRect.Height = (int)(DrawRect.Height-imageRect.Height-10);
                         break;
                     case ImageDec.right:
+                        TextRect.X = (int)DrawRect.X+5;
+                        TextRect.Y = (int)(DrawRect.Y);
+                        TextRect.Width = (int)(DrawRect.Width - imageRect.Width - 10);
+                        TextRect.Height = (int)(DrawRect.Height);
                         break;
                     case ImageDec.bottom:
+                        TextRect.X = (int)DrawRect.X ;
+                        TextRect.Y = (int)(DrawRect.Y+5);
+                        TextRect.Width = (int)(DrawRect.Width );
+                        TextRect.Height = (int)(DrawRect.Height - imageRect.Height - 10);
                         break;
                     default:
                         break;
