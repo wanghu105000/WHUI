@@ -49,6 +49,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Forms\CtrlTestFrm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\CtrlTestFrm.Designer.cs">
+      <DependentUpon>CtrlTestFrm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\testForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -63,6 +69,9 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="Forms\CtrlTestFrm.resx">
+      <DependentUpon>CtrlTestFrm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\testForm.resx">
       <DependentUpon>testForm.cs</DependentUpon>
     </EmbeddedResource>

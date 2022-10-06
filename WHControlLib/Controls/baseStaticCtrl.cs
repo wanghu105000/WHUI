@@ -238,6 +238,13 @@ namespace WHControlLib
             get { return _isShowFouceLine; }
             set { _isShowFouceLine = value; }
         }
+        private bool _isAutoSize;
+        [Category("A我的"), Description("文字在控件上是否自动大小（只有纯文本状态下支持，有图标不支持），默认，否"), Browsable(true)]
+        public bool IsAutoSize
+        {
+            get { return _isAutoSize; }
+            set { _isAutoSize = value; }
+        }
 
         //角标属性设置
         private bool _isShowMark;
@@ -658,7 +665,8 @@ namespace WHControlLib
             if (IsShowText)
             {
 
-                DrawText(Myg);
+                //DrawText(Myg);
+                DrawText(Myg,IsAutoSize);
 
             }
 
@@ -675,6 +683,7 @@ namespace WHControlLib
         /// </summary>
         /// <param name="Myg">那个DC上画</param>
         /// <param name="TexRect">文本所在的矩形区域</param>
+        [Obsolete("此方法是旧方法; ")]
         public virtual void DrawText(Graphics Myg)
         {
             SolidBrush FontBrush = new SolidBrush(FontColor);
@@ -757,7 +766,146 @@ namespace WHControlLib
 
         }
 
+       /// <summary>
+       /// 画控件上的文本信息支持有图片的情况
+       /// </summary>
+       /// <param name="Myg"></param>
+       /// <param name="IsAutoSize">是否纯文本下控件自从大小</param>
+        public virtual void DrawText(Graphics Myg, bool IsAutoSize)
+        {
+            SolidBrush FontBrush = new SolidBrush(FontColor);
+            StringFormat sf = new StringFormat();
+            //格式化显示文本 指定在工作矩形的中心显示
 
+            switch (MyTextAlign)
+            {
+                case TextAlign.CenterMiddle:
+                    sf.Alignment = StringAlignment.Center;
+                    sf.LineAlignment = StringAlignment.Center;
+                    break;
+                case TextAlign.CenterLeft:
+                    sf.Alignment = StringAlignment.Near;
+                    sf.LineAlignment = StringAlignment.Center;
+                    break;
+                case TextAlign.CenterRight:
+                    sf.Alignment = StringAlignment.Far;
+                    sf.LineAlignment = StringAlignment.Center;
+                    break;
+                case TextAlign.CenterButtom:
+                    sf.Alignment = StringAlignment.Center;
+                    sf.LineAlignment = StringAlignment.Far;
+                    break;
+                case TextAlign.CenterTop:
+                    sf.Alignment = StringAlignment.Center;
+                    sf.LineAlignment = StringAlignment.Near;
+                    break;
+                case TextAlign.TopLeft:
+                    sf.Alignment = StringAlignment.Near;
+                    sf.LineAlignment = StringAlignment.Near;
+                    break;
+                case TextAlign.TopRight:
+                    sf.Alignment = StringAlignment.Far;
+                    sf.LineAlignment = StringAlignment.Near;
+                    break;
+                case TextAlign.BottomLeft:
+                    sf.Alignment = StringAlignment.Near;
+                    sf.LineAlignment = StringAlignment.Far;
+                    break;
+                case TextAlign.BottomRight:
+                    sf.Alignment = StringAlignment.Far;
+                    sf.LineAlignment = StringAlignment.Far;
+
+                    break;
+                default:
+                    break;
+            }
+
+
+            Rectangle TextRect = new Rectangle();
+
+
+            if (IsAutoSize)
+            {
+                if (IsShowMyImage == false || MyImage == null/*|| MyImageOnMouse==null  || MyImageUnEnable==null*/)
+                {
+                    int textwidth = (int)Myg.MeasureString(Text, MyFont).Width;
+                    int textheight = (int)Myg.MeasureString(Text, MyFont).Height;
+
+                    Width = textwidth + 10;
+                    this.Height = textheight + 10;
+
+                    TextRect.X = DrawRect.X + 2;
+                    TextRect.Y = DrawRect.Y + 2;
+                    TextRect.Width = textwidth + 5;
+                    TextRect.Height = textheight + 5;
+                    Myg.DrawString(Text, MyFont, FontBrush, TextRect, sf); return;
+                }
+
+
+            }
+
+
+
+
+            ////如果有图片根据图片方向设置字体显示的范围
+            if (IsShowMyImage && MyImage != null)
+            {
+                switch (MyImageDec)
+                {
+                    case ImageDec.left:
+                        TextRect.X = (int)imageRect.Width + 5;
+                        TextRect.Y = (int)DrawRect.Y;
+                        TextRect.Width = (int)(DrawRect.Width - imageRect.Width - 10);
+                        TextRect.Height = (int)(DrawRect.Height);
+
+                        break;
+                    case ImageDec.top:
+                        TextRect.X = (int)DrawRect.X;
+                        TextRect.Y = (int)(DrawRect.Y + imageRect.Height + 5);
+                        TextRect.Width = (int)(DrawRect.Width);
+                        TextRect.Height = (int)(DrawRect.Height - imageRect.Height - 10);
+                        break;
+                    case ImageDec.right:
+                        TextRect.X = (int)DrawRect.X + 5;
+                        TextRect.Y = (int)(DrawRect.Y);
+                        TextRect.Width = (int)(DrawRect.Width - imageRect.Width - 10);
+                        TextRect.Height = (int)(DrawRect.Height);
+                        break;
+                    case ImageDec.bottom:
+                        TextRect.X = (int)DrawRect.X;
+                        TextRect.Y = (int)(DrawRect.Y + 5);
+                        TextRect.Width = (int)(DrawRect.Width);
+                        TextRect.Height = (int)(DrawRect.Height - imageRect.Height - 10);
+                        break;
+                    default:
+                        break;
+                }
+
+
+
+                Myg.DrawString(Text, MyFont, FontBrush, TextRect, sf);
+            }
+
+            else
+            {
+                TextRect = DrawRect;
+                Myg.DrawString(Text, MyFont, FontBrush, TextRect, sf);
+            }
+
+
+            ////////////自动对齐为实现
+
+
+
+
+
+
+            ////也可以用效果不好
+            ////TextRenderer.DrawText(g, this.Text, this.Font, pevent.ClipRectangle, FontColor);
+
+        }
+      
+        
         public virtual void DrawFouceLine( Shape MyShape, Graphics Myg,Rectangle DrawRect)
         {
             if (this.Focused)

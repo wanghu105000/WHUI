@@ -73,3 +73,4 @@ D:\WHUI\WHUI\WHUIdemo\obj\Debug\WHUIdemo.csproj.CoreCompileInputs.cache
 D:\WHUI\WHUI\WHUIdemo\obj\Debug\WHUIdemo.csproj.CopyComplete
 D:\WHUI\WHUI\WHUIdemo\obj\Debug\WHUIdemo.exe
 D:\WHUI\WHUI\WHUIdemo\obj\Debug\WHUIdemo.pdb
+D:\WHUI\WHUI\WHUIdemo\obj\Debug\WHUIdemo.Forms.CtrlTestFrm.resources

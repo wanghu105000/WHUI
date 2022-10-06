@@ -70,6 +70,12 @@
     <Compile Include="Controls\WHLableEx.Designer.cs">
       <DependentUpon>WHLableEx.cs</DependentUpon>
     </Compile>
+    <Compile Include="Controls\WHRadioButton.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controls\WHRadioButton.Designer.cs">
+      <DependentUpon>WHRadioButton.cs</DependentUpon>
+    </Compile>
     <Compile Include="DrawHelper.cs" />
     <Compile Include="Forms\BaseDialogFormcs.cs">
       <SubType>Form</SubType>

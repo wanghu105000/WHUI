@@ -51,11 +51,18 @@ namespace WHControlLib
             set { _borderWidth = value; Invalidate(); }
         }
         private Color _fillBackgroundColor=Color.White;
-        [Category("A我的"), Description("内部填充颜色，默认，白色"), Browsable(true)]
+        [Category("A我的"), Description("内部填充颜色，默认，白色,不能是透明色"), Browsable(true)]
         public Color FillBackgroundColor
         {
             get { return _fillBackgroundColor; }
-            set { _fillBackgroundColor = value; 
+            set
+            {
+                if (value==Color.Transparent)
+                {
+                    value = Color.White;
+                }
+                else
+                _fillBackgroundColor = value; 
                 Invalidate();
             }
         }

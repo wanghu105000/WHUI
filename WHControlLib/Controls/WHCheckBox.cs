@@ -140,7 +140,7 @@ namespace WHControlLib
             Myg.CompositingQuality = CompositingQuality.HighQuality;
             Myg.InterpolationMode = InterpolationMode.HighQualityBicubic;
 
-
+            //此处后期改进这样 不能支持 混合背景色 透明 采取 控件背景色透明的方式
             Myg.Clear(this.Parent.BackColor);
             
               DrawFillSelectSquart(Myg, MyRect);

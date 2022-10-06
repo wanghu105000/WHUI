@@ -40,8 +40,9 @@
             this.OKbutton.ColorChangeint = 50;
             this.OKbutton.FirstFillcolor = System.Drawing.Color.Orange;
             this.OKbutton.FontColor = System.Drawing.Color.Black;
-            this.OKbutton.ImageOffSet = new System.Drawing.Size(0, 0);
+            this.OKbutton.ImageOffSet = new System.Drawing.Size(30, 0);
             this.OKbutton.ImageTranparentColor = System.Drawing.Color.White;
+            this.OKbutton.IsAutoSize = false;
             this.OKbutton.IsDrawBoin = false;
             this.OKbutton.IsOpenimageTranparentColor = false;
             this.OKbutton.IsShowFouceLine = true;
@@ -50,7 +51,7 @@
             this.OKbutton.IsShowMyImage = false;
             this.OKbutton.IsShowText = true;
             this.OKbutton.IsUseTwoColor = false;
-            this.OKbutton.Location = new System.Drawing.Point(133, 208);
+            this.OKbutton.Location = new System.Drawing.Point(133, 181);
             this.OKbutton.MarkBackColor = System.Drawing.Color.Red;
             this.OKbutton.MarkBorderColor = System.Drawing.Color.White;
             this.OKbutton.MarkBorderWidth = 1;
@@ -72,7 +73,7 @@
             this.OKbutton.OnMouseColor = System.Drawing.Color.BurlyWood;
             this.OKbutton.Radius = 5F;
             this.OKbutton.SecondFillcolor = System.Drawing.Color.Orange;
-            this.OKbutton.Size = new System.Drawing.Size(147, 37);
+            this.OKbutton.Size = new System.Drawing.Size(147, 64);
             this.OKbutton.TabIndex = 0;
             this.OKbutton.Text = "确定";
             this.OKbutton.UnEnableColor = System.Drawing.Color.Gray;
@@ -93,7 +94,7 @@
             this.MsgTextLable.IsShowFouceLine = false;
             this.MsgTextLable.IsShowMark = false;
             this.MsgTextLable.IsShowMarkBorder = false;
-            this.MsgTextLable.IsShowMyImage = true;
+            this.MsgTextLable.IsShowMyImage = false;
             this.MsgTextLable.IsShowText = true;
             this.MsgTextLable.IsUseTwoColor = false;
             this.MsgTextLable.Location = new System.Drawing.Point(45, 76);
@@ -118,7 +119,7 @@
             this.MsgTextLable.OnMouseColor = System.Drawing.Color.BurlyWood;
             this.MsgTextLable.Radius = 5F;
             this.MsgTextLable.SecondFillcolor = System.Drawing.Color.Orange;
-            this.MsgTextLable.Size = new System.Drawing.Size(327, 115);
+            this.MsgTextLable.Size = new System.Drawing.Size(327, 79);
             this.MsgTextLable.TabIndex = 1;
             this.MsgTextLable.Text = null;
             this.MsgTextLable.UnEnableColor = System.Drawing.Color.Gray;
