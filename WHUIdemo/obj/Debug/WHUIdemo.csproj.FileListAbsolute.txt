@@ -75,3 +75,4 @@ D:\WHUI\WHUI\WHUIdemo\obj\Debug\WHUIdemo.exe
 D:\WHUI\WHUI\WHUIdemo\obj\Debug\WHUIdemo.pdb
 D:\WHUI\WHUI\WHUIdemo\obj\Debug\WHUIdemo.Forms.CtrlTestFrm.resources
 J:\WHUI\WHUIdemo\obj\Debug\WHUIdemo.Forms.CtrlTestFrm.resources
+D:\WHUI\WHUIdemo\obj\Debug\WHUIdemo.Forms.CtrlTestFrm.resources

@@ -17,6 +17,7 @@ namespace WHControlLib.Forms
         {
             InitializeComponent();
             this.ShowInTaskbar=false;
+
         }
 
         public string MsgText
@@ -34,14 +35,24 @@ namespace WHControlLib.Forms
         public int StartTop { get; set; }
         public int StartLeft { get; set; }
 
+        private int _notifyStantTime=6;
+        /// <summary>
+        /// 窗体保持时间X秒
+        /// </summary>
+        public int NotifyStantTime
+        {
+            get { return _notifyStantTime; }
+            set { _notifyStantTime = value; }
+        }
+
+
         //全局 参数定义
         //int StartTop, StartLeft;
-      /// <summary>
-      /// 窗体保持时间6秒
-      /// </summary>
-        int timer2tiem = 6;
+    
+        int timer2tiem ;
         int MoveX = 10;
-        
+        int EndMoveX = 10;
+        int StandX;
         public static int NotifyFrmCount;
     
 
@@ -97,8 +108,9 @@ namespace WHControlLib.Forms
                 timer2tiem--;
             }
             else
-            {   
-                this.Close();
+            {
+                timer3.Start();
+                //this.Close();
             }
         }
 
@@ -132,9 +144,9 @@ namespace WHControlLib.Forms
             MsgTxtLable.Top = this.TitleRect.Height + 2;
             MsgTxtLable.Left = (int)this.DrawRct.X;
 
-     
-
-
+            timer2tiem = NotifyStantTime;
+            //EndMoveX = Screen.PrimaryScreen.WorkingArea.Width - this.Width;
+            StandX = Screen.PrimaryScreen.WorkingArea.Width - this.Width;
 
         }
         private void NotifyFrm_Load(object sender, EventArgs e)
@@ -163,13 +175,51 @@ namespace WHControlLib.Forms
             this.Opacity = 0;
             ////移动间隔时间
             timer1.Interval = 15;
-           //保持时间1秒的倍数
+            timer3.Interval = 15;
+            //保持时间1秒的倍数
             timer2.Interval = 1000;
 
             timer1.Start();
             nowtime.Start();
 
 
+
+        }
+
+        private void timer3_Tick(object sender, EventArgs e)
+        {
+            EndMoveX += (int)(EndMoveX / 5);
+
+           
+            int MYNowX = StandX + EndMoveX;
+            if (EndMoveX >= Screen .PrimaryScreen.WorkingArea.Width)
+            {
+                timer3.Stop();
+                this.Close();
+
+            }
+            else
+            {
+
+                this.Opacity -= 0.02;
+                this.Location = new Point(MYNowX, StartTop);
+
+            
+            }
+
+
+        }
+        protected override void OnMouseClick(MouseEventArgs e)
+        {
+            //base.OnMouseClick(e);
+            if (this.RectangleToScreen(CloseBoxRect).Contains(MousePosition))
+            {
+                timer3.Start();
+            }
+
+        }
+        private void NotifyFrm_FormClosing(object sender, FormClosingEventArgs e)
+        {
 
         }
     }

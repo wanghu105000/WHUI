@@ -41,9 +41,10 @@
             // 
             this.timeLable.BackColor = System.Drawing.Color.Transparent;
             this.timeLable.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.timeLable.Location = new System.Drawing.Point(71, 94);
+            this.timeLable.Location = new System.Drawing.Point(53, 75);
+            this.timeLable.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.timeLable.Name = "timeLable";
-            this.timeLable.Size = new System.Drawing.Size(220, 24);
+            this.timeLable.Size = new System.Drawing.Size(165, 19);
             this.timeLable.TabIndex = 3;
             this.timeLable.Text = "label1";
             // 
@@ -66,7 +67,8 @@
             this.MsgTxtLable.IsShowMyImage = false;
             this.MsgTxtLable.IsShowText = true;
             this.MsgTxtLable.IsUseTwoColor = false;
-            this.MsgTxtLable.Location = new System.Drawing.Point(36, 54);
+            this.MsgTxtLable.Location = new System.Drawing.Point(27, 43);
+            this.MsgTxtLable.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.MsgTxtLable.MarkBackColor = System.Drawing.Color.Red;
             this.MsgTxtLable.MarkBorderColor = System.Drawing.Color.White;
             this.MsgTxtLable.MarkBorderWidth = 1;
@@ -88,7 +90,7 @@
             this.MsgTxtLable.OnMouseColor = System.Drawing.Color.BurlyWood;
             this.MsgTxtLable.Radius = 5F;
             this.MsgTxtLable.SecondFillcolor = System.Drawing.Color.Orange;
-            this.MsgTxtLable.Size = new System.Drawing.Size(165, 37);
+            this.MsgTxtLable.Size = new System.Drawing.Size(124, 30);
             this.MsgTxtLable.TabIndex = 2;
             this.MsgTxtLable.Text = "whLableEx1";
             this.MsgTxtLable.UnEnableColor = System.Drawing.Color.Gray;
@@ -101,6 +103,10 @@
             // 
             this.timer2.Tick += new System.EventHandler(this.timer2_Tick);
             // 
+            // timer3
+            // 
+            this.timer3.Tick += new System.EventHandler(this.timer3_Tick);
+            // 
             // nowtime
             // 
             this.nowtime.Interval = 1000;
@@ -108,9 +114,9 @@
             // 
             // NotifyFrm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(384, 147);
+            this.ClientSize = new System.Drawing.Size(307, 117);
             this.CloseBoxShapeColor = System.Drawing.Color.IndianRed;
             this.CloseBoxSize = 1F;
             this.Controls.Add(this.timeLable);
@@ -130,6 +136,7 @@
             this.TitleBorderColor = System.Drawing.Color.Brown;
             this.TitleText = "信息通知";
             this.TitleTextFont = new System.Drawing.Font("微软雅黑", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.NotifyFrm_FormClosing);
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.NotifyFrm_FormClosed);
             this.Load += new System.EventHandler(this.NotifyFrm_Load);
             this.Paint += new System.Windows.Forms.PaintEventHandler(this.NotifyFrm_Paint);

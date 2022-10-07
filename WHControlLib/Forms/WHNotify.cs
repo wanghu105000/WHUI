@@ -206,7 +206,7 @@ namespace WHControlLib.Forms
               notifyfrm.TitleText = "警告通知";
             }  else
             notifyfrm.TitleText = titleTxt;
-
+            notifyfrm.NotifyStantTime = 8;
         
             notifyfrm.TitleTextColor= Color.Black;
             notifyfrm.timeLable.ForeColor= Color.Black;
