@@ -141,7 +141,7 @@
             this.FormBorderColor = System.Drawing.Color.LightGray;
             this.FormBorderWidth = 4F;
             this.IsUseTwoColor = true;
-            this.MyCloseBoxShape = WHControlLib.Forms.BaseDialogFormcs.CloseBoxShape.Circle;
+            this.MyCloseBoxShape = WHControlLib.Forms.BaseDialogForm.CloseBoxShape.Circle;
             this.MyDialogHeightBl = 4F;
             this.Name = "MsgBoxForm";
             this.Radius = 9F;

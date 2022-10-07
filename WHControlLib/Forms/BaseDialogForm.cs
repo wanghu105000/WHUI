@@ -20,7 +20,7 @@ namespace WHControlLib.Forms
 
       delegate  void MaskFrmClose();
    
-    public partial class BaseDialogFormcs : Form
+    public partial class BaseDialogForm : Form
     {
  
         private void InitializeStyles()
@@ -41,7 +41,7 @@ namespace WHControlLib.Forms
 
 
 
-        public BaseDialogFormcs()
+        public BaseDialogForm()
         {
          
 

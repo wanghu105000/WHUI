@@ -188,7 +188,7 @@
             this.firstColor = System.Drawing.Color.CornflowerBlue;
             this.IsShowCloseBoxBorder = false;
             this.IsShowTitleBorder = false;
-            this.MyCloseBoxShape = WHControlLib.Forms.BaseDialogFormcs.CloseBoxShape.Circle;
+            this.MyCloseBoxShape = WHControlLib.Forms.BaseDialogForm.CloseBoxShape.Circle;
             this.Name = "MsgDialogFrm";
             this.Text = "MsgDialogFrm";
             this.TitleBackColor = System.Drawing.Color.DodgerBlue;

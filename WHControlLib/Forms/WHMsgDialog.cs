@@ -41,15 +41,15 @@ public static class WHMsgDialog
             else msgDialog.TitleText = TitleText;
             msgDialog.TitleBackColor = Color.Transparent;
             msgDialog.IsUseTwoColor = true;
-            msgDialog.firstColor = Color.GreenYellow;
-            msgDialog.SecondColor = Color.DarkGoldenrod;
+            msgDialog.firstColor = Color.LightYellow;
+            msgDialog.SecondColor = Color.Gold;
             msgDialog.OKbutton.FirstFillcolor = Color.LightGoldenrodYellow;
             msgDialog.OKbutton.SecondFillcolor = Color.YellowGreen;
             msgDialog.Cannelbutton.FirstFillcolor = msgDialog.OKbutton.FirstFillcolor;
             msgDialog.Cannelbutton.SecondFillcolor = msgDialog.OKbutton.SecondFillcolor;
             
-            msgDialog.CloseBoxShapeColor = Color.Gray;
-            msgDialog.CloseBoxSelectColor = Color.BurlyWood;
+            msgDialog.CloseBoxShapeColor = Color.Black;
+            msgDialog.CloseBoxSelectColor = Color.Tomato;
             msgDialog.MessageText = MsgText;
             msgDialog.IsShowMaskFrm = false;
             msgDialog.MsgTextLable.MyImage = Resource1.WaringYellow;

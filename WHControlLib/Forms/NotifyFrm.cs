@@ -11,7 +11,7 @@ using System.Windows.Forms;
 
 namespace WHControlLib.Forms
 {
-    public partial class NotifyFrm : BaseDialogFormcs
+    public partial class NotifyFrm : BaseDialogForm
     {
         public NotifyFrm()
         {

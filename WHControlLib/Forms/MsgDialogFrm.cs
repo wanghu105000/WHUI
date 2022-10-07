@@ -10,7 +10,7 @@ using System.Windows.Forms;
 
 namespace WHControlLib.Forms
 {
-    public partial class MsgDialogFrm  : BaseDialogFormcs
+    public partial class MsgDialogFrm  : BaseDialogForm
     {
         public MsgDialogFrm()
         {

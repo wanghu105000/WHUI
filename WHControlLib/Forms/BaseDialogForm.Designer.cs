@@ -1,6 +1,6 @@
 ﻿namespace WHControlLib.Forms
 {
-    partial class BaseDialogFormcs
+    partial class BaseDialogForm
     {
         /// <summary>
         /// Required designer variable.

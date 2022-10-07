@@ -117,7 +117,8 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(307, 117);
-            this.CloseBoxShapeColor = System.Drawing.Color.IndianRed;
+            this.CloseBoxSelectColor = System.Drawing.Color.Chocolate;
+            this.CloseBoxShapeColor = System.Drawing.Color.Magenta;
             this.CloseBoxSize = 1F;
             this.Controls.Add(this.timeLable);
             this.Controls.Add(this.MsgTxtLable);
@@ -126,6 +127,7 @@
             this.IsShowCloseBoxBorder = false;
             this.IsShowTitleBorder = false;
             this.IsUseTwoColor = true;
+            this.MyCloseBoxShape = WHControlLib.Forms.BaseDialogForm.CloseBoxShape.Circle;
             this.MyDialogHeightBl = 7F;
             this.MyDialogWidthBl = 5F;
             this.Name = "NotifyFrm";

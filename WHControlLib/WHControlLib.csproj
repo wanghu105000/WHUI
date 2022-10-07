@@ -83,11 +83,11 @@
       <DependentUpon>WHRadioButton.cs</DependentUpon>
     </Compile>
     <Compile Include="DrawHelper.cs" />
-    <Compile Include="Forms\BaseDialogFormcs.cs">
+    <Compile Include="Forms\BaseDialogForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\BaseDialogFormcs.Designer.cs">
-      <DependentUpon>BaseDialogFormcs.cs</DependentUpon>
+    <Compile Include="Forms\BaseDialogForm.Designer.cs">
+      <DependentUpon>BaseDialogForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\MsgBoxForm.cs">
       <SubType>Form</SubType>
@@ -166,8 +166,8 @@
     <EmbeddedResource Include="Controls\WHRadioButton.resx">
       <DependentUpon>WHRadioButton.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\BaseDialogFormcs.resx">
-      <DependentUpon>BaseDialogFormcs.cs</DependentUpon>
+    <EmbeddedResource Include="Forms\BaseDialogForm.resx">
+      <DependentUpon>BaseDialogForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\MsgBoxForm.resx">
       <DependentUpon>MsgBoxForm.cs</DependentUpon>
