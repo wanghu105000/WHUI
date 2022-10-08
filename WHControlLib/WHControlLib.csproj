@@ -71,7 +71,7 @@
       <DependentUpon>WHLableEx.cs</DependentUpon>
     </Compile>
     <Compile Include="Controls\WHRadioButton.cs">
-      <SubType>Component</SubType>
+      <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="Controls\WHRadioButton.Designer.cs">
       <DependentUpon>WHRadioButton.cs</DependentUpon>
@@ -137,6 +137,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Controls\WHCheckBox.resx">
       <DependentUpon>WHCheckBox.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\WHRadioButton.resx">
+      <DependentUpon>WHRadioButton.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\BaseDialogFormcs.resx">
       <DependentUpon>BaseDialogFormcs.cs</DependentUpon>

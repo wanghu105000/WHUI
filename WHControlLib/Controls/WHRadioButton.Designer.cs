@@ -28,8 +28,15 @@
         /// </summary>
         private void InitializeComponent()
         {
-            components = new System.ComponentModel.Container();
-           
+            this.SuspendLayout();
+            // 
+            // WHRadioButton
+            // 
+            this.Name = "WHRadioButton";
+            this.Size = new System.Drawing.Size(114, 60);
+            this.Load += new System.EventHandler(this.WHRadioButton_Load);
+            this.ResumeLayout(false);
+
         }
 
         #endregion

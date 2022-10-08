@@ -11,7 +11,7 @@ using System.Windows.Forms;
 
 namespace WHControlLib.Controls
 {
-    public partial class WHRadioButton : RadioButton
+    public partial class WHRadioButton : UserControl
     {
         public WHRadioButton()
         {
@@ -20,12 +20,17 @@ namespace WHControlLib.Controls
             this.SetStyle(ControlStyles.OptimizedDoubleBuffer |
                      ControlStyles.ResizeRedraw |
                      ControlStyles.AllPaintingInWmPaint, true);
+
+          ////背景定义为透明色   
+            this.SetStyle(ControlStyles.SupportsTransparentBackColor, true);
+        this.BackColor = Color.Transparent;
             AutoSize = false;
+          
             InitializeComponent();
 
-            ////背景定义为透明色
-            //this.BackColor = Color.Transparent;
-          
+         
+    
+
         }
         //*************全局参数定义*************
         Rectangle MyRect=new Rectangle();
@@ -44,7 +49,7 @@ namespace WHControlLib.Controls
             Circle,Square
         }
         private Shape _myShape=Shape.Circle;
-        [Category("我的"), Description("本控件的形状，默认，圆形"), Browsable(true)]
+        [Category("A我的"), Description("本控件的形状，默认，圆形"), Browsable(true)]
         public Shape MyShape
         {
             get { return _myShape; }
@@ -52,14 +57,14 @@ namespace WHControlLib.Controls
         }
 
         private float _shapeBl=0.7f;
-        [Category("我的"), Description("本控件选择形状相对于整体高度的比例，默认，0.7f，不能大于1.0f"), Browsable(true)]
+        [Category("A我的"), Description("本控件选择形状相对于整体高度的比例，默认，0.7f，不能大于1.0f"), Browsable(true)]
         public float ShapeBl
         {
             get { return _shapeBl; }
             set { _shapeBl = value; Invalidate(); }
         }
         private Color _unEnableColor=Color.Gray ;
-        [Category("我的"), Description("当不可用时候的颜色，默认，灰色"), Browsable(true)]
+        [Category("A我的"), Description("当不可用时候的颜色，默认，灰色"), Browsable(true)]
         public Color UnEnableColor
         {
             get { return _unEnableColor ; }
@@ -67,7 +72,7 @@ namespace WHControlLib.Controls
         }
 
         private bool _isShowShapeBorder=true;
-        [Category("我的"), Description("是否显示本控件的选择图形的外边框，默认，true"), Browsable(true)]
+        [Category("A我的"), Description("是否显示本控件的选择图形的外边框，默认，true"), Browsable(true)]
         public bool IsShowShapeBorder
         {
             get { return _isShowShapeBorder; }
@@ -75,7 +80,7 @@ namespace WHControlLib.Controls
         }
 
         private float _shapeBorderWidth=1.0f;
-        [Category("我的"), Description("本控件选择形状外框的线宽度，默认，1.0f，并不能小于0"), Browsable(true)]
+        [Category("A我的"), Description("本控件选择形状外框的线宽度，默认，1.0f，并不能小于0"), Browsable(true)]
         public float ShapeBorderWidth
         {
             get { return _shapeBorderWidth; }
@@ -92,7 +97,7 @@ namespace WHControlLib.Controls
         }
 
         private Color _shapeBorderColor=Color.Orange;
-        [Category("我的"), Description("本控件的选择图形的外边框颜色，默认，橙色"), Browsable(true)]
+        [Category("A我的"), Description("本控件的选择图形的外边框颜色，默认，橙色"), Browsable(true)]
         public Color ShapeBorderColor
         {
             get { return _shapeBorderColor; }
@@ -100,7 +105,7 @@ namespace WHControlLib.Controls
         }
 
         private Color _shapeFillColor=Color.White;
-        [Category("我的"), Description("本控件的选择图形的内部填充颜色，默认，白色"), Browsable(true)]
+        [Category("A我的"), Description("本控件的选择图形的内部填充颜色，默认，白色"), Browsable(true)]
         public Color ShapeFillColor
         {
             get { return _shapeFillColor; }
@@ -108,29 +113,78 @@ namespace WHControlLib.Controls
         }
 
         private Color _inShapeColor=Color.Orange;
-        [Category("我的"), Description("本控件选中后的小图形填充颜色，默认，橙色"), Browsable(true)]
+        [Category("A我的"), Description("本控件选中后的小图形填充颜色，默认，橙色"), Browsable(true)]
         public Color InShapeColor
         {
             get { return _inShapeColor; }
-            set { _inShapeColor = value; }
+            set { _inShapeColor = value; Invalidate(); }
         }
         private float _inshapeBl = 0.7f;
-        [Category("我的"), Description("本控件选中后的小图形相对于外框高度的比例，默认，0.7f，不能大于1.0f"), Browsable(true)]
+        [Category("A我的"), Description("本控件选中后的小图形相对于外框高度的比例，默认，0.7f，不能大于1.0f"), Browsable(true)]
         public float InShapeBl
         {
             get { return _shapeBl; }
             set { _shapeBl = value; Invalidate(); }
         }
+
+        private bool _checked;
+        [Category("A我的"), Description("本控件是否被选中，默认，falsef"), Browsable(true)]
+        public bool Checked
+        {
+            get { return _checked; }
+            set { 
+                if (value)
+                {
+                    foreach ( Control item in this.Parent.Controls)
+                {
+                    if (item is WHRadioButton&& item.Name!=this.Name)
+                    {
+                       WHRadioButton Ra=(WHRadioButton)item;    
+                            Ra.Checked = false;
+                
+                    }
+
+                }
+
+                }
+                
+                
+            
+            _checked = value;
+                Invalidate();
+
+            }
+        }
+
         #endregion
 
+        protected override void InitLayout()
+        {
+ 
+
+
+            base.InitLayout();
+   
+        }
         protected override void OnLayout(LayoutEventArgs levent)
         {
             base.OnLayout(levent);
             AutoSize = false;
+
+  
+
+    
         }
+        
 
-
-
+        protected override void OnClick(EventArgs e)
+        {
+            base.OnClick(e);
+            if (!Checked)
+            {
+                Checked = true;
+            }
+        }
 
         public void BeginPainIni()
         {
@@ -154,10 +208,15 @@ namespace WHControlLib.Controls
             Myg.SmoothingMode = SmoothingMode.AntiAlias;
             Myg.CompositingQuality = CompositingQuality.HighQuality;
             Myg.InterpolationMode = InterpolationMode.HighQualityBicubic;
-           Myg.Clear(this.Parent.BackColor);
+         
+            //Myg.Clear(this.Parent.BackColor);
+          
             DrawShape(Myg, MyRect);
 
         }
+
+
+
 
         public virtual void DrawShape(Graphics Myg,Rectangle Rect)
 
@@ -202,7 +261,7 @@ namespace WHControlLib.Controls
 
 
         }
-
+ 
 
         public virtual void DrawCircleShape(Graphics Myg,Rectangle ShapeRect, Rectangle inShapeRect)
             
@@ -261,8 +320,27 @@ namespace WHControlLib.Controls
 
         }
 
+        private void WHRadioButton_Load(object sender, EventArgs e)
+        {
+            int i = 0;
+            foreach (Control item in Parent.Controls)
+            {
+                if (item is WHRadioButton)
+                {
+                    i++;
+                }
+            }
+            if (i == 1)
+            {
+                Checked = true;
 
-//////////////////////////////////////////////////////
+            }
+            else Checked = false;
+
+        }
+
+
+        //////////////////////////////////////////////////////
 
     }
 }
