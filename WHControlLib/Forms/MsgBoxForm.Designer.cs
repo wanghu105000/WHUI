@@ -51,7 +51,7 @@
             this.OKbutton.IsShowMyImage = false;
             this.OKbutton.IsShowText = true;
             this.OKbutton.IsUseTwoColor = false;
-            this.OKbutton.Location = new System.Drawing.Point(133, 181);
+            this.OKbutton.Location = new System.Drawing.Point(125, 199);
             this.OKbutton.MarkBackColor = System.Drawing.Color.Red;
             this.OKbutton.MarkBorderColor = System.Drawing.Color.White;
             this.OKbutton.MarkBorderWidth = 1;
@@ -73,10 +73,11 @@
             this.OKbutton.OnMouseColor = System.Drawing.Color.BurlyWood;
             this.OKbutton.Radius = 5F;
             this.OKbutton.SecondFillcolor = System.Drawing.Color.Orange;
-            this.OKbutton.Size = new System.Drawing.Size(147, 64);
+            this.OKbutton.Size = new System.Drawing.Size(147, 46);
             this.OKbutton.TabIndex = 0;
             this.OKbutton.Text = "确定";
             this.OKbutton.UnEnableColor = System.Drawing.Color.Gray;
+            this.OKbutton.Click += new System.EventHandler(this.OKbutton_Click);
             // 
             // MsgTextLable
             // 

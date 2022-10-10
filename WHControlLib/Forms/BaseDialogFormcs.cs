@@ -10,6 +10,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
+
 namespace WHControlLib.Forms
 {
     //********************** ******      说明   ******  ******************************************
@@ -130,6 +131,13 @@ namespace WHControlLib.Forms
             }
         }
 
+        private DialogResult _mydialogresult;
+        [Category("A我的"), Description("返回窗体按了那个按钮，默认，null"), Browsable(false)]
+        public DialogResult Mydialogresult
+        {
+            get { return _mydialogresult; }
+            set { _mydialogresult = value; }
+        }
 
 
 

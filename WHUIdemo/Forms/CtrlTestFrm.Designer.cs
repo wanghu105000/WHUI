@@ -83,7 +83,7 @@
             this.whRadioButton3.ShapeBorderColor = System.Drawing.Color.Orange;
             this.whRadioButton3.ShapeBorderWidth = 1.8F;
             this.whRadioButton3.ShapeFillColor = System.Drawing.Color.White;
-            this.whRadioButton3.Size = new System.Drawing.Size(213, 94);
+            this.whRadioButton3.Size = new System.Drawing.Size(213, 48);
             this.whRadioButton3.TabIndex = 12;
             this.whRadioButton3.Text = "whRadioButton3";
             this.whRadioButton3.UnEnableColor = System.Drawing.Color.Gray;

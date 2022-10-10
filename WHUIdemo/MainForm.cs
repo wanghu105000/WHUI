@@ -28,14 +28,19 @@ namespace WHUIdemo
 
         private void button2_Click(object sender, EventArgs e)
         {
-            WHMsgDialog.Show("简单的很上课时间都是山东省克劳德萨里的DSAKL DDSDASL阿达SDSA DKSDKSADK 123");
-            WHMsgDialog.ShowErroMsg("写错了","错误",true);
+       
         }
 
         private void button3_Click(object sender, EventArgs e)
         {
             CtrlTestFrm ctrlfrm = new CtrlTestFrm();
             ctrlfrm.Show();
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            WHMsgDialog.ShowMsgDialog("这是信息对话框");
+            MessageBox.Show(WHMsgDialog.MyDialogResult.ToString());
         }
     }
 }
