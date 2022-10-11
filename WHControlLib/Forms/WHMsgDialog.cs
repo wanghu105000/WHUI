@@ -52,7 +52,7 @@ public static class WHMsgDialog
             msgDialog.CloseBoxSelectColor = Color.BurlyWood;
             msgDialog.MessageText = MsgText;
             msgDialog.IsShowMaskFrm = false;
-            msgDialog.MsgTextLable.MyImage = Resource1.MessageGreen;
+            msgDialog.MsgTextLable.MyImage = Resource1.WaringYellor;
             msgDialog.ShowDialog();
 
             return MyDialogResult;
@@ -88,7 +88,7 @@ public static class WHMsgDialog
             msgDialog.MessageText = MsgText;
             msgDialog.IsShowMaskFrm = false;
             msgDialog.MsgTextLable.FontColor= Color.White;  
-            msgDialog.MsgTextLable.MyImage = Resource1.MessageGreen;
+            msgDialog.MsgTextLable.MyImage = Resource1.AskRed;
             msgDialog.ShowDialog();
 
             return MyDialogResult;
