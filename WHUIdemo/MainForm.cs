@@ -28,7 +28,9 @@ namespace WHUIdemo
 
         private void button2_Click(object sender, EventArgs e)
         {
-       
+            WhMessageBox.ShowWarningMsg("警告提示信息");
+
+            WhMessageBox.ShowErrorMsg("错误 提示信息");
         }
 
         private void button3_Click(object sender, EventArgs e)
@@ -39,7 +41,10 @@ namespace WHUIdemo
 
         private void button4_Click(object sender, EventArgs e)
         {
-            WHMsgDialog.ShowMsgDialog("这是信息对话框");
+            WHMsgDialog.ShowMsgDialog("姑姑又故意故意䧜预估一个预估一个 这是信息对话框");
+            MessageBox.Show(WHMsgDialog.MyDialogResult.ToString());
+            WHMsgDialog.ShowWarningDlg("这是警告信息",null);
+            WHMsgDialog.ShowErrorDlg("这是错误对话框",null);
             MessageBox.Show(WHMsgDialog.MyDialogResult.ToString());
         }
     }

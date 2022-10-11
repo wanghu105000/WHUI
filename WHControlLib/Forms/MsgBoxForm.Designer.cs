@@ -117,7 +117,7 @@
             this.MsgTextLable.MyShape = WHControlLib.baseStaticCtrl.Shape.RoundRectange;
             this.MsgTextLable.MyTextAlign = WHControlLib.baseStaticCtrl.TextAlign.CenterMiddle;
             this.MsgTextLable.Name = "MsgTextLable";
-            this.MsgTextLable.OnMouseColor = System.Drawing.Color.BurlyWood;
+            this.MsgTextLable.OnMouseColor = System.Drawing.Color.LavenderBlush;
             this.MsgTextLable.Radius = 5F;
             this.MsgTextLable.SecondFillcolor = System.Drawing.Color.Orange;
             this.MsgTextLable.Size = new System.Drawing.Size(327, 79);
@@ -134,6 +134,7 @@
             this.ClientSize = new System.Drawing.Size(426, 257);
             this.CloseBoxBorderColor = System.Drawing.Color.White;
             this.CloseBoxShapeColor = System.Drawing.Color.FloralWhite;
+            this.CloseBoxSize = 0.7F;
             this.Controls.Add(this.MsgTextLable);
             this.Controls.Add(this.OKbutton);
             this.FormBorderColor = System.Drawing.Color.LightGray;
@@ -155,8 +156,7 @@
         }
 
         #endregion
-
-        private Controls.WHButton OKbutton;
-        private Controls.WHLableEx MsgTextLable;
+        public Controls.WHButton OKbutton;
+        public Controls.WHLableEx MsgTextLable;
     }
 }

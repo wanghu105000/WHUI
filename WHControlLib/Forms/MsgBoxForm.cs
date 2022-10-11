@@ -62,7 +62,7 @@ namespace WHControlLib.Forms
 
         private void OKbutton_Click(object sender, EventArgs e)
         {
-           
+            this.Close();
         }
     }
 }

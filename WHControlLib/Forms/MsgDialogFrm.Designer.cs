@@ -28,56 +28,10 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.MsgTextLable = new WHControlLib.Controls.WHLableEx();
             this.OKbutton = new WHControlLib.Controls.WHButton();
             this.Cannelbutton = new WHControlLib.Controls.WHButton();
+            this.MsgTextLable = new WHControlLib.Controls.WHLableEx();
             this.SuspendLayout();
-            // 
-            // MsgTextLable
-            // 
-            this.MsgTextLable.BackColor = System.Drawing.Color.Transparent;
-            this.MsgTextLable.BorderWidth = 2;
-            this.MsgTextLable.BornColor = System.Drawing.Color.Beige;
-            this.MsgTextLable.ColorChangeint = 50;
-            this.MsgTextLable.FirstFillcolor = System.Drawing.Color.Transparent;
-            this.MsgTextLable.FontColor = System.Drawing.Color.Black;
-            this.MsgTextLable.ImageOffSet = new System.Drawing.Size(0, 0);
-            this.MsgTextLable.ImageTranparentColor = System.Drawing.Color.White;
-            this.MsgTextLable.IsAutoSize = false;
-            this.MsgTextLable.IsDrawBoin = true;
-            this.MsgTextLable.IsOpenimageTranparentColor = false;
-            this.MsgTextLable.IsShowFouceLine = false;
-            this.MsgTextLable.IsShowMark = false;
-            this.MsgTextLable.IsShowMarkBorder = false;
-            this.MsgTextLable.IsShowMyImage = false;
-            this.MsgTextLable.IsShowText = true;
-            this.MsgTextLable.IsUseTwoColor = false;
-            this.MsgTextLable.Location = new System.Drawing.Point(26, 66);
-            this.MsgTextLable.MarkBackColor = System.Drawing.Color.Red;
-            this.MsgTextLable.MarkBorderColor = System.Drawing.Color.White;
-            this.MsgTextLable.MarkBorderWidth = 1;
-            this.MsgTextLable.MarkerTextColor = System.Drawing.Color.White;
-            this.MsgTextLable.MarkerTextSzie = 10;
-            this.MsgTextLable.MarkHeight = 2F;
-            this.MsgTextLable.MarkText = "";
-            this.MsgTextLable.MarkTextColor = System.Drawing.Color.White;
-            this.MsgTextLable.MyFillColorDec = WHControlLib.baseStaticCtrl.FillColorDec.Vertical;
-            this.MsgTextLable.MyFont = new System.Drawing.Font("微软雅黑", 12F);
-            this.MsgTextLable.MyImage = null;
-            this.MsgTextLable.MyImageDec = WHControlLib.baseStaticCtrl.ImageDec.left;
-            this.MsgTextLable.MyimageHeight = 0.5F;
-            this.MsgTextLable.MyImageOnMouse = null;
-            this.MsgTextLable.MyImageUnEnable = null;
-            this.MsgTextLable.MyShape = WHControlLib.baseStaticCtrl.Shape.RoundRectange;
-            this.MsgTextLable.MyTextAlign = WHControlLib.baseStaticCtrl.TextAlign.CenterMiddle;
-            this.MsgTextLable.Name = "MsgTextLable";
-            this.MsgTextLable.OnMouseColor = System.Drawing.Color.BurlyWood;
-            this.MsgTextLable.Radius = 5F;
-            this.MsgTextLable.SecondFillcolor = System.Drawing.Color.Orange;
-            this.MsgTextLable.Size = new System.Drawing.Size(385, 111);
-            this.MsgTextLable.TabIndex = 2;
-            this.MsgTextLable.Text = null;
-            this.MsgTextLable.UnEnableColor = System.Drawing.Color.Gray;
             // 
             // OKbutton
             // 
@@ -164,7 +118,7 @@
             this.Cannelbutton.MyShape = WHControlLib.baseStaticCtrl.Shape.HalfCircle;
             this.Cannelbutton.MyTextAlign = WHControlLib.baseStaticCtrl.TextAlign.CenterMiddle;
             this.Cannelbutton.Name = "Cannelbutton";
-            this.Cannelbutton.OnMouseColor = System.Drawing.Color.BurlyWood;
+            this.Cannelbutton.OnMouseColor = System.Drawing.Color.LightGoldenrodYellow;
             this.Cannelbutton.Radius = 5F;
             this.Cannelbutton.SecondFillcolor = System.Drawing.Color.RoyalBlue;
             this.Cannelbutton.Size = new System.Drawing.Size(188, 33);
@@ -173,10 +127,57 @@
             this.Cannelbutton.UnEnableColor = System.Drawing.Color.Gray;
             this.Cannelbutton.Click += new System.EventHandler(this.Cannelbutton_Click);
             // 
+            // MsgTextLable
+            // 
+            this.MsgTextLable.BackColor = System.Drawing.Color.Transparent;
+            this.MsgTextLable.BorderWidth = 2;
+            this.MsgTextLable.BornColor = System.Drawing.Color.Beige;
+            this.MsgTextLable.ColorChangeint = 50;
+            this.MsgTextLable.FirstFillcolor = System.Drawing.Color.Transparent;
+            this.MsgTextLable.FontColor = System.Drawing.Color.Black;
+            this.MsgTextLable.ImageOffSet = new System.Drawing.Size(0, 0);
+            this.MsgTextLable.ImageTranparentColor = System.Drawing.Color.White;
+            this.MsgTextLable.IsAutoSize = false;
+            this.MsgTextLable.IsDrawBoin = true;
+            this.MsgTextLable.IsOpenimageTranparentColor = false;
+            this.MsgTextLable.IsShowFouceLine = false;
+            this.MsgTextLable.IsShowMark = false;
+            this.MsgTextLable.IsShowMarkBorder = false;
+            this.MsgTextLable.IsShowMyImage = true;
+            this.MsgTextLable.IsShowText = true;
+            this.MsgTextLable.IsUseTwoColor = false;
+            this.MsgTextLable.Location = new System.Drawing.Point(26, 66);
+            this.MsgTextLable.MarkBackColor = System.Drawing.Color.Red;
+            this.MsgTextLable.MarkBorderColor = System.Drawing.Color.White;
+            this.MsgTextLable.MarkBorderWidth = 1;
+            this.MsgTextLable.MarkerTextColor = System.Drawing.Color.White;
+            this.MsgTextLable.MarkerTextSzie = 10;
+            this.MsgTextLable.MarkHeight = 2F;
+            this.MsgTextLable.MarkText = "";
+            this.MsgTextLable.MarkTextColor = System.Drawing.Color.White;
+            this.MsgTextLable.MyFillColorDec = WHControlLib.baseStaticCtrl.FillColorDec.Vertical;
+            this.MsgTextLable.MyFont = new System.Drawing.Font("微软雅黑", 12F);
+            this.MsgTextLable.MyImage = global::WHControlLib.Resource1.MessageBlue;
+            this.MsgTextLable.MyImageDec = WHControlLib.baseStaticCtrl.ImageDec.left;
+            this.MsgTextLable.MyimageHeight = 0.8F;
+            this.MsgTextLable.MyImageOnMouse = null;
+            this.MsgTextLable.MyImageUnEnable = null;
+            this.MsgTextLable.MyShape = WHControlLib.baseStaticCtrl.Shape.RoundRectange;
+            this.MsgTextLable.MyTextAlign = WHControlLib.baseStaticCtrl.TextAlign.CenterMiddle;
+            this.MsgTextLable.Name = "MsgTextLable";
+            this.MsgTextLable.OnMouseColor = System.Drawing.Color.BurlyWood;
+            this.MsgTextLable.Radius = 5F;
+            this.MsgTextLable.SecondFillcolor = System.Drawing.Color.Orange;
+            this.MsgTextLable.Size = new System.Drawing.Size(385, 111);
+            this.MsgTextLable.TabIndex = 2;
+            this.MsgTextLable.Text = null;
+            this.MsgTextLable.UnEnableColor = System.Drawing.Color.Gray;
+            // 
             // MsgDialogFrm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.Color.CornflowerBlue;
             this.ClientSize = new System.Drawing.Size(426, 228);
             this.CloseBoxSelectColor = System.Drawing.Color.Tomato;
             this.CloseBoxSize = 0.95F;
@@ -198,9 +199,8 @@
         }
 
         #endregion
-
-        private Controls.WHLableEx MsgTextLable;
-        private Controls.WHButton OKbutton;
-        private Controls.WHButton Cannelbutton;
+        public Controls.WHLableEx MsgTextLable;
+        public Controls.WHButton OKbutton;
+        public Controls.WHButton Cannelbutton;
     }
 }
