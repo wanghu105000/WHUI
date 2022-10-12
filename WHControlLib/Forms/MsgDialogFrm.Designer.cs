@@ -180,6 +180,7 @@
             this.BackColor = System.Drawing.Color.CornflowerBlue;
             this.ClientSize = new System.Drawing.Size(426, 228);
             this.CloseBoxSelectColor = System.Drawing.Color.Tomato;
+            this.CloseBoxShapeBl = 0.5F;
             this.CloseBoxSize = 0.95F;
             this.Controls.Add(this.Cannelbutton);
             this.Controls.Add(this.OKbutton);

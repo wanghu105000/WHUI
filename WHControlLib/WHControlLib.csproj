@@ -95,6 +95,12 @@
     <Compile Include="Forms\MsgDialogFrm.Designer.cs">
       <DependentUpon>MsgDialogFrm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\NotifyForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\NotifyForm.Designer.cs">
+      <DependentUpon>NotifyForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\NotifyFrm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -167,6 +173,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\MsgDialogFrm.resx">
       <DependentUpon>MsgDialogFrm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\NotifyForm.resx">
+      <DependentUpon>NotifyForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\NotifyFrm.resx">
       <DependentUpon>NotifyFrm.cs</DependentUpon>

@@ -133,6 +133,7 @@
             this.BoxJG = 8;
             this.ClientSize = new System.Drawing.Size(426, 257);
             this.CloseBoxBorderColor = System.Drawing.Color.White;
+            this.CloseBoxShapeBl = 0.5F;
             this.CloseBoxShapeColor = System.Drawing.Color.FloralWhite;
             this.CloseBoxSize = 0.7F;
             this.Controls.Add(this.MsgTextLable);

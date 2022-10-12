@@ -52,6 +52,7 @@ namespace WHUIdemo
         {
             NotifyFrm nofrm = new NotifyFrm();
             nofrm.Show();
+
         }
     }
 }

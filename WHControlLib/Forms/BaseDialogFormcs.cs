@@ -32,7 +32,11 @@ namespace WHControlLib.Forms
                 ControlStyles.ResizeRedraw |
                 ControlStyles.SupportsTransparentBackColor, true);
             SetStyle(ControlStyles.Selectable, false);
+    
             UpdateStyles();
+
+        
+
         }
 
 
@@ -402,6 +406,22 @@ namespace WHControlLib.Forms
             }
         }
 
+        private float _closeBoxShapeBl=0.7f;
+        [Category("A我的标题栏"), Description("关闭按钮X形状的相对关闭按钮范围的大小，默认 0.8f不能大于1.0f小于0.2f "), Browsable(true)]
+        public float CloseBoxShapeBl
+        {
+            get { return _closeBoxShapeBl; }
+            set
+            {
+                if (value>1 | value < 0.2f)
+                {
+                    _closeBoxShapeBl = 1.0f;
+
+                }
+                else
+                _closeBoxShapeBl = value; Invalidate();
+            }
+        }
 
         #endregion
 
@@ -436,8 +456,8 @@ namespace WHControlLib.Forms
         void beforePainIni()
         {
             this.Width = (int)(Screen.PrimaryScreen.WorkingArea.Width / MyDialogWidthBl);
-            this.Height = (int)(Screen.PrimaryScreen.WorkingArea.Height/ MyDialogHeightBl);
-          
+            this.Height = (int)(Screen.PrimaryScreen.WorkingArea.Height / MyDialogHeightBl);
+
             MyRect = this.ClientRectangle;
 
             DrawRct.X = MyRect.X + FormBorderWidth / 2;
@@ -566,9 +586,9 @@ namespace WHControlLib.Forms
             //关闭按钮的相对高度
             float Boxhight = TitleRect.Height* CloseBoxSize - BoxJG ;
           //叉形状在关闭按钮区域中的占比
-            float wbl =Boxhight/3 ;
+            float wbl =Boxhight* CloseBoxShapeBl;
             float hbl = wbl;
-
+            //float CloseShapeBl = CloseBoxShapeBl;
             //定义 关闭按钮范围
 
             if (IsDrawFormBorder)
@@ -786,6 +806,8 @@ namespace WHControlLib.Forms
         protected override void OnLoad(EventArgs e)
         {
                 base.OnLoad(e);
+            this.Width = (int)(Screen.PrimaryScreen.WorkingArea.Width / MyDialogWidthBl);
+            this.Height = (int)(Screen.PrimaryScreen.WorkingArea.Height / MyDialogHeightBl);
             if (IsShowMaskFrm)
             {
                 maskFrm = new Form();

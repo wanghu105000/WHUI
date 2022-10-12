@@ -28,7 +28,8 @@ namespace WHControlLib.Forms
 
         private void MsgDialogFrm_Load(object sender, EventArgs e)
         {
-            MsgTextLable.Text = MessageText;
+            WHMsgDialog.MyDialogResult = DialogResult.None;
+          MsgTextLable.Text = MessageText;
         }
 
         private void MsgDialogFrm_Paint(object sender, PaintEventArgs e)
