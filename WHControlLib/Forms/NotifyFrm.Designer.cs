@@ -115,7 +115,7 @@
             this.CloseBoxSize = 1F;
             this.Controls.Add(this.timeLable);
             this.Controls.Add(this.MsgTxtLable);
-            this.firstColor = System.Drawing.Color.Aqua;
+            this.firstColor = System.Drawing.Color.LightCyan;
             this.FormBorderColor = System.Drawing.Color.DimGray;
             this.IsShowCloseBoxBorder = false;
             this.IsShowTitleBorder = false;
@@ -124,10 +124,13 @@
             this.MyDialogWidthBl = 5F;
             this.Name = "NotifyFrm";
             this.Radius = 15F;
+            this.SecondColor = System.Drawing.Color.Navy;
             this.Text = "NotifyFrm";
             this.TitleBackColor = System.Drawing.Color.Transparent;
             this.TitleBorderColor = System.Drawing.Color.Brown;
+            this.TitleText = "信息通知";
             this.TitleTextFont = new System.Drawing.Font("微软雅黑", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.NotifyFrm_FormClosed);
             this.Load += new System.EventHandler(this.NotifyFrm_Load);
             this.Paint += new System.Windows.Forms.PaintEventHandler(this.NotifyFrm_Paint);
             this.ResumeLayout(false);
