@@ -89,6 +89,17 @@ namespace WHControlLib.Forms
             }
         }
 
+        private void nowtime_Tick(object sender, EventArgs e)
+        {
+            timeLable.Text = DateTime.Now.ToString("f");
+        }
+
+        private void NotifyFrm_Paint(object sender, PaintEventArgs e)
+        {
+            BeginLoadIniss();
+
+        }
+
         [DllImport("user32.dll")]
         protected static extern bool ShowWindow(IntPtr hWnd, Int32 flags);
         [DllImport("user32.dll")]
@@ -103,15 +114,15 @@ namespace WHControlLib.Forms
 
 
         #endregion
-        public void BeginLoadIni()
+        public void BeginLoadIniss()
         {
             timeLable.AutoSize = false;
             timeLable.Height = this.Height / 6;
             timeLable.Width = this.Width;
             timeLable.Top = this.Height - timeLable.Height;
             timeLable.Left = (int)this.DrawRct.X + 15;
-
             timeLable.Text = DateTime.Now.ToString("f");
+           
             MsgTxtLable.Height = this.Height - this.TitleRect.Height - timeLable.Height - MsgTxtLable.BorderWidth * 2;
             MsgTxtLable.Width = this.Width - 10;
             MsgTxtLable.Top = this.TitleRect.Height + 2;
@@ -129,6 +140,11 @@ namespace WHControlLib.Forms
         {
         
             SetWindowPos(this.Handle, HWND_TOPMOST, Left, Top, Width, Height, SWP_NOACTIVATE);
+
+
+          
+
+
 
             foreach (var Frm in Application.OpenForms)
             {

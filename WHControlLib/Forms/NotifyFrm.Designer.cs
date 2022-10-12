@@ -41,7 +41,7 @@
             // 
             this.timeLable.BackColor = System.Drawing.Color.Transparent;
             this.timeLable.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.timeLable.Location = new System.Drawing.Point(72, 132);
+            this.timeLable.Location = new System.Drawing.Point(71, 94);
             this.timeLable.Name = "timeLable";
             this.timeLable.Size = new System.Drawing.Size(220, 24);
             this.timeLable.TabIndex = 3;
@@ -66,7 +66,7 @@
             this.MsgTxtLable.IsShowMyImage = false;
             this.MsgTxtLable.IsShowText = true;
             this.MsgTxtLable.IsUseTwoColor = false;
-            this.MsgTxtLable.Location = new System.Drawing.Point(65, 92);
+            this.MsgTxtLable.Location = new System.Drawing.Point(36, 54);
             this.MsgTxtLable.MarkBackColor = System.Drawing.Color.Red;
             this.MsgTxtLable.MarkBorderColor = System.Drawing.Color.White;
             this.MsgTxtLable.MarkBorderWidth = 1;
@@ -104,17 +104,32 @@
             // nowtime
             // 
             this.nowtime.Interval = 1000;
+            this.nowtime.Tick += new System.EventHandler(this.nowtime_Tick);
             // 
             // NotifyFrm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(426, 228);
+            this.ClientSize = new System.Drawing.Size(384, 147);
+            this.CloseBoxShapeColor = System.Drawing.Color.IndianRed;
+            this.CloseBoxSize = 1F;
             this.Controls.Add(this.timeLable);
             this.Controls.Add(this.MsgTxtLable);
+            this.firstColor = System.Drawing.Color.Aqua;
+            this.FormBorderColor = System.Drawing.Color.DimGray;
+            this.IsShowCloseBoxBorder = false;
+            this.IsShowTitleBorder = false;
+            this.IsUseTwoColor = true;
+            this.MyDialogHeightBl = 7F;
+            this.MyDialogWidthBl = 5F;
             this.Name = "NotifyFrm";
+            this.Radius = 15F;
             this.Text = "NotifyFrm";
+            this.TitleBackColor = System.Drawing.Color.Transparent;
+            this.TitleBorderColor = System.Drawing.Color.Brown;
+            this.TitleTextFont = new System.Drawing.Font("微软雅黑", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.Load += new System.EventHandler(this.NotifyFrm_Load);
+            this.Paint += new System.Windows.Forms.PaintEventHandler(this.NotifyFrm_Paint);
             this.ResumeLayout(false);
 
         }
