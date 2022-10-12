@@ -95,6 +95,12 @@
     <Compile Include="Forms\MsgDialogFrm.Designer.cs">
       <DependentUpon>MsgDialogFrm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\NotifyFrm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\NotifyFrm.Designer.cs">
+      <DependentUpon>NotifyFrm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\WhMessageBox.cs" />
     <Compile Include="Forms\WHMsgDialog.cs" />
     <Compile Include="Forms\WHForm.cs">
@@ -161,6 +167,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\MsgDialogFrm.resx">
       <DependentUpon>MsgDialogFrm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\NotifyFrm.resx">
+      <DependentUpon>NotifyFrm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\WHForm.resx">
       <DependentUpon>WHForm.cs</DependentUpon>

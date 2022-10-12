@@ -47,5 +47,11 @@ namespace WHUIdemo
             WHMsgDialog.ShowErrorDlg("这是错误对话框",null);
             MessageBox.Show(WHMsgDialog.MyDialogResult.ToString());
         }
+
+        private void button5_Click(object sender, EventArgs e)
+        {
+            NotifyFrm nofrm = new NotifyFrm();
+            nofrm.Show();
+        }
     }
 }
