@@ -159,7 +159,7 @@
             this.MsgTextLable.MyFont = new System.Drawing.Font("微软雅黑", 12F);
             this.MsgTextLable.MyImage = global::WHControlLib.Resource1.MessageBlue;
             this.MsgTextLable.MyImageDec = WHControlLib.baseStaticCtrl.ImageDec.left;
-            this.MsgTextLable.MyimageHeight = 0.8F;
+            this.MsgTextLable.MyimageHeight = 0.5F;
             this.MsgTextLable.MyImageOnMouse = null;
             this.MsgTextLable.MyImageUnEnable = null;
             this.MsgTextLable.MyShape = WHControlLib.baseStaticCtrl.Shape.RoundRectange;

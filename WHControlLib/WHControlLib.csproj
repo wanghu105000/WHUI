@@ -198,22 +198,19 @@
     <None Include="app.manifest" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\AskRed.png" />
+    <None Include="Resources\AskBlue.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\ErrorRed.png" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\MessageBlue.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\WaringBlue.png" />
+    <None Include="Resources\RightGreen.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\MessageGreen.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\a19.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\a5.png" />
+    <None Include="Resources\WaringYellow.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

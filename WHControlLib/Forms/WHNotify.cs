@@ -18,7 +18,7 @@ namespace WHControlLib.Forms
        //静态类开始初始化
         static WHNotify()
         {     
-            for (int i = 1; i <= 5; i++)
+            for (int i = 1; i <= LimtNotifyFrmCount; i++)
             {
             NotifyStartY.Add(i,false);
               
@@ -29,7 +29,11 @@ namespace WHControlLib.Forms
                 tm1.Tick += Tm1_Tick;
 
         }
-        //public static int NotifyFrmCount;
+        /// <summary>
+        /// 允许最多显示多少个通知窗口
+        /// </summary>
+        public  const int LimtNotifyFrmCount=6;
+     
       /// <summary>
       /// 存储待显示的通知窗体的集合
       /// </summary>
@@ -58,7 +62,7 @@ namespace WHControlLib.Forms
             else
             {     foreach (var NotFrm in NotifyFrmList)
             {
-                    for (int i = 1; i <=5; i++)
+                    for (int i = 1; i <= LimtNotifyFrmCount; i++)
                     {
                         if (NotifyStartY[i] == false)
                         {
@@ -101,15 +105,15 @@ namespace WHControlLib.Forms
                 }
 
             }
-            ////通知窗口数量最多5个
-            if (NotifyFrmCount >= 5)
+            ////通知窗口数量最多LimtNotifyFrmCount个
+            if (NotifyFrmCount >= LimtNotifyFrmCount)
             {
                 //NotifyFrmCount = 1;
                 NotifyFrmList.Add(frm);
                 return -1;
             }
 
-                for (int i = 1; i <= 5; i++)
+                for (int i = 1; i <= LimtNotifyFrmCount; i++)
                 {
                     if (NotifyStartY[i]==false)
                     {
@@ -163,8 +167,9 @@ namespace WHControlLib.Forms
             {
                 notifyfrm.TitleText = "消息通知";
             }
-            notifyfrm.TitleText=titleTxt;
-            notifyfrm.TitleTextColor = Color.White;
+            else
+                notifyfrm.TitleText=titleTxt;
+            notifyfrm.TitleTextColor = Color.Black;
             notifyfrm.firstColor = Color.LightBlue;
             notifyfrm.SecondColor = Color.DarkBlue;
 
@@ -172,22 +177,37 @@ namespace WHControlLib.Forms
 
         }
 
-        public static void ShowErrorNotify(string MsgTxt)
+        public static void ShowErrorNotify(string MsgTxt, string titleTxt)
         {
 
             NotifyFrm notifyfrm = new NotifyFrm();
-            notifyfrm.TitleText = "错误通知";
-            notifyfrm.firstColor = Color.Orange;
+            if (titleTxt == null || titleTxt == "")
+            {
+             notifyfrm.TitleText = "错误通知";
+            }
+            else
+                notifyfrm.TitleText = titleTxt;
+
+          
+            notifyfrm.TitleTextColor = Color.Black;
+            notifyfrm.firstColor = Color.MistyRose;
             notifyfrm.SecondColor = Color.Red;
             ShowNotifyWindow(MsgTxt, notifyfrm);
 
         }
-        public static void ShowWarningNotify(string MsgTxt)
+        public static void ShowWarningNotify(string MsgTxt, string titleTxt)
 
         {
 
             NotifyFrm notifyfrm = new NotifyFrm();
-            notifyfrm.TitleText = "警告通知";
+
+            if (titleTxt == null || titleTxt == "")
+            {
+              notifyfrm.TitleText = "警告通知";
+            }  else
+            notifyfrm.TitleText = titleTxt;
+
+        
             notifyfrm.TitleTextColor= Color.Black;
             notifyfrm.timeLable.ForeColor= Color.Black;
             notifyfrm.MsgTxtLable.FontColor = Color.Black;
@@ -196,16 +216,23 @@ namespace WHControlLib.Forms
             ShowNotifyWindow(MsgTxt, notifyfrm);
 
         }
-        public static void ShowSucessNotify(string MsgTxt)
+        public static void ShowSucessNotify(string MsgTxt, string titleTxt)
 
         {
 
             NotifyFrm notifyfrm = new NotifyFrm();
-            notifyfrm.TitleText = "成功通知";
+            if (titleTxt == null || titleTxt == "")
+            {
+                notifyfrm.TitleText = "成功通知";
+            }
+            else
+                notifyfrm.TitleText = titleTxt;
+
+          
             notifyfrm.TitleTextColor = Color.Black;
             notifyfrm.timeLable.ForeColor = Color.Yellow;
             notifyfrm.MsgTxtLable.FontColor = Color.Black;
-            notifyfrm.firstColor = Color.SpringGreen;
+            notifyfrm.firstColor = Color.PaleGreen;
             notifyfrm.SecondColor = Color.Green;
             ShowNotifyWindow(MsgTxt, notifyfrm);
 

@@ -52,7 +52,7 @@ public static class WHMsgDialog
             msgDialog.CloseBoxSelectColor = Color.BurlyWood;
             msgDialog.MessageText = MsgText;
             msgDialog.IsShowMaskFrm = false;
-            msgDialog.MsgTextLable.MyImage = Resource1.WaringYellor;
+            msgDialog.MsgTextLable.MyImage = Resource1.WaringYellow;
             msgDialog.ShowDialog();
 
             return MyDialogResult;
@@ -73,9 +73,9 @@ public static class WHMsgDialog
             msgDialog.TitleTextColor = Color.Snow;
             msgDialog.TitleBackColor = Color.Transparent;
             msgDialog.IsUseTwoColor = true;
-            msgDialog.firstColor = Color.IndianRed;
+            msgDialog.firstColor = Color.LightPink;
             msgDialog.SecondColor = Color.Red;
-            msgDialog.OKbutton.FirstFillcolor = Color.LavenderBlush;
+            msgDialog.OKbutton.FirstFillcolor = Color.LemonChiffon;
             msgDialog.OKbutton.SecondFillcolor = Color.Tomato;
             msgDialog.Cannelbutton.FirstFillcolor = msgDialog.OKbutton.FirstFillcolor;
             msgDialog.Cannelbutton.SecondFillcolor = msgDialog.OKbutton.SecondFillcolor;
@@ -88,7 +88,7 @@ public static class WHMsgDialog
             msgDialog.MessageText = MsgText;
             msgDialog.IsShowMaskFrm = false;
             msgDialog.MsgTextLable.FontColor= Color.White;  
-            msgDialog.MsgTextLable.MyImage = Resource1.AskRed;
+            msgDialog.MsgTextLable.MyImage = Resource1.ErrorRed;
             msgDialog.ShowDialog();
 
             return MyDialogResult;

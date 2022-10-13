@@ -53,9 +53,9 @@ namespace WHUIdemo
             //NotifyFrm nofrm = new NotifyFrm();
             //nofrm.Show();
             WHNotify.ShowMsgNotify("这是消息通知");
-            WHNotify.ShowErrorNotify("这是错误消息的通知信息");
-            WHNotify.ShowWarningNotify("这是警告通知");
-            WHNotify.ShowSucessNotify("现在是成功消息通知");
+            WHNotify.ShowErrorNotify("这是错误消息的通知信息","");
+            WHNotify.ShowWarningNotify("这是警告通知", null);
+            WHNotify.ShowSucessNotify("现在是成功消息通知",null);
             WHNotify.ShowMsgNotify( "好消息通知你","好消息");
         }
     }
