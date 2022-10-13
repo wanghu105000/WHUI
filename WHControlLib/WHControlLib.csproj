@@ -70,6 +70,12 @@
     <Compile Include="Controls\WHLableEx.Designer.cs">
       <DependentUpon>WHLableEx.cs</DependentUpon>
     </Compile>
+    <Compile Include="Controls\WHPanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\WHPanel.Designer.cs">
+      <DependentUpon>WHPanel.cs</DependentUpon>
+    </Compile>
     <Compile Include="Controls\WHRadioButton.cs">
       <SubType>UserControl</SubType>
     </Compile>
