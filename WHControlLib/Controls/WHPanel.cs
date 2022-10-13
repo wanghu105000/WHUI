@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.Drawing.Drawing2D;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -10,7 +11,7 @@ using System.Windows.Forms;
 
 namespace WHControlLib.Controls
 {
-    public partial class WHPanel : /*Panel*/ UserControl
+    public partial class WHPanel : Panel/* UserControl*/
     {
         public WHPanel()
         {
@@ -35,6 +36,7 @@ namespace WHControlLib.Controls
         Rectangle TiteTxtRect=new Rectangle();
         Rectangle TitleCtrlBoxRect = new Rectangle();
 
+        public bool OnMouseTitleCtrlBoxFlag;
         //********************************************************
         #region 属性参数定义
         public enum Shape
@@ -366,12 +368,333 @@ namespace WHControlLib.Controls
 
 
         #endregion
-        protected override void OnPaint(PaintEventArgs e)
+        void beforePainIni()
         {
-            base.OnPaint(e);
+ 
+
+            MyRect = this.ClientRectangle;
+
+           DrawRect.X = MyRect.X + BorderWidth / 2;
+            DrawRect.Y = MyRect.Y + BorderWidth / 2;
+            DrawRect.Width = MyRect.Width - BorderWidth;
+            DrawRect.Height = MyRect.Height - BorderWidth;
+
+            if (IsShowBorder)
+            {
+
+                TitleRect.Y = (int)(DrawRect.Y +BorderWidth);
+                TitleRect.X = (int)(DrawRect.X + BorderWidth);
+                if(IsShowTitleCtrlBoxBorder)
+                {
+                    TitleRect.Height = (int)(DrawRect.Height / TitleHeight + BorderWidth + TitleCtrlBoxBorderWidth);
+                }
+                else
+                {
+                    TitleRect.Height = (int)(DrawRect.Height / TitleHeight + BorderWidth);
+
+                }
+                TitleRect.Width = (int)(DrawRect.Width -BorderWidth * 2);
+
+            }
+            else
+            {
+                TitleRect.Width = MyRect.Width;
+                TitleRect.Height = Height / TitleHeight;
+                TitleRect.X = MyRect.X;
+                TitleRect.Y = MyRect.Y;
+            }
+
 
 
         }
 
+
+        protected override void OnPaint(PaintEventArgs e)
+        {
+            base.OnPaint(e);
+            beforePainIni();
+            Graphics Myg = e.Graphics;
+            Myg.SmoothingMode = SmoothingMode.AntiAlias;
+            Myg.CompositingQuality = CompositingQuality.HighQuality;
+            Myg.InterpolationMode = InterpolationMode.HighQualityBicubic;
+
+            //**************资源申请********************
+
+
+
+
+            DrawRoundRctForm(MyRect, Myg);
+
+        }
+
+
+        void DrawRoundRctForm(Rectangle Myrect, Graphics Myg)
+        {
+
+
+
+            using (SolidBrush backBrush = new SolidBrush(Color.Transparent))
+            {
+                Myg.FillRectangle(backBrush, Myrect);
+
+            }
+
+            GraphicsPath RoundPath = new GraphicsPath();
+
+            RoundPath = DrawHelper.GetRoundRectangePath(DrawRect, BorderWidth, Radius);
+
+            if (IsUseTwoColor)
+            {
+
+                using (LinearGradientBrush LinerBrush = new LinearGradientBrush(DrawRect, FirstFillcolor, SecondFillcolor, LinearGradientMode.Vertical))
+                {
+                    Myg.FillPath(LinerBrush, RoundPath);
+
+                }
+
+            }
+            else
+            {
+                this.BackColor = FirstFillcolor;
+            }
+            //当不可用时候的颜色
+            if (Enabled==false)
+            {
+                this.BackColor = UnEnableColor;
+            }
+
+            //画标题栏
+            DrawTitle(Myg, MyRect);
+            DrawTitleText(Myg, TitleRect);
+
+
+
+            //画边框
+            if (IsShowBorder)
+            {
+                using (Pen formBodyPen = new Pen(BorderColor, BorderWidth))
+                {
+                    GraphicsPath formbodypath = new GraphicsPath();
+                    formbodypath = DrawHelper.GetRoundRectangePath(DrawRect, BorderWidth, Radius);
+                    Myg.DrawPath(formBodyPen, formbodypath);
+
+                }
+            }
+
+            GraphicsPath formPath = new GraphicsPath();
+            formPath = DrawHelper.GetRoundRectangePath(Myrect,BorderWidth, Radius);
+            Region Formreg = new Region(formPath);
+            this.Region = Formreg;
+
+
+
+
+
+            //释放资源
+
+
+
+        }
+
+
+
+        public virtual void DrawTitle(Graphics Myg, Rectangle MyRect)
+        {
+            using (SolidBrush titleBrush = new SolidBrush(TitleBackColor))
+            {
+                GraphicsPath titlePath = new GraphicsPath();
+                titlePath = DrawHelper.GetRoundRectangePath(TitleRect, 0, Radius);
+
+                Myg.FillPath(titleBrush, titlePath);
+                if (IsShowTitleBorder)
+                {
+                    using (Pen titleBorderPen = new Pen(TitleBorderColor, TitleBorderWidth))
+                    {
+                        Myg.DrawPath(Pens.Brown, titlePath);
+                    }
+
+                }
+
+            }
+            //////////////////画关闭按钮
+
+            DrawTitleCtrlBox(Myg, TitleRect);
+
+
+        }
+        public virtual void DrawTitleText(Graphics Myg, Rectangle TitleRct)
+        {
+            Rectangle titleTextRect = new Rectangle();
+            titleTextRect.X = TitleRct.X - 10;
+            titleTextRect.Y = TitleRct.Y;
+
+            titleTextRect.Width = TitleRct.Width - 10;
+            titleTextRect.Height = TitleRct.Height;
+            StringFormat sf = new StringFormat();
+            sf.LineAlignment = StringAlignment.Center;
+            switch (_myTitleTextAglin)
+            {
+                case TitleTextAglin.Center:
+                    sf.Alignment = StringAlignment.Center;
+                    break;
+                case TitleTextAglin.Left:
+                    sf.Alignment = StringAlignment.Near;
+                    break;
+                default:
+                    sf.Alignment = StringAlignment.Center;
+                    break;
+            }
+            if (TitleText != null)
+            {
+                using (SolidBrush titleTextbrush = new SolidBrush(TitleTextColor))
+                {
+                    Myg.DrawString(TitleText, TitleTextFont, titleTextbrush, titleTextRect, sf);
+                }
+
+
+
+            }
+
+
+
+        }
+        void DrawTitleCtrlBox(Graphics Myg, RectangleF TitleRect)
+        {
+            
+            SolidBrush TitleBoxBrush = new SolidBrush(TitleCtrlBoxBackColor);
+            SolidBrush TitleBoxSelectBrush = new SolidBrush(TitleCtrlBoxSelectColor);
+            Pen TitleBoxPen = new Pen(TitleCtrlBoxShapeColor, TitleCtrlBoxBorderWidth);
+            Pen TitleCtrlBoxBorderPen = new Pen(TitleCtrlBoxBorderColor, TitleCtrlBoxBorderWidth);
+            //关闭按钮的相对高度
+            float Boxhight = TitleRect.Height * TitleCtrlBoxSize - BoxJG;
+            //叉形状在关闭按钮区域中的占比
+            float wbl = Boxhight * TitleCtrlBoxShapeBl;
+            float hbl = wbl;
+            //float CloseShapeBl = TitleCtrlBoxShapeBl;
+            //定义 关闭按钮范围
+
+            if (IsShowBorder)
+            {
+                TitleCtrlBoxRect.X = (int)(TitleRect.X + TitleRect.Width - Boxhight - BorderWidth - BoxJG);
+
+            }
+            else
+            {
+                TitleCtrlBoxRect.X = (int)(TitleRect.X + TitleRect.Width - Boxhight - BoxJG);
+
+            }
+            TitleCtrlBoxRect.Y = (int)(TitleRect.Y +BorderWidth / 2 + BoxJG / 4);
+            TitleCtrlBoxRect.Width = (int)Boxhight;
+            TitleCtrlBoxRect.Height = (int)Boxhight;
+            PointF TitleCtrlBoxlefttopP = new PointF(TitleCtrlBoxRect.X + TitleCtrlBoxRect.Width / 2 - wbl / 2, TitleCtrlBoxRect.Y + TitleCtrlBoxRect.Height / 2 - hbl / 2);
+            PointF TitleCtrlBoxRighttopP = new PointF(TitleCtrlBoxlefttopP.X + wbl, TitleCtrlBoxlefttopP.Y);
+            PointF TitleCtrlBoxLeftbuttomP = new PointF(TitleCtrlBoxlefttopP.X, TitleCtrlBoxlefttopP.Y + hbl);
+            PointF TitleCtrlBoxRightbuttomP = new PointF(TitleCtrlBoxlefttopP.X + wbl, TitleCtrlBoxlefttopP.Y + hbl);
+            if (OnMouseTitleCtrlBoxFlag)
+            {
+                switch (MyTitleCtrlBoxShape)
+                {
+                    case TitleCtrlBoxShape.square:
+                        Myg.FillRectangle(TitleBoxSelectBrush, TitleCtrlBoxRect);
+
+                        if (IsShowTitleCtrlBoxBorder)
+                        {
+                            Myg.DrawRectangle(TitleCtrlBoxBorderPen, TitleCtrlBoxRect);
+
+                        }
+
+                        break;
+                    case TitleCtrlBoxShape.Circle:
+                        Myg.FillEllipse(TitleBoxSelectBrush, TitleCtrlBoxRect);
+                        if (IsShowTitleCtrlBoxBorder)
+                        {
+                            Myg.DrawEllipse(TitleCtrlBoxBorderPen, TitleCtrlBoxRect);
+
+                        }
+
+
+                        break;
+                    default:
+                        break;
+                }
+
+
+            }
+            else
+                switch (MyTitleCtrlBoxShape)
+                {
+                    case TitleCtrlBoxShape.square:
+                        Myg.FillRectangle(TitleBoxBrush, TitleCtrlBoxRect);
+                        if (IsShowTitleCtrlBoxBorder)
+                        {
+                            Myg.DrawRectangle(TitleCtrlBoxBorderPen, TitleCtrlBoxRect);
+
+                        }
+
+                        break;
+                    case TitleCtrlBoxShape.Circle:
+                        Myg.FillEllipse(TitleBoxBrush, TitleCtrlBoxRect);
+                        if (IsShowTitleCtrlBoxBorder)
+                        {
+                            Myg.DrawEllipse(TitleCtrlBoxBorderPen, TitleCtrlBoxRect);
+
+                        }
+
+                        break;
+                    default:
+                        break;
+                }
+
+
+
+
+
+            Myg.DrawLine(TitleBoxPen, TitleCtrlBoxlefttopP, TitleCtrlBoxRightbuttomP);
+            Myg.DrawLine(TitleBoxPen, TitleCtrlBoxRighttopP, TitleCtrlBoxLeftbuttomP);
+
+            ////////////释放资源
+            ///
+            TitleBoxPen.Dispose();
+            TitleBoxBrush.Dispose();
+            TitleBoxSelectBrush.Dispose();
+            TitleCtrlBoxBorderPen.Dispose();
+
+
+        }
+        protected override void OnMouseMove(MouseEventArgs e)
+        {
+            base.OnMouseMove(e);
+            if (this.RectangleToScreen(TitleCtrlBoxRect).Contains(MousePosition))
+            {
+                OnMouseTitleCtrlBoxFlag = true;
+                Invalidate(TitleCtrlBoxRect);
+            }
+            else
+            {
+                OnMouseTitleCtrlBoxFlag = false;
+                Invalidate(TitleCtrlBoxRect);
+            }
+
+
+
+        }
+
+        protected override void OnMouseLeave(EventArgs e)
+        {
+            base.OnMouseLeave(e);
+            OnMouseTitleCtrlBoxFlag = false;
+            Invalidate(TitleCtrlBoxRect);
+        }
+        protected override void OnMouseClick(MouseEventArgs e)
+        {
+            base.OnMouseClick(e);
+            if (this.RectangleToScreen(TitleCtrlBoxRect).Contains(MousePosition))
+            {
+           
+            }
+
+        }
+
+        //_____________________________________
     }
 }
